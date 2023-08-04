@@ -1,6 +1,7 @@
+import 'package:base_flutter/base/flavour/flavour.dart';
+
 import 'config_prod.dart';
 import 'config_staging.dart';
-import 'flavour.dart';
 
 abstract class BaseConfig {
   factory BaseConfig(Flavour environment) {

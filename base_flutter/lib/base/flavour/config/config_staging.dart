@@ -1,5 +1,6 @@
+import 'package:base_flutter/base/flavour/flavour.dart';
+
 import 'base_config.dart';
-import 'flavour.dart';
 
 class StagingConfig implements BaseConfig {
   StagingConfig(this.env);

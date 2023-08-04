@@ -1,9 +1,9 @@
+import 'package:base_flutter/base/flavour/config/base_config.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 import '../../data/local_repositories/local_repository.dart';
 import '../styles/themes/app_themes.dart';
-import 'base_config.dart';
 import 'flavour.dart';
 
 final Environment _singleton = Environment._internal();
@@ -13,7 +13,7 @@ class Environment {
 
   Environment._internal();
 
-  late BaseConfig config;
+  late final BaseConfig config;
 
   late Locale selectedLocales;
 
