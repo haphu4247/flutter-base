@@ -15,7 +15,7 @@ class SecureHelper {
     // String version = packageInfo.version;
     // String buildNumber = packageInfo.buildNumber;
     // packageInfo.buildSignature;
-    MyLog.d(this, 'buildSignature: ${packageInfo.buildSignature}');
+    MyLogger.d(this, 'buildSignature: ${packageInfo.buildSignature}');
     return packageInfo;
   }
 }

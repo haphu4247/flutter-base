@@ -8,10 +8,10 @@ import 'package:logger/logger.dart';
 import '../../base/flavour/environment.dart';
 import '../../base/flavour/flavour.dart';
 
-class MyLog {
+class MyLogger {
   static final _logger = Logger();
 
-  MyLog._internal();
+  MyLogger._internal();
 
   static bool get isDebug => kDebugMode;
 

@@ -21,7 +21,7 @@ class MyAppbar extends AppBar {
           centerTitle: true,
         );
 
-  factory MyAppbar.Title({
+  factory MyAppbar.title({
     required String title,
     Widget? leading,
     bool btnClose = false,

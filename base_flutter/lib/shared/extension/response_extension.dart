@@ -43,7 +43,7 @@ extension ResponseExt on Response<dynamic> {
       VoidCallback? onCompleted,
       bool showErrorToast = true,
       bool showSuccessToast = false}) {
-    MyLog.d(this, 'Response: ${toString()}');
+    MyLogger.d(this, 'Response: ${toString()}');
     if (data != null) {
       final decodeBody = _parseBody();
       final model = instance.parsedJson(decodeBody);
