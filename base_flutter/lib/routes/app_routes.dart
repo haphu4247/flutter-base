@@ -5,6 +5,7 @@ abstract class Routes {
   static const splash = _Paths.splash;
   static const introView = _Paths.introView;
   static const home = _Paths.home;
+  static const testLottie = _Paths.testLottie;
 }
 
 abstract class _Paths {
@@ -12,4 +13,5 @@ abstract class _Paths {
   static const splash = 'splash';
   static const introView = 'intro-view';
   static const home = 'home';
+  static const testLottie = 'test-lottie';
 }

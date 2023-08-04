@@ -1,4 +1,4 @@
-import 'package:base_flutter/base/screen/view/base_stateful_screen.dart';
+import 'package:base_flutter/base/base_screen/view/base_stateful_screen.dart';
 import 'package:base_flutter/base/widgets/lottie_view.dart';
 import 'package:flutter/material.dart';
 
@@ -13,10 +13,16 @@ class SplashScreen extends BaseStatefulScreen<SplashController> {
 
   @override
   Widget buildView(BuildContext context) {
-    return LottieView(
-      name: 'anim_splash',
-      repeat: false,
-      controller: controller.anim,
+    controller.context = context;
+    return Scaffold(
+      body: Center(
+        child: LottieView(
+          name: 'anim_splash',
+          repeat: false,
+          controller: controller.anim,
+          onLoaded: controller.onLoaded,
+        ),
+      ),
     );
   }
 }

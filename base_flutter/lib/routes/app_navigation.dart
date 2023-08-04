@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 
 class AppNavigation {
   AppNavigation._();
@@ -8,5 +9,9 @@ class AppNavigation {
     if (Navigator.of(context).canPop()) {
       Navigator.of(context).pop(result);
     }
+  }
+
+  static void nextRoute(BuildContext context, String route) {
+    context.goNamed(route);
   }
 }

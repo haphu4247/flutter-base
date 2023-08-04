@@ -1,4 +1,4 @@
-import 'package:base_flutter/base/screen/view/base_screen.dart';
+import 'package:base_flutter/base/base_screen/view/base_screen.dart';
 import 'package:base_flutter/base/widgets/no_data_widget.dart';
 import 'package:base_flutter/shared/languages/context_extension.dart';
 import 'package:base_flutter/shared/widgets/buttons/my_app_button.dart';
@@ -14,7 +14,7 @@ class PageNotFoundScreen extends BaseScreen<PageNotFoundController> {
   @override
   Widget buildView(BuildContext context) {
     return Scaffold(
-      appBar: MyAppbar.Title(title: controller.title),
+      appBar: MyAppbar.title(title: controller.title),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

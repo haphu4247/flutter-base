@@ -122,7 +122,7 @@ class _BaseApiServiceImpl extends BaseApiService {
     if (tempQuery != null) {
       fullURL = '$fullURL?${_encodeQueryParameters(tempQuery)}';
     }
-    MyLog.d(this, params.toString());
+    MyLogger.d(this, params.toString());
     final options = Options(
         method: params.method.name,
         contentType: params.contentType,

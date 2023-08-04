@@ -6,12 +6,14 @@ class LottieView extends StatelessWidget {
     super.key,
     required this.name,
     this.controller,
+    this.onLoaded,
     this.repeat = true,
   });
 
   final String name;
   final bool repeat;
   final Animation<double>? controller;
+  final void Function(LottieComposition)? onLoaded;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class LottieView extends StatelessWidget {
       'assets/lottie/$name.json',
       controller: controller,
       repeat: repeat,
+      onLoaded: onLoaded,
     );
   }
 }
