@@ -1,7 +1,7 @@
 import 'package:base_flutter/base/flavour/config/base_config.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../data/local_repositories/local_repository.dart';
 import '../styles/themes/app_themes.dart';
 import 'flavour.dart';
@@ -13,11 +13,11 @@ class Environment {
 
   Environment._internal();
 
-  late final BaseConfig config;
+  BaseConfig? _config;
 
-  late Locale selectedLocales;
+  Locale? _selectedLocales;
 
-  late ThemeMode themeMode = ThemeMode.system;
+  ThemeMode? _themeMode;
 
   bool isWeb = kIsWeb;
   Future<void> initConfig(Flavour environment) async {
@@ -26,20 +26,33 @@ class Environment {
     // await Firebase.initializeApp(
     //   options: DefaultFirebaseOptions.currentPlatform,
     // );
-    config = BaseConfig(environment);
+    _config = BaseConfig(environment);
 
-    selectedLocales = await _loadLocales();
+    _selectedLocales = await _loadLocales();
 
     final AppThemes appTheme = AppThemes.instance;
-    themeMode = await appTheme.loadTheme();
+    _themeMode = await appTheme.loadTheme();
   }
 
-  String get initial {
-    // if (_firstTimeOpenApp == null || _firstTimeOpenApp == false) {
-    // return Routes.SPLASH;
-    // }
-    // return Routes.SPLASH;
-    return '/';
+  BaseConfig get config {
+    if (_config != null) {
+      return _config!;
+    }
+    return BaseConfig(Flavour.dev);
+  }
+
+  Locale get selectedLocales {
+    if (_selectedLocales != null) {
+      return _selectedLocales!;
+    }
+    return AppLocalizations.supportedLocales.first;
+  }
+
+  ThemeMode get themeMode {
+    if (_themeMode != null) {
+      return _themeMode!;
+    }
+    return ThemeMode.system;
   }
 
   Future<Locale> _loadLocales() async {
