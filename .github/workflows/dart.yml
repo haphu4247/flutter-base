@@ -25,9 +25,24 @@ jobs:
       # You can specify other versions if desired, see documentation here:
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
       # - uses: dart-lang/setup-dart@v1
+      
       - uses: dart-lang/setup-dart@v1
         with:
             sdk: ${{ matrix.sdk }}
+      
+      # The flutter action needs java so include it
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      
+      - name: Flutter SDK Install
+        uses: subosito/flutter-action@v2.10.0
+        with:
+          flutter-version: '3.10.1'
+      
+      - name: Check Flutter SDK Version
+        working-directory: ./base_flutter
+        run: flutter doctor
 
       - name: Install dependencies
         working-directory: ./base_flutter
