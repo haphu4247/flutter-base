@@ -17,13 +17,13 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        sdk: [3.0.1]
+        sdk: [3.10.1]
     steps:
       
       # The flutter action needs java so include it
       - uses: actions/setup-java@v1
         with:
-          java-version: '16.x'
+          java-version: '12.x'
       
       - name: Flutter SDK Install
         uses: subosito/flutter-action@v2.10.0
