@@ -23,7 +23,7 @@ jobs:
       # The flutter action needs java so include it
       - uses: actions/setup-java@v1
         with:
-          java-version: '12.x'
+          java-version: '11'
       
       - name: Flutter SDK Install
         uses: subosito/flutter-action@v2.10.0
@@ -41,7 +41,10 @@ jobs:
       - name: Install dependencies
         working-directory: ./base_flutter
         run: flutter pub get
-
+      
+      - name: Generate Text
+        working-directory: ./base_flutter
+        run: flutter gen-l10n --arb-dir lib/shared/languages/l10n
       # Uncomment this step to verify the use of 'dart format' on each commit.
       # - name: Verify formatting
       #   run: dart format --output=none --set-exit-if-changed .
