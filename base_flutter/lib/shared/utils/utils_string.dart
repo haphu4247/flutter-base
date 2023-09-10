@@ -1,10 +1,11 @@
 import 'dart:convert';
 
+import 'package:base_flutter/app/di_config.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sprintf/sprintf.dart';
 
-import '../../base/flavour/environment.dart';
+import '../../app/app_config.dart';
 
 class UtilsString {
   UtilsString._internal();
@@ -22,13 +23,28 @@ class UtilsString {
     return sprintf(s, list);
   }
 
-  static String currency(int total) {
-    final Locale locale = Environment.instance.selectedLocales;
+  static String currency(int? total) {
+    if (total == null) {
+      return '0';
+    }
+    final Locale locale = DIConfig().getIt.get<IAppConfig>().selectedLocales;
 
     // final country = locale.countryCode;
     final currency = NumberFormat.simpleCurrency(
       locale: locale.toString(),
     );
+
+    return currency.format(total);
+  }
+
+  static String formatNumber(int? total) {
+    if (total == null) {
+      return '0';
+    }
+    final Locale locale = DIConfig().getIt.get<IAppConfig>().selectedLocales;
+
+    // final country = locale.countryCode;
+    final currency = NumberFormat.decimalPattern(locale.toString());
 
     return currency.format(total);
   }
@@ -66,10 +82,16 @@ extension StringExt on String {
   }
 
   bool equalsIgnoreCase(String? other) {
-    return toLowerCase() == other?.toLowerCase();
+    if (other == null) {
+      return false;
+    }
+    return toLowerCase() == other.toLowerCase();
   }
 
-  bool containIgnoreCase(String other) {
+  bool containIgnoreCase(String? other) {
+    if (other == null) {
+      return false;
+    }
     return toLowerCase().contains(other.toLowerCase());
   }
 }

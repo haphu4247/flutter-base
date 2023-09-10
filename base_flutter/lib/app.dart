@@ -1,16 +1,19 @@
+import 'package:base_flutter/app/di_config.dart';
 import 'package:base_flutter/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'base/flavour/environment.dart';
-import 'base/flavour/flavour.dart';
+import 'app/app_config.dart';
 import 'base/styles/themes/app_themes.dart';
+import 'flavour/flavour.dart';
 
-Future<void> startApp(Flavour flavour) async {
+Future<dynamic> startApp(Flavour flavour) {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await Environment.instance.initConfig(flavour);
-  runApp(MyApp(flavour: flavour));
+  return Future.wait([
+    DIConfig().initConfig(flavour),
+  ]).whenComplete(() {
+    runApp(MyApp(flavour: flavour));
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -27,13 +30,14 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    final flavour = IAppConfig();
     return MaterialApp.router(
       // title: AppLocalizations.of(context).appVariant(widget.flavour.name),
-      debugShowCheckedModeBanner: Environment.instance.config.showBanner,
+      debugShowCheckedModeBanner: false,
       theme: AppThemes.instance.light,
       darkTheme: AppThemes.instance.dark,
-      themeMode: Environment.instance.themeMode,
-      locale: Environment.instance.selectedLocales,
+      themeMode: flavour.themeMode,
+      locale: flavour.selectedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: AppPages.router,

@@ -21,6 +21,10 @@ class HomeScreen extends BaseScreen<HomeController> {
           MyAppButton.rectangle(
             title: 'Test Lottie',
             onTap: () => controller.gotoTest(Routes.testLottie),
+          ),
+          MyAppButton.rectangle(
+            title: 'Test Fetching API',
+            onTap: () => controller.gotoTest(Routes.testFetchingApi),
           )
         ],
       ),

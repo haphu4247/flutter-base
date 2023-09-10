@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-///TODO: Change colors to constant value to optimize build if needed
 class AppColors {
   AppColors._internal();
   static const primaryColorDark = black;

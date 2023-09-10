@@ -7,6 +7,7 @@ abstract class BaseScreen<T extends BaseController> extends StatelessWidget {
     required this.controller,
   });
   final T controller;
+
   Widget buildView(BuildContext context);
 
   @override

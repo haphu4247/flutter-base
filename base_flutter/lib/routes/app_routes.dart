@@ -6,6 +6,7 @@ abstract class Routes {
   static const introView = _Paths.introView;
   static const home = _Paths.home;
   static const testLottie = _Paths.testLottie;
+  static const testFetchingApi = _Paths.testFetchingApi;
 }
 
 abstract class _Paths {
@@ -14,4 +15,5 @@ abstract class _Paths {
   static const introView = 'intro-view';
   static const home = 'home';
   static const testLottie = 'test-lottie';
+  static const testFetchingApi = 'test-fetching-api';
 }

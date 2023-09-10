@@ -1,15 +1,15 @@
 enum AppFonts {
-  RubikMoonrocks,
-  Roboto,
+  rubikMoonrocks,
+  roboto,
 }
 
 extension AppFontsExt on AppFonts {
-  // String get fontName {
-  //   switch (this) {
-  //     case AppFonts.Rubik:
-  //       return 'RubikMoonrocks';
-  //     case AppFonts.Roboto:
-  //       return 'Roboto';
-  //   }
-  // }
+  String get fontName {
+    switch (this) {
+      case AppFonts.rubikMoonrocks:
+        return 'RubikMoonrocks';
+      case AppFonts.roboto:
+        return 'Roboto';
+    }
+  }
 }

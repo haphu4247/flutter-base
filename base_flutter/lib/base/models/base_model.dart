@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-abstract class BaseModel<T> extends Equatable {
-  T parsedJson(dynamic json);
+abstract class BaseModel extends Equatable {
+  const BaseModel({this.data});
+
+  final dynamic data;
 
   Map<dynamic, dynamic> toJson();
 

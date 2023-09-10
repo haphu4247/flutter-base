@@ -1,12 +1,13 @@
 import 'dart:developer';
 
+import 'package:base_flutter/app/app_config.dart';
+import 'package:base_flutter/app/di_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 
-import '../../base/flavour/environment.dart';
-import '../../base/flavour/flavour.dart';
+import '../../flavour/flavour.dart';
 
 class MyLogger {
   static final _logger = Logger();
@@ -34,7 +35,8 @@ class MyLogger {
   }
 
   static void consoleToast(dynamic tag, String msg) {
-    if (kDebugMode || Environment.instance.config.env != Flavour.prod) {
+    if (kDebugMode ||
+        DIConfig().getIt.get<IAppConfig>().config.env != Flavour.prod) {
       log('$tag: ==>> $msg');
       Fluttertoast.showToast(
           msg: msg,

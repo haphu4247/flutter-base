@@ -1,11 +1,9 @@
-/**
- * add prefix for specify the data type.
- * b: bool
- * i: int
- * d: double
- * s: String
- * o: Object ==> save as json String
- */
+/// add prefix for specify the data type.
+/// b: bool
+/// i: int
+/// d: double
+/// s: String
+/// o: Object ==> save as json String
 enum LocalDataKey {
   //clear all,
   // none,

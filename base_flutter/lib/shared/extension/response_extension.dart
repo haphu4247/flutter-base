@@ -1,3 +1,4 @@
+import 'package:base_flutter/base/models/base_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -6,20 +7,23 @@ import '../../base/models/error_response.dart';
 import '../utils/my_log.dart';
 
 extension ResponseExt on Response<dynamic> {
-  List<R>? checkResultList<R extends BaseResponse<R>>(
-      {required R instance,
-      required ValueChanged<List<R>> onSuccess,
+  List<E>? checkResultList<R extends BaseResponse<R>, E extends BaseModel>(
+      {required R Function(dynamic e) jsonParser,
+      required E Function(dynamic e) itemParser,
+      required ValueChanged<List<E>> onSuccess,
       ValueChanged<BaseResponse<dynamic>>? onError,
       VoidCallback? onCompleted,
       bool showSuccessToast = false}) {
     if (data != null) {
       final decodeBody = _parseBody();
-      final parseResponse = instance.parsedJson(decodeBody);
+      final parseResponse = jsonParser(decodeBody);
       if (parseResponse.isSuccess()) {
-        final List<R> list =
-            List<dynamic>.from(parseResponse.data as Iterable<dynamic>)
-                .map((dynamic e) => instance.parsedJson(e))
-                .toList();
+        final List<E> list = [];
+        final data = parseResponse.data;
+        if (data is List) {
+          final parsedList = data.map(itemParser);
+          list.addAll(parsedList);
+        }
         onSuccess(list);
         return list;
       } else {
@@ -37,7 +41,7 @@ extension ResponseExt on Response<dynamic> {
   }
 
   R? checkResultModel<R extends BaseResponse<R>>(
-      {required R instance,
+      {required R Function(dynamic e) jsonParser,
       required ValueChanged<R> onSuccess,
       ValueChanged<ErrorResponse>? onError,
       VoidCallback? onCompleted,
@@ -46,8 +50,8 @@ extension ResponseExt on Response<dynamic> {
     MyLogger.d(this, 'Response: ${toString()}');
     if (data != null) {
       final decodeBody = _parseBody();
-      final model = instance.parsedJson(decodeBody);
-      if (instance.isSuccess()) {
+      final model = jsonParser(decodeBody);
+      if (model.isSuccess()) {
         onSuccess(model);
         return model;
       } else {
@@ -75,19 +79,18 @@ extension ResponseExt on Response<dynamic> {
     dynamic errBody,
     String? code,
     String? resultMessage,
-    String? resultCode,
   }) {
-    final err = ErrorResponse();
+    // final err = ErrorResponse();
 
-    if (errBody != null) {
-      err.parsedJson(errBody);
-    } else {
-      err.resultCode = resultCode;
-      err.resultMessage = resultMessage;
-    }
+    // if (errBody != null) {
+    //   err.parsedJson(errBody);
+    // } else {
+    //   err.resultCode = resultCode;
+    //   err.resultMessage = resultMessage;
+    // }
 
-    if (onError != null) {
-      onError(err);
-    }
+    // if (onError != null) {
+    //   onError(err);
+    // }
   }
 }

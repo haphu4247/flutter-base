@@ -43,7 +43,7 @@ class ImageLoader extends StatelessWidget {
       return SvgPicture.asset(
         'assets/${folder.path}/$name',
         fit: fit ?? BoxFit.contain,
-        color: color,
+        // color: color,
         height: height,
         width: width,
       );

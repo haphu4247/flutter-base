@@ -15,8 +15,8 @@ class AppThemes {
   ThemeData light = appLightTheme;
   ThemeData dark = appDarkTheme;
   Future<ThemeMode> loadTheme() async {
-    themeMode = await LocalRepository().themes();
-    return themeMode;
+    final theme = await LocalRepository().themes();
+    return themeMode = theme;
   }
 
   Future<void> switchTheme() async {

@@ -1,56 +1,30 @@
+import 'package:base_flutter/base/base_screen/controller/base_controller.dart';
 import 'package:flutter/material.dart';
 
-import '../controller/base_stateful_controller.dart';
-
-abstract class BaseStatefulScreen<T extends BaseStatefulController>
+abstract class BaseStatefulScreen<T extends BaseController>
     extends StatefulWidget {
   const BaseStatefulScreen({
     super.key,
     required this.controller,
-    this.withTicker = false,
   });
-  final T controller;
-  final bool withTicker;
 
+  final T controller;
+}
+
+abstract class BaseStatefulScreenState<T extends BaseController,
+    S extends BaseStatefulScreen<T>> extends State<S> {
   Widget buildView(BuildContext context);
 
   @override
-  State<BaseStatefulScreen> createState() => withTicker
-      ? _BaseStatefulScreenStateTicker()
-      : _BaseStatefulScreenState();
-}
-
-class _BaseStatefulScreenState extends State<BaseStatefulScreen> {
-  @override
   void initState() {
-    widget.controller.initState(null);
     super.initState();
+    widget.controller.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     widget.controller.context = context;
-    return widget.buildView(context);
-  }
-
-  @override
-  void dispose() {
-    widget.controller.dispose();
-    super.dispose();
-  }
-}
-
-class _BaseStatefulScreenStateTicker extends State<BaseStatefulScreen>
-    with TickerProviderStateMixin {
-  @override
-  void initState() {
-    widget.controller.initState(this);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.buildView(context);
+    return buildView(context);
   }
 
   @override

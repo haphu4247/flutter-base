@@ -1,12 +1,11 @@
 import 'dart:io';
 
-import 'package:base_flutter/base/cached/base_cached_local.dart';
+import 'package:base_flutter/app/app_config.dart';
+import 'package:base_flutter/app/di_config.dart';
 import 'package:dio/dio.dart';
-import 'package:path/path.dart';
+import 'package:path/path.dart' as p;
 
 import '../../shared/utils/my_log.dart';
-import '../flavour/environment.dart';
-import '../models/cached_response_model.dart';
 import 'base_api_setup.dart';
 import 'base_params.dart';
 
@@ -30,9 +29,7 @@ abstract class BaseApiService {
     String accessToken,
     List<File> body, {
     String? appendPath,
-  }) {
-    throw UnimplementedError();
-  }
+  });
 
   Map<String, String> getAuthHeader(String accessToken) {
     return {
@@ -47,7 +44,7 @@ class _BaseApiServiceImpl extends BaseApiService {
     _onInit();
   }
 
-  final String apiHost = Environment.instance.config.apiHost;
+  final String apiHost = DIConfig().getIt.get<IAppConfig>().config.apiHost;
   late final Dio dio;
   void _onInit() {
     final options = BaseOptions(
@@ -66,16 +63,7 @@ class _BaseApiServiceImpl extends BaseApiService {
       Map<String, dynamic>? queryParams,
       Map<String, String>? headerParams = const {
         'accept': 'application/json'
-      }}) async {
-    final cachedType = apiSetup.cachedType;
-    if (cachedType != null) {
-      final json = await cachedType
-          .read(apiSetup.apiName)
-          .then((value) => value?.response);
-      if (json != null) {
-        return json;
-      }
-    }
+      }}) {
     return _requestData(
       BaseParams(
           apiSetup: apiSetup,
@@ -84,22 +72,21 @@ class _BaseApiServiceImpl extends BaseApiService {
           bodyParams: body,
           headerParams: headerParams,
           queryParams: queryParams),
-    ).then((value) {
-      if (cachedType != null) {
-        cachedType.save(apiSetup.apiName, CachedResponseModel(response: value));
-      }
-      return value;
-    });
+    );
   }
 
   @override
   Future<Response<dynamic>> uploadFile(
-      BaseApiSetup apiSetup, String userId, String accessToken, List<File> body,
-      {String? appendPath}) {
+    BaseApiSetup apiSetup,
+    String userId,
+    String accessToken,
+    List<File> body, {
+    String? appendPath,
+  }) {
     final list = body.map(
       (e) => MultipartFile.fromFile(
         e.path,
-        filename: basename(e.path),
+        filename: p.basename(e.path),
       ),
     );
     final map = <String, dynamic>{

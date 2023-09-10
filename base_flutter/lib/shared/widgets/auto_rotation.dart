@@ -28,7 +28,7 @@ class _AutoRotationState extends State<AutoRotation>
   }
 
   void _startTimer() {
-    _timer = new Timer.periodic(
+    _timer = Timer.periodic(
       const Duration(milliseconds: 2000),
       (Timer timer) {
         _timer = timer;
@@ -43,8 +43,9 @@ class _AutoRotationState extends State<AutoRotation>
 
   @override
   Widget build(BuildContext context) {
+    final anim = Tween<double>(begin: 0, end: 1);
     return RotationTransition(
-      turns: Tween(begin: 0.0, end: 1.0).animate(_rotationController),
+      turns: anim.animate(_rotationController),
       child: widget.child,
     );
   }

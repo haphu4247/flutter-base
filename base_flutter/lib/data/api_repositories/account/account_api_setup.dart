@@ -11,7 +11,7 @@ enum AccountApi {
 
 class AccountApiSetup extends BaseApiSetup {
   AccountApiSetup(AccountApi apiType) : _apiType = apiType;
-  AccountApi _apiType;
+  final AccountApi _apiType;
 
   @override
   String getPath(dynamic appendPath) {

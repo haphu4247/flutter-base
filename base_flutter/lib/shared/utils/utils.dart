@@ -24,7 +24,7 @@ class Utils {
 
   static double heightWithStatusBar(
       BuildContext context, double inputFigmaSize) {
-    var statusbarHeight = MediaQuery.of(context).viewPadding.top;
+    final statusbarHeight = MediaQuery.of(context).viewPadding.top;
     var h = height(context, inputFigmaSize) - statusbarHeight;
     if (h < 0) {
       h = 0;

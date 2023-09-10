@@ -1,6 +1,7 @@
 import 'package:base_flutter/screens/home/home_screen.dart';
 import 'package:base_flutter/screens/page_not_found/page_not_found_screen.dart';
 import 'package:base_flutter/screens/splash/splash_screen.dart';
+import 'package:base_flutter/screens/test/public_api/public_api_screen.dart';
 import 'package:base_flutter/screens/test/test_lottie/test_lottie_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -30,16 +31,22 @@ class AppPages {
         // ],
       ),
       GoRoute(
-          name: Routes.home,
-          path: '/${Routes.home}',
-          builder: (context, state) => HomeScreen(),
-          routes: [
-            GoRoute(
-              name: Routes.testLottie,
-              path: Routes.testLottie,
-              builder: (context, state) => TestLottieScreen(),
-            )
-          ])
+        name: Routes.home,
+        path: '/${Routes.home}',
+        builder: (context, state) => HomeScreen(),
+        routes: [
+          GoRoute(
+            name: Routes.testLottie,
+            path: Routes.testLottie,
+            builder: (context, state) => TestLottieScreen(),
+          ),
+          GoRoute(
+            name: Routes.testFetchingApi,
+            path: Routes.testFetchingApi,
+            builder: (context, state) => PublicApiScreen(),
+          )
+        ],
+      )
     ],
   );
 }

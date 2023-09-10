@@ -3,7 +3,6 @@ import 'package:base_flutter/base/cached/base_local_data_key_ext.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
-import '../../base/models/cached_response_model.dart';
 import 'local_data_key/local_data_key_impl.dart';
 
 class LocalRepository {
@@ -67,14 +66,5 @@ class LocalRepository {
 
   Future<bool> saveTheme(ThemeMode theme) {
     return LocalDataKey.sThemes.setString(theme.name);
-  }
-
-  Future<CachedResponseModel?> read(String key) async {
-    return LocalDataKeyExt.read<CachedResponseModel>(
-        key, CachedResponseModel());
-  }
-
-  void save(String key, CachedResponseModel value) {
-    LocalDataKeyExt.save<CachedResponseModel>(key, value);
   }
 }

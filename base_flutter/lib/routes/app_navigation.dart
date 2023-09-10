@@ -14,4 +14,8 @@ class AppNavigation {
   static void nextRoute(BuildContext context, String route) {
     context.goNamed(route);
   }
+
+  static void replaceNamed(BuildContext context, String route) {
+    context.replaceNamed(route);
+  }
 }

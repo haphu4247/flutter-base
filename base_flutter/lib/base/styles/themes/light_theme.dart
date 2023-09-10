@@ -6,7 +6,7 @@ import 'text_theme.dart';
 
 ThemeData appLightTheme = ThemeData(
   brightness: Brightness.light,
-  fontFamily: AppFonts.Roboto.name,
+  fontFamily: AppFonts.roboto.fontName,
   primaryColor: AppColors.primary,
   primaryColorDark: AppColors.primaryColorDark,
   primaryColorLight: AppColors.primaryColorLight,

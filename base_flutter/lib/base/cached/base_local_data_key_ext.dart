@@ -39,24 +39,24 @@ extension LocalDataKeyExt on LocalDataKey {
     return SharedPreferences.getInstance().then((value) => value.clear());
   }
 
-  Future<bool> saveObj<T extends BaseModel<T>>(T obj) {
+  Future<bool> saveObj<T extends BaseModel>(T obj) {
     return save<T>(name, obj);
   }
 
-  Future<T?> getObj<T extends BaseModel<T>>(T instance) {
-    return read<T>(name, instance);
+  Future<T?> getObj<T extends BaseModel>(T Function(dynamic e) parser) {
+    return read<T>(name, parser);
   }
 
-  Future<bool> saveListObj<T extends BaseModel<T>>(List<T> obj) {
+  Future<bool> saveListObj<T extends BaseModel>(List<T> obj) {
     return setString(jsonEncode(obj));
   }
 
-  Future<List<T>?> getListObj<T extends BaseModel<T>>(T instance) async {
+  Future<List<T>?> getListObj<T extends BaseModel>(
+      T Function(dynamic e) parser) async {
     final source = await getString();
     if (source != null) {
       final List<dynamic> listObj = jsonDecode(source) as List<dynamic>;
-      final mapList =
-          listObj.map((dynamic e) => instance.parsedJson(e)).toList();
+      final mapList = listObj.map((dynamic e) => parser(e)).toList();
       return mapList;
     }
     return null;
@@ -66,24 +66,25 @@ extension LocalDataKeyExt on LocalDataKey {
     return _saveString(name, value);
   }
 
-  static Future<bool> save<T extends BaseModel<T>>(String key, T obj) {
+  static Future<bool> save<T extends BaseModel>(String key, T obj) {
     final savedObj = jsonEncode(obj.toJson());
     return _saveString(key, savedObj);
   }
 
-  static Future<T?> read<T extends BaseModel<T>>(String key, T instance) async {
+  static Future<T?> read<T extends BaseModel>(
+      String key, T Function(dynamic e) parser) async {
     final source = await _getString(key);
     if (source != null) {
       final dynamic decodeJson = jsonDecode(source);
-      final obj = instance.parsedJson(decodeJson);
+      final obj = parser(decodeJson);
       return obj;
     }
     return null;
   }
 
   static Future<bool> _saveString(String key, String value) async {
-    final _prefs = await SharedPreferences.getInstance();
-    return _prefs.setString(_CryptoHelper.instance.encrypt(key),
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setString(_CryptoHelper.instance.encrypt(key),
         _CryptoHelper.instance.encrypt(value));
   }
 
@@ -92,10 +93,10 @@ extension LocalDataKeyExt on LocalDataKey {
   }
 
   static Future<String?> _getString(String key) async {
-    final _prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     // final key = name;
     final encryptKey = _CryptoHelper.instance.encrypt(key);
-    var value = _prefs.getString(encryptKey);
+    var value = prefs.getString(encryptKey);
     if (value != null && value.isNotEmpty) {
       value = _CryptoHelper.instance.decrypt(value);
     }
@@ -104,9 +105,9 @@ extension LocalDataKeyExt on LocalDataKey {
   }
 
   static Future<bool> _remove(String key) async {
-    return SharedPreferences.getInstance().then((_prefs) {
+    return SharedPreferences.getInstance().then((prefs) {
       final encryptKey = _CryptoHelper.instance.encrypt(key);
-      return _prefs.remove(encryptKey);
+      return prefs.remove(encryptKey);
     });
   }
 }

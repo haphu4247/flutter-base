@@ -1,5 +1,5 @@
 import 'app.dart';
-import 'base/flavour/flavour.dart';
+import 'flavour/flavour.dart';
 
 void main() async {
   await startApp(Flavour.prod);

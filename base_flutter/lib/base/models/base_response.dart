@@ -1,15 +1,42 @@
 import '../../shared/utils/utils_string.dart';
 import 'base_model.dart';
 
-abstract class BaseResponse<E> extends BaseModel<E> {
-  // BaseResponse();
+class BaseResponse<T> extends BaseModel {
+  const BaseResponse(
+      {this.isOK,
+      this.resultCode,
+      this.resultMessage,
+      dynamic data,
+      this.dataKey = ''})
+      : super(data: data);
 
-  String? isOK;
-  String? resultCode;
-  String? resultMessage;
-  dynamic data;
-  dynamic list;
-  String dataKey = '';
+  final String? isOK;
+  final String? resultCode;
+  final String? resultMessage;
+  final String dataKey;
+
+  factory BaseResponse.fromJson(dynamic json, {String dataKey = ''}) {
+    final isOK = json['IsOK'] as String? ?? UtilsString.parse(json['status']);
+
+    final resultCode =
+        json['ResultCode'] as String? ?? UtilsString.parse(json['code']);
+
+    final resultMessage =
+        json['ResultMessage'] as String? ?? UtilsString.parse(json['message']);
+    dynamic data;
+    if (dataKey.isEmpty) {
+      data = json;
+    } else {
+      data = json[dataKey];
+    }
+    return BaseResponse<T>(
+      isOK: isOK,
+      resultCode: resultCode,
+      resultMessage: resultMessage,
+      data: data,
+      dataKey: dataKey,
+    );
+  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -21,29 +48,7 @@ abstract class BaseResponse<E> extends BaseModel<E> {
     };
   }
 
-  @override
-  E parsedJson(dynamic json) {
-    return _parseObject(json);
-  }
-
-  E _parseObject(dynamic json) {
-    isOK = json['IsOK'] as String? ?? UtilsString.parse(json['status']);
-
-    resultCode =
-        json['ResultCode'] as String? ?? UtilsString.parse(json['code']);
-
-    resultMessage =
-        json['ResultMessage'] as String? ?? UtilsString.parse(json['message']);
-    if (dataKey.isEmpty) {
-      data = json;
-    } else {
-      data = json[dataKey];
-    }
-    return this as E;
-  }
-
   bool isSuccess() {
-    final msg = resultMessage?.toLowerCase();
-    return 'true' == isOK || msg?.contains('success') == true;
+    return 'true' == isOK || 'success'.containIgnoreCase(resultMessage);
   }
 }
