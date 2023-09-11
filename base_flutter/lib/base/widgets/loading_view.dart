@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class LoadingView extends StatelessWidget {
   const LoadingView({
-    super.key,
+    Key? key,
     this.name = 'anim_loading',
-  });
+  }) : super(key: key);
 
   factory LoadingView.search() => const LoadingView(
         name: 'anim_search',

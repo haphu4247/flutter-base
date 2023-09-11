@@ -55,9 +55,11 @@ extension LocalDataKeyExt on LocalDataKey {
       T Function(dynamic e) parser) async {
     final source = await getString();
     if (source != null) {
-      final List<dynamic> listObj = jsonDecode(source) as List<dynamic>;
-      final mapList = listObj.map((dynamic e) => parser(e)).toList();
-      return mapList;
+      final listObj = jsonDecode(source);
+      if (listObj is List) {
+        final mapList = listObj.map((dynamic e) => parser(e)).toList();
+        return mapList;
+      }
     }
     return null;
   }

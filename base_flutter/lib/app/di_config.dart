@@ -1,7 +1,6 @@
 import 'package:base_flutter/app/app_config.dart';
 import 'package:base_flutter/base/api_client/base_api_service.dart';
 import 'package:base_flutter/flavour/flavour.dart';
-import 'package:base_flutter/screens/test/public_api/public_api_controller.dart';
 import 'package:get_it/get_it.dart';
 
 abstract class DIConfig {

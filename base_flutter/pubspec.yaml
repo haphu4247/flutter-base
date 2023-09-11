@@ -169,14 +169,11 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
 flavorizr:
-  app:
-    android:
-      flavorDimensions:  "flavor-type"
-    ios: null
   flavors:
     dev:
       app:
         name: "Base Flutter Dev"
+        icon: "assets/images/app_icons_dashatars_dev.png"
 
       android:
         applicationId: "com.phuhp.base.flutter.base_flutter.dev"
@@ -186,6 +183,7 @@ flavorizr:
     staging:
       app:
         name: "Base Flutter Staging"
+        icon: "assets/images/app_icons_dashatars_stg.png"
 
       android:
         applicationId: "com.phuhp.base.flutter.base_flutter.staging"
@@ -194,10 +192,11 @@ flavorizr:
         bundleId: "com.phuhp.base.flutter.base_flutter.staging"
     prod:
       app:
-        name: "Base Flutter"
+        name: "Base Flutter Prod"
+        icon: "assets/images/app_icons_dashatars_prod.png"
 
       android:
-        applicationId: "com.phuhp.base.flutter.base_flutter"
+        applicationId: "com.phuhp.base.flutter.base_flutter.prod"
 
       ios:
-        bundleId: "com.phuhp.base.flutter.base_flutter"
+        bundleId: "com.phuhp.base.flutter.base_flutter.prod"
