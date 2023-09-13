@@ -84,6 +84,8 @@ jobs:
        #5
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           generate_release_notes: true
           prerelease: true
