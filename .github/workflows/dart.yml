@@ -94,4 +94,3 @@ jobs:
           tag_name: ${{ steps.dev.outputs.release_dev }}
           files: |
             build/app/outputs/flutter-apk/app-dev-release.apk
-            build/app/outputs/apk/release/app-dev-release.apk
