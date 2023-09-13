@@ -30,7 +30,16 @@ jobs:
         with:
           flutter-version: ${{ matrix.sdk }}
           channel: 'stable'
+          cache: true
+          cache-key: flutter
+          cache-path: ${{ runner.tool_cache }}/flutter
       
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1
+          bundler-cache: true
+
       # check out project
       - uses: actions/checkout@v3
 
@@ -61,3 +70,18 @@ jobs:
       # - name: Build Prod Appbundle
       #   working-directory: ./base_flutter
       #   run: flutter build appbundle --release --flavor prod -t lib/main_prod.dart
+      #3
+      - name: Upload Dev Release Build to Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Build Artifacts
+          path: app/build/outputs/
+       #4
+      - name: Create Github Release
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true
+          prerelease: true
+          files: |
+            app/build/outputs/apk/release/app-release.apk
+            app/build/outputs/bundle/release/app-release.aab
