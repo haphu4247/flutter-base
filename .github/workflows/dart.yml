@@ -93,4 +93,4 @@ jobs:
           prerelease: true
           tag_name: ${{ steps.dev.outputs.release_dev }}
           files: |
-            build/app/outputs/flutter-apk/app-dev-release.apk
+            base_flutter/build/app/outputs/flutter-apk/app-dev-release.apk
