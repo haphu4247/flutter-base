@@ -44,16 +44,16 @@ android {
 
     signingConfigs {
         releaseProd {
-            keyAlias 'phuhp-base-prod'
-            keyPassword 'phuhp-base-prod'
+            keyAlias System.getenv('ANDROID_SIGNING_KEY_ALIAS')
+            keyPassword System.getenv('ANDROID_SIGNING_KEY_PASSWORD')
             storeFile file("$keystoresPath/phuhp-base-prod.keystore")
-            storePassword 'phuhp-base-prod'
+            storePassword System.getenv('ANDROID_SIGNING_STORE_PASSWORD')
         }
         releaseStaging {
-            keyAlias 'phuhp-base-staging'
-            keyPassword 'phuhp-base-staging'
+            keyAlias System.getenv('ANDROID_SIGNING_KEY_ALIAS')
+            keyPassword System.getenv('ANDROID_SIGNING_KEY_PASSWORD')
             storeFile file("$keystoresPath/phuhp-base-staging.keystore")
-            storePassword 'phuhp-base-staging'
+            storePassword System.getenv('ANDROID_SIGNING_STORE_PASSWORD')
         }
         releaseDev {
             keyAlias 'phuhp-base-dev'
