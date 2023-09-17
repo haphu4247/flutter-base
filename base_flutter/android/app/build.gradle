@@ -62,8 +62,6 @@ android {
                 keyPropertiesFile.withReader('UTF-8') { reader ->
                     keyDev.load(reader)
                 }
-            } else {
-                throw new GradleException("File key.properties not found.")
             }
             storeFile file("$keystoresPath/dev/phuhp-base-dev.keystore")
             keyAlias keyDev.getProperty('key_alias')

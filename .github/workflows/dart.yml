@@ -166,11 +166,11 @@ jobs:
       #   working-directory: ./base_flutter
       #   run: flutter build appbundle --release --flavor prod -t lib/main_prod.dart
       #3
-      - name: Upload Dev Release Build to Artifacts
+      - name: Upload Staging Release Build to Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: Build Artifacts
-          path: build/app/outputs/flutter-apk/
+          path: ./base_flutter/build/app/outputs/
       #4
       - name: Generate Release TAG
         id: staging
