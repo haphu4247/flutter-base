@@ -126,7 +126,16 @@ jobs:
           bundler-cache: true
 
       # check out project
-      - uses: actions/checkout@v3
+      - name: Check out source code
+        uses: actions/checkout@v3
+
+      - name: Decode Keystore
+        env:
+          ENCODED_STRING: ${{ secrets.ANDROID_KEYSTORES }}
+          # SIGNING_KEY_STORE_PATH: ${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}
+
+        run: |
+          echo $ENCODED_STRING | base64 --decode > ${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}
 
       - name: Check Flutter SDK Version
         working-directory: ./base_flutter
@@ -143,16 +152,6 @@ jobs:
       - name: Run tests
         working-directory: ./base_flutter
         run: flutter test
-
-      - name: Decode Keystore
-        env:
-          ENCODED_STRING: ${{ secrets.ANDROID_KEYSTORES }}
-          # SIGNING_KEY_STORE_PATH: ${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}
-
-        run: |
-          TMP_KEYSTORE_FILE_PATH="${RUNNER_TEMP}"/keystore
-          mkdir "${TMP_KEYSTORE_FILE_PATH}"
-          echo $ENCODED_STRING | base64 -di > "${TMP_KEYSTORE_FILE_PATH}/${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}"
       
       - name: Build Staging APK
         working-directory: ./base_flutter
