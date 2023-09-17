@@ -44,22 +44,31 @@ android {
 
     signingConfigs {
         releaseProd {
+            storeFile file("$keystoresPath/phuhp-base-prod.keystore")
             keyAlias System.getenv('SIGNING_KEY_ALIAS')
             keyPassword System.getenv('SIGNING_KEY_PASSWORD')
-            storeFile file("$keystoresPath/phuhp-base-prod.keystore")
             storePassword System.getenv('SIGNING_STORE_PASSWORD')
         }
         releaseStaging {
+            storeFile file("$keystoresPath/phuhp-base-staging.keystore")
             keyAlias System.getenv('SIGNING_KEY_ALIAS')
             keyPassword System.getenv('SIGNING_KEY_PASSWORD')
-            storeFile file("$keystoresPath/phuhp-base-staging.keystore")
             storePassword System.getenv('SIGNING_STORE_PASSWORD')
         }
         releaseDev {
-            keyAlias 'phuhp-base-dev'
-            keyPassword 'phuhp-base-dev'
-            storeFile file("$keystoresPath/phuhp-base-dev.keystore")
-            storePassword 'phuhp-base-dev'
+            def keyDev = new Properties();
+            def keyPropertiesFile = file("$keystoresPath/dev/key.properties")
+            if (keyPropertiesFile.exists()) {
+                keyPropertiesFile.withReader('UTF-8') { reader ->
+                    keyDev.load(reader)
+                }
+            } else {
+                throw new GradleException("File key.properties not found.")
+            }
+            storeFile file("$keystoresPath/dev/phuhp-base-dev.keystore")
+            keyAlias keyDev.getProperty('key_alias')
+            keyPassword keyDev.getProperty('key_password')
+            storePassword keyDev.getProperty('store_password')
         }
     }
 
