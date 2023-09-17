@@ -130,12 +130,13 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Decode Keystore
+        working-directory: ./base_flutter
         env:
           ENCODED_STRING: ${{ secrets.ANDROID_KEYSTORES }}
-          # SIGNING_KEY_STORE_PATH: ${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}
-
+          SIGNING_KEY_STORE_PATH: ./base_flutter/android/app/${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}
         run: |
-          echo $ENCODED_STRING | base64 --decode > ${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}
+          echo $ENCODED_STRING > keystore-b64.txt
+          base64 -d keystore-b64.txt > $SIGNING_KEY_STORE_PATH
 
       - name: Check Flutter SDK Version
         working-directory: ./base_flutter
