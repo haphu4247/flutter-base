@@ -186,4 +186,4 @@ jobs:
           prerelease: true
           tag_name: ${{ steps.staging.outputs.release_staging }}
           files: |
-            ./base_flutter/android/app/${{steps.staging}}/release/
+            ./base_flutter/build/app/outputs/flutter-apk/app-${{steps.staging}}-release.apk
