@@ -153,6 +153,10 @@ jobs:
       - name: Build Staging APK
         working-directory: ./base_flutter
         run: flutter build apk --release --flavor staging -t lib/main_staging.dart
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_STORE_PASSWORD }}
 
       # - name: Build Staging APK
       #   working-directory: ./base_flutter
