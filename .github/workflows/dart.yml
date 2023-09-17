@@ -175,7 +175,7 @@ jobs:
       - name: Generate Release TAG
         id: staging
         run: |
-          echo "::set-output name=release_staging::StagingBuild_$(date +"%Y.%m.%d_%H-%M")"
+          echo "::set-output name=release_staging::Staging_$(date +"%Y.%m.%d_%H-%M")"
         #5
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
@@ -186,4 +186,4 @@ jobs:
           prerelease: true
           tag_name: ${{ steps.staging.outputs.release_staging }}
           files: |
-            ./base_flutter/build/app/outputs/flutter-apk/app-${{steps.staging}}-release.apk
+            ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk
