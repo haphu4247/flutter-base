@@ -187,3 +187,4 @@ jobs:
           tag_name: ${{ steps.staging.outputs.release_staging }}
           files: |
             ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk
+            ./base_flutter/build/app/outputs/apk/staging/app-staging-release.apk
