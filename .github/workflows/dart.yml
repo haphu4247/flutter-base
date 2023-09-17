@@ -147,11 +147,12 @@ jobs:
       - name: Decode Keystore
         env:
           ENCODED_STRING: ${{ secrets.ANDROID_KEYSTORES }}
-          SIGNING_KEY_STORE_PATH: ${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}
+          # SIGNING_KEY_STORE_PATH: ${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}
 
         run: |
-          echo $ENCODED_STRING > keystore-b64.txt
-          base64 -d keystore-b64.txt > $SIGNING_KEY_STORE_PATH
+          TMP_KEYSTORE_FILE_PATH="${RUNNER_TEMP}"/keystore
+          mkdir "${TMP_KEYSTORE_FILE_PATH}"
+          echo $ENCODED_STRING | base64 -di > "${TMP_KEYSTORE_FILE_PATH}/${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}"
       
       - name: Build Staging APK
         working-directory: ./base_flutter
