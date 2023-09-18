@@ -66,6 +66,7 @@
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		331C8081294A63A400263BE5 /* RunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
+		517EC680511BBB7913213958 /* GoogleService-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Runner/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5C466107B00423BFAC0BCEE6 /* stagingProfile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = stagingProfile.xcconfig; path = Flutter/stagingProfile.xcconfig; sourceTree = "<group>"; };
 		6A6E184187D78139F0BB27BE /* devLaunchScreen.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = devLaunchScreen.storyboard; path = Runner/devLaunchScreen.storyboard; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -151,6 +152,7 @@
 				6A6E184187D78139F0BB27BE /* devLaunchScreen.storyboard */,
 				F379D6F01CEEA20621BFD066 /* stagingLaunchScreen.storyboard */,
 				991796A28E54EE838BF5ED1F /* prodLaunchScreen.storyboard */,
+				517EC680511BBB7913213958 /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -516,7 +518,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base_flutter.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.dev;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -648,6 +650,159 @@
 			};
 			name = Profile;
 		};
+		3E8C76D92AB7FE2D00D04395 /* Debug-dev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MJZ82X4M57;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.dev;
+				PRODUCT_NAME = Runner;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = "Debug-dev";
+		};
+		3E8C76DA2AB7FE2D00D04395 /* Profile-dev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MJZ82X4M57;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.dev;
+				PRODUCT_NAME = Runner;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = "Profile-dev";
+		};
+		3E8C76DB2AB7FE2D00D04395 /* Release-dev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MJZ82X4M57;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.dev;
+				PRODUCT_NAME = Runner;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = "Release-dev";
+		};
+		3E8C76DC2AB7FE2D00D04395 /* Debug-staging */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = MJZ82X4M57;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.staging;
+				PRODUCT_NAME = Runner;
+			};
+			name = "Debug-staging";
+		};
+		3E8C76DD2AB7FE2D00D04395 /* Profile-staging */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = MJZ82X4M57;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.staging;
+				PRODUCT_NAME = Runner;
+			};
+			name = "Profile-staging";
+		};
+		3E8C76DE2AB7FE2D00D04395 /* Release-staging */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = MJZ82X4M57;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.staging;
+				PRODUCT_NAME = Runner;
+			};
+			name = "Release-staging";
+		};
+		3E8C76DF2AB7FE2D00D04395 /* Debug-prod */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = MJZ82X4M57;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.prod;
+				PRODUCT_NAME = Runner;
+			};
+			name = "Debug-prod";
+		};
+		3E8C76E02AB7FE2D00D04395 /* Profile-prod */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = MJZ82X4M57;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.prod;
+				PRODUCT_NAME = Runner;
+			};
+			name = "Profile-prod";
+		};
+		3E8C76E12AB7FE2D00D04395 /* Release-prod */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = MJZ82X4M57;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.prod;
+				PRODUCT_NAME = Runner;
+			};
+			name = "Release-prod";
+		};
+		3E8C76E22AB7FE2D00D04395 /* Debug-dev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = RunnerTests;
+			};
+			name = "Debug-dev";
+		};
+		3E8C76E32AB7FE2D00D04395 /* Profile-dev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = RunnerTests;
+			};
+			name = "Profile-dev";
+		};
+		3E8C76E42AB7FE2D00D04395 /* Release-dev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = RunnerTests;
+			};
+			name = "Release-dev";
+		};
+		3E8C76E52AB7FE2D00D04395 /* Debug-staging */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = RunnerTests;
+			};
+			name = "Debug-staging";
+		};
+		3E8C76E62AB7FE2D00D04395 /* Profile-staging */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = RunnerTests;
+			};
+			name = "Profile-staging";
+		};
+		3E8C76E72AB7FE2D00D04395 /* Release-staging */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = RunnerTests;
+			};
+			name = "Release-staging";
+		};
+		3E8C76E82AB7FE2D00D04395 /* Debug-prod */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = RunnerTests;
+			};
+			name = "Debug-prod";
+		};
+		3E8C76E92AB7FE2D00D04395 /* Profile-prod */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = RunnerTests;
+			};
+			name = "Profile-prod";
+		};
+		3E8C76EA2AB7FE2D00D04395 /* Release-prod */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = RunnerTests;
+			};
+			name = "Release-prod";
+		};
 		3F251F22A34EC7084C5021C2 /* Profile-prod */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2A40CE6F702E26FEE85D9BAF /* prodProfile.xcconfig */;
@@ -706,7 +861,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base_flutter.prod;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.prod;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -774,7 +929,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base_flutter.staging;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.staging;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -844,7 +999,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base_flutter.staging;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.staging;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -919,7 +1074,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base_flutter.staging;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.staging;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1137,7 +1292,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base_flutter.prod;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.prod;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1207,7 +1362,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base_flutter.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.dev;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1284,7 +1439,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base_flutter.prod;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.prod;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1357,7 +1512,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base_flutter.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.phuhp.base.flutter.base.dev;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1374,6 +1529,15 @@
 				331C8088294A63A400263BE5 /* Debug */,
 				331C8089294A63A400263BE5 /* Release */,
 				331C808A294A63A400263BE5 /* Profile */,
+				3E8C76E22AB7FE2D00D04395 /* Debug-dev */,
+				3E8C76E32AB7FE2D00D04395 /* Profile-dev */,
+				3E8C76E42AB7FE2D00D04395 /* Release-dev */,
+				3E8C76E52AB7FE2D00D04395 /* Debug-staging */,
+				3E8C76E62AB7FE2D00D04395 /* Profile-staging */,
+				3E8C76E72AB7FE2D00D04395 /* Release-staging */,
+				3E8C76E82AB7FE2D00D04395 /* Debug-prod */,
+				3E8C76E92AB7FE2D00D04395 /* Profile-prod */,
+				3E8C76EA2AB7FE2D00D04395 /* Release-prod */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1403,6 +1567,15 @@
 				97C147061CF9000F007C117D /* Debug */,
 				97C147071CF9000F007C117D /* Release */,
 				249021D4217E4FDB00AE95B9 /* Profile */,
+				3E8C76D92AB7FE2D00D04395 /* Debug-dev */,
+				3E8C76DA2AB7FE2D00D04395 /* Profile-dev */,
+				3E8C76DB2AB7FE2D00D04395 /* Release-dev */,
+				3E8C76DC2AB7FE2D00D04395 /* Debug-staging */,
+				3E8C76DD2AB7FE2D00D04395 /* Profile-staging */,
+				3E8C76DE2AB7FE2D00D04395 /* Release-staging */,
+				3E8C76DF2AB7FE2D00D04395 /* Debug-prod */,
+				3E8C76E02AB7FE2D00D04395 /* Profile-prod */,
+				3E8C76E12AB7FE2D00D04395 /* Release-prod */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

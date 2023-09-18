@@ -42,11 +42,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
-  firebase_core: ^2.2.0
-  firebase_crashlytics: ^3.0.5
-  firebase_messaging: ^14.6.5
-  # firebase_dynamic_links: ^4.0.7
-  firebase_analytics: ^10.0.5
+  firebase_core: ^2.15.1
+  firebase_crashlytics: ^3.3.5
+  firebase_messaging: ^14.6.7
+  # firebase_analytics: ^10.0.5
   
   dio: ^5.2.1+1
 
@@ -68,7 +67,7 @@ dependencies:
 
   sprintf: ^7.0.0
 
-  permission_handler: ^10.2.0
+  permission_handler: ^11.0.0
 
   package_info_plus: ^4.0.0
 
@@ -176,27 +175,27 @@ flavorizr:
         icon: "assets/images/app_icons_dashatars_dev.png"
 
       android:
-        applicationId: "com.phuhp.base.flutter.base_flutter.dev"
+        applicationId: "com.phuhp.base.flutter.base.dev"
 
       ios:
-        bundleId: "com.phuhp.base.flutter.base_flutter.dev"
+        bundleId: "com.phuhp.base.flutter.base.dev"
     staging:
       app:
         name: "Base Flutter Staging"
         icon: "assets/images/app_icons_dashatars_stg.png"
 
       android:
-        applicationId: "com.phuhp.base.flutter.base_flutter.staging"
+        applicationId: "com.phuhp.base.flutter.base.staging"
 
       ios:
-        bundleId: "com.phuhp.base.flutter.base_flutter.staging"
+        bundleId: "com.phuhp.base.flutter.base.staging"
     prod:
       app:
         name: "Base Flutter Prod"
         icon: "assets/images/app_icons_dashatars_prod.png"
 
       android:
-        applicationId: "com.phuhp.base.flutter.base_flutter.prod"
+        applicationId: "com.phuhp.base.flutter.base.prod"
 
       ios:
-        bundleId: "com.phuhp.base.flutter.base_flutter.prod"
+        bundleId: "com.phuhp.base.flutter.base.prod"
