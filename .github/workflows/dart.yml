@@ -7,94 +7,95 @@ name: Dart
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop", "staging", "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "develop", "staging", "master" ]
 
 jobs:
-  # build-dev:
-  #   runs-on: ${{ matrix.os }}
-  #   permissions:
-  #     contents: write
-  #   strategy:
-  #     matrix:
-  #       os: [macos-latest]
-  #       sdk: [3.10.1]
-  #   steps:
+  build-dev:
+    if: github.repository == 'develop'
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        os: [macos-latest]
+        sdk: [3.10.1]
+    steps:
       
-  #     # The flutter action needs java so include it
-  #     - uses: actions/setup-java@v1
-  #       with:
-  #         java-version: '11'
+      # The flutter action needs java so include it
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '11'
       
-  #     - name: Flutter SDK Install
-  #       uses: subosito/flutter-action@v2.10.0
-  #       with:
-  #         flutter-version: ${{ matrix.sdk }}
-  #         channel: 'stable'
-  #         cache: true
-  #         cache-key: flutter
-  #         cache-path: ${{ runner.tool_cache }}/flutter
+      - name: Flutter SDK Install
+        uses: subosito/flutter-action@v2.10.0
+        with:
+          flutter-version: ${{ matrix.sdk }}
+          channel: 'stable'
+          cache: true
+          cache-key: flutter
+          cache-path: ${{ runner.tool_cache }}/flutter
       
-  #     - name: Install Ruby
-  #       uses: ruby/setup-ruby@v1
-  #       with:
-  #         ruby-version: 3.1
-  #         bundler-cache: true
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1
+          bundler-cache: true
 
-  #     # check out project
-  #     - uses: actions/checkout@v3
+      # check out project
+      - uses: actions/checkout@v3
 
-  #     - name: Check Flutter SDK Version
-  #       working-directory: ./base_flutter
-  #       run: flutter --version
+      - name: Check Flutter SDK Version
+        working-directory: ./base_flutter
+        run: flutter --version
 
-  #     - name: Install dependencies
-  #       working-directory: ./base_flutter
-  #       run: flutter pub get
+      - name: Install dependencies
+        working-directory: ./base_flutter
+        run: flutter pub get
       
-  #     - name: Generate Text
-  #       working-directory: ./base_flutter
-  #       run: flutter gen-l10n --arb-dir lib/shared/languages/l10n
+      - name: Generate Text
+        working-directory: ./base_flutter
+        run: flutter gen-l10n --arb-dir lib/shared/languages/l10n
         
-  #     - name: Run tests
-  #       working-directory: ./base_flutter
-  #       run: flutter test
+      - name: Run tests
+        working-directory: ./base_flutter
+        run: flutter test
       
-  #     - name: Build Dev APK
-  #       working-directory: ./base_flutter
-  #       run: flutter build apk --release --flavor dev -t lib/main_dev.dart
+      - name: Build Dev APK
+        working-directory: ./base_flutter
+        run: flutter build apk --release --flavor dev -t lib/main_dev.dart
 
-  #     # - name: Build Staging APK
-  #     #   working-directory: ./base_flutter
-  #     #   run: flutter build apk --release --flavor staging -t lib/main_staging.dart
-      
-  #     # - name: Build Prod Appbundle
-  #     #   working-directory: ./base_flutter
-  #     #   run: flutter build appbundle --release --flavor prod -t lib/main_prod.dart
-  #     #3
-  #     - name: Upload Dev Release Build to Artifacts
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: Build Artifacts
-  #         path: build/app/outputs/flutter-apk/
-  #     #4
-  #     - name: Generate Release TAG
-  #       id: dev
-  #       run: |
-  #         echo "::set-output name=release_dev::DevBuild_$(date +"%Y.%m.%d_%H-%M")"
-  #      #5
-  #     - name: Create Github Release
-  #       uses: softprops/action-gh-release@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         generate_release_notes: true
-  #         prerelease: true
-  #         tag_name: ${{ steps.dev.outputs.release_dev }}
-  #         files: |
-  #           base_flutter/build/app/outputs/flutter-apk/app-dev-release.apk
+      - name: Upload Dev Release Build to Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Build Artifacts
+          path: build/app/outputs/flutter-apk/
+      #4
+      - name: Generate Release TAG
+        id: dev
+        run: |
+          echo "::set-output name=release_dev::DevBuild_$(date +"%Y.%m.%d_%H-%M")"
+       #5
+      - name: Create Github Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          generate_release_notes: true
+          prerelease: true
+          tag_name: ${{ steps.dev.outputs.release_dev }}
+          files: |
+            ./base_flutter/build/app/outputs/flutter-apk/app-dev-release.apk
+      - name: Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: testers
+          file: ./base_flutter/build/app/outputs/flutter-apk/app-dev-release.apk
   build-staging:
+    if: github.repository == 'staging'
     runs-on: ${{ matrix.os }}
     environment: keystore_staging
     permissions:
@@ -195,3 +196,98 @@ jobs:
           token: ${{ secrets.FIREBASE_TOKEN }}
           groups: testers
           file: ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk
+
+  deploy-production:
+    if: github.repository == 'master'
+    runs-on: ${{ matrix.os }}
+    environment: keystore_prod
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        os: [macos-latest]
+        sdk: [3.10.1]
+    steps:
+      
+      # The flutter action needs java so include it
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+      
+      - name: Flutter SDK Install
+        uses: subosito/flutter-action@v2.10.0
+        with:
+          flutter-version: ${{ matrix.sdk }}
+          channel: 'stable'
+          cache: true
+          cache-key: flutter
+          cache-path: ${{ runner.tool_cache }}/flutter
+      
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1
+          bundler-cache: true
+
+      # check out project
+      - name: Check out source code
+        uses: actions/checkout@v3
+
+      - name: Decode Keystore
+        run:
+          echo ${{ secrets.ANDROID_KEYSTORES }} | base64 --decode > ${{ github.workspace }}/base_flutter/android/app/${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}
+
+
+      - name: Check Flutter SDK Version
+        working-directory: ./base_flutter
+        run: flutter --version
+
+      - name: Install dependencies
+        working-directory: ./base_flutter
+        run: flutter pub get
+      
+      - name: Generate Text
+        working-directory: ./base_flutter
+        run: flutter gen-l10n --arb-dir lib/shared/languages/l10n
+        
+      - name: Run tests
+        working-directory: ./base_flutter
+        run: flutter test
+      
+      - name: Build Prod Appbundle
+        working-directory: ./base_flutter
+        run: flutter build appbundle --release --flavor prod -t lib/main_prod.dart
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_STORE_PASSWORD }}
+
+      - name: Upload Prod Release Build to Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Build Artifacts
+          path: ./base_flutter/build/app/outputs/
+      #4
+      - name: Generate Prod TAG
+        id: prod
+        run: |
+          echo "::set-output name=release_prod::Prod_$(date +"%Y.%m.%d_%H-%M")"
+        #5
+      - name: Create Github Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          generate_release_notes: true
+          prerelease: true
+          tag_name: ${{ steps.prod.outputs.release_prod }}
+          files: |
+            ./base_flutter/build/app/outputs/flutter-apk/app-prod-release.apk
+            ./base_flutter/build/app/outputs/apk/prod/app-prod-release.apk
+      - name: Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: testers
+          file: ./base_flutter/build/app/outputs/flutter-apk/app-prod-release.apk
