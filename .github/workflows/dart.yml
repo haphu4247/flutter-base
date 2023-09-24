@@ -190,12 +190,17 @@ jobs:
             ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk
             ./base_flutter/build/app/outputs/apk/staging/app-staging-release.apk
       - name: Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
+        # uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
+        # with:
+        #   appId: ${{ secrets.FIREBASE_APP_ID }}
+        #   token: ${{ secrets.FIREBASE_TOKEN }}
+        #   groups: testers
+        #   file: ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk
+        uses: w9jds/firebase-action@master
         with:
-          appId: ${{ secrets.FIREBASE_APP_ID }}
-          token: ${{ secrets.FIREBASE_TOKEN }}
-          groups: testers
-          file: ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk
+          args: distribute ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk --app ${{ secrets.FIREBASE_APP_ID }} --release-notes "Bug fixes and improvements" --testers "haphu4247@gmail.com"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
   deploy-production:
     if: github.repository == 'master'
