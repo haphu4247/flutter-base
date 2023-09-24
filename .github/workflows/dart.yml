@@ -95,7 +95,7 @@ jobs:
           groups: testers
           file: ./base_flutter/build/app/outputs/flutter-apk/app-dev-release.apk
   build-staging:
-    if: github.repository == 'staging'
+    if: github.repository == 'origin/staging'
     runs-on: ${{ matrix.os }}
     environment: keystore_staging
     permissions:
