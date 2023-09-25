@@ -129,7 +129,8 @@ jobs:
           ruby-version: '3.0'
           bundler-cache: true
 
-      - name: Setup Fastlane
+      - name: Install Fastlane
+        working-directory: ./base_flutter
         run: bundle install
 
       - name: Decode Keystore
