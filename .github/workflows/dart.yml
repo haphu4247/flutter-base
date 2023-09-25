@@ -119,16 +119,15 @@ jobs:
           cache: true
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
-      
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.1
-          bundler-cache: true
+
+        
 
       # check out project
-      - name: Check out source code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
 
       - name: Decode Keystore
         run:
@@ -196,8 +195,8 @@ jobs:
       #   env:
       #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Deploy Dev Firebase App Distribution
-        working-directory: ./base_flutter/android
-        run: fastlane deploy_staging
+        # working-directory: ./base_flutter/android
+        run: bundle exec fastlane android deploy_staging
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_IOS_APP_ID: ${{ secrets.FIREBASE_IOS_APP_ID }}
