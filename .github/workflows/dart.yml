@@ -129,6 +129,9 @@ jobs:
           ruby-version: '3.0'
           bundler-cache: true
 
+      - name: Setup Fastlane
+        run: bundle install
+
       - name: Decode Keystore
         run:
           echo ${{ secrets.ANDROID_KEYSTORES }} | base64 --decode > ${{ github.workspace }}/base_flutter/android/app/${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}
@@ -158,14 +161,6 @@ jobs:
           SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_STORE_PASSWORD }}
 
-      # - name: Build Staging APK
-      #   working-directory: ./base_flutter
-      #   run: flutter build apk --release --flavor staging -t lib/main_staging.dart
-      
-      # - name: Build Prod Appbundle
-      #   working-directory: ./base_flutter
-      #   run: flutter build appbundle --release --flavor prod -t lib/main_prod.dart
-      #3
       - name: Upload Staging Release Build to Artifacts
         uses: actions/upload-artifact@v2
         with:
