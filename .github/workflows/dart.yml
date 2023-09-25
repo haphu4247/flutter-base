@@ -196,6 +196,7 @@ jobs:
       #   env:
       #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Deploy Dev Firebase App Distribution
+        working-directory: ./base_flutter/android
         run: fastlane deploy_staging
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
