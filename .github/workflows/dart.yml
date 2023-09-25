@@ -13,8 +13,9 @@ on:
 
 jobs:
   build-dev:
-    if: github.repository == 'develop'
+    if: contains('refs/heads/develop', github.ref)
     runs-on: ${{ matrix.os }}
+    environment: keystore_dev
     permissions:
       contents: write
     strategy:
@@ -87,13 +88,12 @@ jobs:
           tag_name: ${{ steps.dev.outputs.release_dev }}
           files: |
             ./base_flutter/build/app/outputs/flutter-apk/app-dev-release.apk
-      - name: Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
-        with:
-          appId: ${{ secrets.FIREBASE_APP_ID }}
-          token: ${{ secrets.FIREBASE_TOKEN }}
-          groups: testers
-          file: ./base_flutter/build/app/outputs/flutter-apk/app-dev-release.apk
+      - name: Deploy Dev Firebase App Distribution
+        run: fastlane deploy_dev
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_IOS_APP_ID: ${{ secrets.FIREBASE_IOS_APP_ID }}
+          FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
   build-staging:
     if: contains('refs/heads/staging', github.ref)
     runs-on: ${{ matrix.os }}
@@ -189,15 +189,21 @@ jobs:
           files: |
             ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk
             ./base_flutter/build/app/outputs/apk/staging/app-staging-release.apk
-      - name: Firebase App Distribution
-        uses: w9jds/firebase-action@master
-        with:
-          args: distribute ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk --app ${{ secrets.FIREBASE_APP_ID }} --release-notes "Bug fixes and improvements" --testers "haphu4247@gmail.com"
+      # - name: Firebase App Distribution
+      #   uses: w9jds/firebase-action@master
+      #   with:
+      #     args: distribute ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk --app ${{ secrets.FIREBASE_APP_ID }} --release-notes "Bug fixes and improvements" --testers "haphu4247@gmail.com"
+      #   env:
+      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Deploy Dev Firebase App Distribution
+        run: fastlane deploy_staging
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_IOS_APP_ID: ${{ secrets.FIREBASE_IOS_APP_ID }}
+          FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
 
   deploy-production:
-    if: github.repository == 'master'
+    if: contains('refs/heads/master', github.ref)
     runs-on: ${{ matrix.os }}
     environment: keystore_prod
     permissions:
