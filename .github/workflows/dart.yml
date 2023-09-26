@@ -277,8 +277,7 @@ jobs:
           prerelease: true
           tag_name: ${{ steps.prod.outputs.release_prod }}
           files: |
-            ./base_flutter/build/app/outputs/flutter-apk/app-prod-release.aab
-            ./base_flutter/build/app/outputs/apk/prod/app-prod-release.aab
+            ./base_flutter/build/app/outputs/bundle/prodRelease/app-prod-release.aab
       #13
       - name: Fastlane Install
         working-directory: ./base_flutter/android
@@ -295,4 +294,3 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_IOS_APP_ID: ${{ secrets.FIREBASE_IOS_APP_ID }}
           FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
-          
