@@ -38,14 +38,12 @@ jobs:
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
       
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.1
-          bundler-cache: true
-
       # check out project
       - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
 
       - name: Check Flutter SDK Version
         working-directory: ./base_flutter
@@ -88,12 +86,19 @@ jobs:
           tag_name: ${{ steps.dev.outputs.release_dev }}
           files: |
             ./base_flutter/build/app/outputs/flutter-apk/app-dev-release.apk
-      - name: Deploy Dev Firebase App Distribution
-        run: fastlane deploy_dev
+      
+      - name: Fastlane Install
+        working-directory: ./base_flutter/android
+        run: bundle install
+        
+      - name: Fastlane Deploy Dev Firebase App Distribution
+        working-directory: ./base_flutter/android
+        run: bundle exec fastlane android deploy_dev
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_IOS_APP_ID: ${{ secrets.FIREBASE_IOS_APP_ID }}
           FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+
   build-staging:
     if: contains('refs/heads/staging', github.ref)
     runs-on: ${{ matrix.os }}
@@ -106,7 +111,7 @@ jobs:
         sdk: [3.10.1]
     steps:
       
-      # The flutter action needs java so include it
+      #1 The flutter action needs java so include it
       - uses: actions/setup-java@v1
         with:
           java-version: '11'
@@ -120,18 +125,12 @@ jobs:
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
 
-        
-
       # check out project
       - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
           bundler-cache: true
-
-      - name: Install Fastlane
-        working-directory: ./base_flutter/android
-        run: bundle install
 
       - name: Decode Keystore
         run:
@@ -184,16 +183,11 @@ jobs:
           files: |
             ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk
             ./base_flutter/build/app/outputs/apk/staging/app-staging-release.apk
-      # - name: Firebase App Distribution
-      #   uses: w9jds/firebase-action@master
-      #   with:
-      #     args: distribute ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk --app ${{ secrets.FIREBASE_APP_ID }} --release-notes "Bug fixes and improvements" --testers "haphu4247@gmail.com"
-      #   env:
-      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      # - name: Fastlane Install Firebase App Distribution
-      #   working-directory: ./base_flutter/android
-      #   run: fastlane add_plugin firebase_app_distribution
-
+      
+      - name: Fastlane Install
+        working-directory: ./base_flutter/android
+        run: bundle install
+      
       - name: Fastlane Deploy Staging Firebase App Distribution
         working-directory: ./base_flutter/android
         run: bundle exec fastlane android deploy_staging
@@ -228,20 +222,16 @@ jobs:
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
       
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.1
-          bundler-cache: true
-
       # check out project
-      - name: Check out source code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
 
       - name: Decode Keystore
         run:
           echo ${{ secrets.ANDROID_KEYSTORES }} | base64 --decode > ${{ github.workspace }}/base_flutter/android/app/${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}
-
 
       - name: Check Flutter SDK Version
         working-directory: ./base_flutter
@@ -289,10 +279,15 @@ jobs:
           files: |
             ./base_flutter/build/app/outputs/flutter-apk/app-prod-release.apk
             ./base_flutter/build/app/outputs/apk/prod/app-prod-release.apk
-      - name: Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
-        with:
-          appId: ${{ secrets.FIREBASE_APP_ID }}
-          token: ${{ secrets.FIREBASE_TOKEN }}
-          groups: testers
-          file: ./base_flutter/build/app/outputs/flutter-apk/app-prod-release.apk
+
+      - name: Fastlane Install
+        working-directory: ./base_flutter/android
+        run: bundle install
+
+      - name: Fastlane Deploy Prod Firebase App Distribution
+        working-directory: ./base_flutter/android
+        run: bundle exec fastlane android deploy_prod
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_IOS_APP_ID: ${{ secrets.FIREBASE_IOS_APP_ID }}
+          FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
