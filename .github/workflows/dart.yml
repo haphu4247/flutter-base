@@ -208,11 +208,11 @@ jobs:
         sdk: [3.10.1]
     steps:
       
-      # The flutter action needs java so include it
+      #1 The flutter action needs java so include it
       - uses: actions/setup-java@v1
         with:
           java-version: '11'
-      
+      #2
       - name: Flutter SDK Install
         uses: subosito/flutter-action@v2.10.0
         with:
@@ -222,33 +222,33 @@ jobs:
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
       
-      # check out project
+      #3 check out project
       - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
           bundler-cache: true
-
+      #4
       - name: Decode Keystore
         run:
           echo ${{ secrets.ANDROID_KEYSTORES }} | base64 --decode > ${{ github.workspace }}/base_flutter/android/app/${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}
-
+      #5
       - name: Check Flutter SDK Version
         working-directory: ./base_flutter
         run: flutter --version
-
+      #6
       - name: Install dependencies
         working-directory: ./base_flutter
         run: flutter pub get
-      
+      #7
       - name: Generate Text
         working-directory: ./base_flutter
         run: flutter gen-l10n --arb-dir lib/shared/languages/l10n
-        
+      #8
       - name: Run tests
         working-directory: ./base_flutter
         run: flutter test
-      
+      #9
       - name: Build Prod Appbundle
         working-directory: ./base_flutter
         run: flutter build appbundle --release --flavor prod -t lib/main_prod.dart
@@ -256,18 +256,18 @@ jobs:
           SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_STORE_PASSWORD }}
-
+      #10
       - name: Upload Prod Release Build to Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: Build Artifacts
           path: ./base_flutter/build/app/outputs/
-      #4
+      #11
       - name: Generate Prod TAG
         id: prod
         run: |
           echo "::set-output name=release_prod::Prod_$(date +"%Y.%m.%d_%H-%M")"
-        #5
+      #12
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
         env:
@@ -279,15 +279,15 @@ jobs:
           files: |
             ./base_flutter/build/app/outputs/flutter-apk/app-prod-release.aab
             ./base_flutter/build/app/outputs/apk/prod/app-prod-release.aab
-
+      #13
       - name: Fastlane Install
         working-directory: ./base_flutter/android
         run: bundle install
-      
+      #14
       - name: Decode Play Store Credentials
         run:
           echo ${{ secrets.PLAY_STORE_CREDENTIALS_ENCODED }} | base64 --decode > ${{ github.workspace }}/base_flutter/android/app/${{ secrets.PLAY_STORE_CREDENTIALS_PATH }}
-          
+      #15
       - name: Fastlane Deploy Prod Firebase App Distribution
         working-directory: ./base_flutter/android
         run: bundle exec fastlane android deploy_prod
