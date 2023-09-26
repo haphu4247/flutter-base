@@ -283,7 +283,11 @@ jobs:
       - name: Fastlane Install
         working-directory: ./base_flutter/android
         run: bundle install
-
+      
+      - name: Decode Play Store Credentials
+        run:
+          echo ${{ secrets.PLAY_STORE_CREDENTIALS_ENCODED }} | base64 --decode > ${{ github.workspace }}/base_flutter/android/app/${{ secrets.PLAY_STORE_CREDENTIALS_PATH }}
+          
       - name: Fastlane Deploy Prod Firebase App Distribution
         working-directory: ./base_flutter/android
         run: bundle exec fastlane android deploy_prod
@@ -291,3 +295,4 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_IOS_APP_ID: ${{ secrets.FIREBASE_IOS_APP_ID }}
           FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+      

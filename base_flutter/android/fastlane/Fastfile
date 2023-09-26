@@ -42,5 +42,6 @@ platform :android do
         apk_path: "../build/app/outputs/flutter-apk/app-dev-release.apk",
         groups: "base-testers"
     )
+    upload_to_play_store
   end
 end
