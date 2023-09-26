@@ -190,7 +190,11 @@ jobs:
       #     args: distribute ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk --app ${{ secrets.FIREBASE_APP_ID }} --release-notes "Bug fixes and improvements" --testers "haphu4247@gmail.com"
       #   env:
       #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      - name: Deploy Staging Firebase App Distribution
+      - name: Fastlane Install Firebase App Distribution
+        working-directory: ./base_flutter/android
+        run: fastlane add_plugin firebase_app_distribution
+
+      - name: Fastlane Deploy Staging Firebase App Distribution
         working-directory: ./base_flutter/android
         run: bundle exec fastlane android deploy_staging
         env:
