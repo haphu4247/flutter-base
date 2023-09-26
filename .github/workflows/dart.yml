@@ -277,8 +277,8 @@ jobs:
           prerelease: true
           tag_name: ${{ steps.prod.outputs.release_prod }}
           files: |
-            ./base_flutter/build/app/outputs/flutter-apk/app-prod-release.apk
-            ./base_flutter/build/app/outputs/apk/prod/app-prod-release.apk
+            ./base_flutter/build/app/outputs/flutter-apk/app-prod-release.aab
+            ./base_flutter/build/app/outputs/apk/prod/app-prod-release.aab
 
       - name: Fastlane Install
         working-directory: ./base_flutter/android
