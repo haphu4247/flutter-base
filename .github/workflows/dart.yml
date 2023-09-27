@@ -278,9 +278,18 @@ jobs:
           tag_name: ${{ steps.prod.outputs.release_prod }}
           files: |
             ./base_flutter/build/app/outputs/bundle/prodRelease/app-prod-release.aab
-      #13
+      #13 Fastlane Cache & Install 
+      - name: Cache Gems Bundler
+        id: cache-fastlane-bundler
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-bundler-${{ hashFiles('**/android/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-bundler-
       - name: Fastlane Install
         working-directory: ./base_flutter/android
+        if: steps.cache-fastlane-bundler.outputs.cache-hit != 'true'
         run: bundle install
       #14
       - name: Decode Play Store Credentials
