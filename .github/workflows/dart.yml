@@ -229,56 +229,55 @@ jobs:
           ruby-version: '3.0'
           bundler-cache: true
       # #4
-      # - name: Decode Keystore
-      #   run:
-      #     echo ${{ secrets.ANDROID_KEYSTORES }} | base64 --decode > ${{ github.workspace }}/base_flutter/android/app/${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}
-      # #5
-      # - name: Check Flutter SDK Version
-      #   working-directory: ./base_flutter
-      #   run: flutter --version
-      # #6
-      # - name: Install dependencies
-      #   working-directory: ./base_flutter
-      #   run: flutter pub get
-      # #7
-      # - name: Generate Text
-      #   working-directory: ./base_flutter
-      #   run: flutter gen-l10n --arb-dir lib/shared/languages/l10n
-      # #8
-      # - name: Run tests
-      #   working-directory: ./base_flutter
-      #   run: flutter test
-      # #9
-      # - name: Build Prod Appbundle
-      #   working-directory: ./base_flutter
-      #   run: flutter build appbundle --release --flavor prod -t lib/main_prod.dart
-      #   env:
-      #     SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_SIGNING_KEY_ALIAS }}
-      #     SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}
-      #     SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_STORE_PASSWORD }}
-      # #10
-      # - name: Upload Prod Release Build to Artifacts
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: Build Artifacts
-      #     path: ./base_flutter/build/app/outputs/
-      # #11
-      # - name: Generate Prod TAG
-      #   id: prod
-      #   run: |
-      #     echo "::set-output name=release_prod::Prod_$(date +"%Y.%m.%d_%H-%M")"
-      # #12
-      # - name: Create Github Release
-      #   uses: softprops/action-gh-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     generate_release_notes: true
-      #     prerelease: true
-      #     tag_name: ${{ steps.prod.outputs.release_prod }}
-      #     files: |
-      #       ./base_flutter/build/app/outputs/bundle/prodRelease/app-prod-release.aab
-      
+      - name: Decode Keystore
+        run:
+          echo ${{ secrets.ANDROID_KEYSTORES }} | base64 --decode > ${{ github.workspace }}/base_flutter/android/app/${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}
+      #5
+      - name: Check Flutter SDK Version
+        working-directory: ./base_flutter
+        run: flutter --version
+      #6
+      - name: Install dependencies
+        working-directory: ./base_flutter
+        run: flutter pub get
+      #7
+      - name: Generate Text
+        working-directory: ./base_flutter
+        run: flutter gen-l10n --arb-dir lib/shared/languages/l10n
+      #8
+      - name: Run tests
+        working-directory: ./base_flutter
+        run: flutter test
+      #9
+      - name: Build Prod Appbundle
+        working-directory: ./base_flutter
+        run: flutter build appbundle --release --flavor prod -t lib/main_prod.dart
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_STORE_PASSWORD }}
+      #10
+      - name: Upload Prod Release Build to Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Build Artifacts
+          path: ./base_flutter/build/app/outputs/
+      #11
+      - name: Generate Prod TAG
+        id: prod
+        run: |
+          echo "::set-output name=release_prod::Prod_$(date +"%Y.%m.%d_%H-%M")"
+      #12
+      - name: Create Github Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          generate_release_notes: true
+          prerelease: true
+          tag_name: ${{ steps.prod.outputs.release_prod }}
+          files: |
+            ./base_flutter/build/app/outputs/bundle/prodRelease/app-prod-release.aab
       #13 Fastlane Cache & Install 
       - name: Cache Gems Bundler
         id: cache-fastlane-bundler
