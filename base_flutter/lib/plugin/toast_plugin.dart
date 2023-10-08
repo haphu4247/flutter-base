@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../colors/app_colors.dart';
-import '../utils/utils.dart';
+import '../shared/colors/app_colors.dart';
+import '../shared/utils/utils.dart';
 
 enum ToastType { success, removed, error, warning, info, added }
 
@@ -38,24 +38,24 @@ extension ToastTypeExt on ToastType {
   }
 }
 
-class MyToast {
+class ToastPlugin {
   late final FToast _fToast;
 
-  static final MyToast instance = MyToast._internal();
+  static final ToastPlugin instance = ToastPlugin._internal();
 
   /// Prmary Constructor for FToast
-  factory MyToast() {
+  factory ToastPlugin() {
     return instance;
   }
 
   /// Take users Context and saves to avariable
-  MyToast initToast(BuildContext context) {
+  ToastPlugin initToast(BuildContext context) {
     _fToast = FToast();
     _fToast.init(context);
     return instance;
   }
 
-  MyToast._internal();
+  ToastPlugin._internal();
 
   void showToast(
     ToastType type,

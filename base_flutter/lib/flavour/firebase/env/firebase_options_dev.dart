@@ -4,18 +4,25 @@ import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
+import 'firebase_options_base.dart';
+
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
 /// Example:
 /// ```dart
-/// import 'firebase_options_prod.dart';
+/// import 'firebase_options.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
 /// );
 /// ```
-class DefaultFirebaseOptions {
-  static FirebaseOptions get currentPlatform {
+final BaseFirebaseOptions _instance = DefaultFirebaseOptionsDev();
+
+class DefaultFirebaseOptionsDev extends BaseFirebaseOptions {
+  static BaseFirebaseOptions get instance => _instance;
+
+  @override
+  FirebaseOptions get currentPlatform {
     if (kIsWeb) {
       return web;
     }
@@ -25,7 +32,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -55,7 +65,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAJ3gcQEmuDJSI9v3e5Wy-kneEWG2UPUO8',
-    appId: '1:974751150135:android:f3ada6ae826a3607264fb2',
+    appId: '1:974751150135:android:3d1d1766c222f3eb264fb2',
     messagingSenderId: '974751150135',
     projectId: 'base-flutter-81a44',
     storageBucket: 'base-flutter-81a44.appspot.com',
@@ -63,19 +73,19 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDIvVIMsZlQh8PsKJ0cn0Cm4l28m5Xl8jU',
-    appId: '1:974751150135:ios:b728d0e89827fa6f264fb2',
+    appId: '1:974751150135:ios:4c0c67d800545fa5264fb2',
     messagingSenderId: '974751150135',
     projectId: 'base-flutter-81a44',
     storageBucket: 'base-flutter-81a44.appspot.com',
-    iosBundleId: 'com.phuhp.base.flutter.base.prod',
+    iosBundleId: 'com.phuhp.base.flutter.base.dev',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDIvVIMsZlQh8PsKJ0cn0Cm4l28m5Xl8jU',
-    appId: '1:974751150135:ios:b728d0e89827fa6f264fb2',
+    appId: '1:974751150135:ios:4c0c67d800545fa5264fb2',
     messagingSenderId: '974751150135',
     projectId: 'base-flutter-81a44',
     storageBucket: 'base-flutter-81a44.appspot.com',
-    iosBundleId: 'com.phuhp.base.flutter.base.prod',
+    iosBundleId: 'com.phuhp.base.flutter.base.dev',
   );
 }

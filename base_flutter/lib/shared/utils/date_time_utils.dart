@@ -1,4 +1,4 @@
-import 'package:base_flutter/shared/utils/my_log.dart';
+import 'package:base_flutter/base/tracking_logger/app_logger.dart';
 import 'package:intl/intl.dart';
 
 enum AppDateFormat { yyyymmdd, yyyyMMdd, ddMMyyyy, EEE, MMMM, HHmm }
@@ -18,7 +18,7 @@ class DateTimeUtils {
     try {
       return format.format.parse(datetime);
     } catch (e) {
-      MyLogger.console(DateTimeUtils, e);
+      AppLogger.console(DateTimeUtils, e);
       //try parse date time string again,
       //return null if #datetime is not date time format.
       return DateTime.tryParse(datetime);

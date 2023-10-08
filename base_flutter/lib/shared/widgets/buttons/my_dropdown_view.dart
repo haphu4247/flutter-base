@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../colors/app_colors.dart';
 import '../../decoration/app_style.dart';
-import '../loader/image_loader.dart';
+import '../../../plugin/image_loader_plugin.dart';
 
 class MyDropdownView extends StatelessWidget {
   const MyDropdownView(
@@ -61,7 +61,7 @@ class MyDropdownView extends StatelessWidget {
                       onPressed: onPress,
                       padding: const EdgeInsets.only(left: 6),
                       constraints: const BoxConstraints(),
-                      icon: const ImageLoader(
+                      icon: const ImageLoaderPlugin(
                         'right-arrow.png',
                         width: 20,
                         height: 20,

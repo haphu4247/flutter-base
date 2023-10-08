@@ -16,10 +16,11 @@ import 'firebase_options_base.dart';
 ///   options: DefaultFirebaseOptions.currentPlatform,
 /// );
 /// ```
-final BaseFirebaseOptions _instance = DefaultFirebaseOptionsProd();
+final BaseFirebaseOptions _instance = DefaultFirebaseOptionsStaging();
 
-class DefaultFirebaseOptionsProd extends BaseFirebaseOptions {
+class DefaultFirebaseOptionsStaging extends BaseFirebaseOptions {
   static BaseFirebaseOptions get instance => _instance;
+
   @override
   FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -53,47 +54,38 @@ class DefaultFirebaseOptionsProd extends BaseFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA-GFxzPj_fJ4bjGRM9DyECdoHk97Jm50c',
-    appId: '1:519225302530:web:d0ac719eab2f7a1f27911b',
-    messagingSenderId: '519225302530',
-    projectId: 'lottecinema-25463',
-    authDomain: 'lottecinema-25463.firebaseapp.com',
-    databaseURL: 'https://lottecinema-25463.firebaseio.com',
-    storageBucket: 'lottecinema-25463.appspot.com',
-    measurementId: 'G-G0YBJRV8XZ',
+    apiKey: 'AIzaSyBgpBRb5asCCZohbU3KpF4Gk9-xjxDb1RA',
+    appId: '1:974751150135:web:6e1dc6a2607f1844264fb2',
+    messagingSenderId: '974751150135',
+    projectId: 'base-flutter-81a44',
+    authDomain: 'base-flutter-81a44.firebaseapp.com',
+    storageBucket: 'base-flutter-81a44.appspot.com',
+    measurementId: 'G-JWF12B0P21',
   );
 
-  @override
-  FirebaseOptions android = const FirebaseOptions(
-    apiKey: 'AIzaSyCQh0108upr8QbvXuDfSwbyl_d3QtT3ptc',
-    appId: '1:519225302530:android:120d76d1f753390b27911b',
-    messagingSenderId: '519225302530',
-    projectId: 'lottecinema-25463',
-    databaseURL: 'https://lottecinema-25463.firebaseio.com',
-    storageBucket: 'lottecinema-25463.appspot.com',
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyAJ3gcQEmuDJSI9v3e5Wy-kneEWG2UPUO8',
+    appId: '1:974751150135:android:8bac6771b7f4cedf264fb2',
+    messagingSenderId: '974751150135',
+    projectId: 'base-flutter-81a44',
+    storageBucket: 'base-flutter-81a44.appspot.com',
   );
 
-  @override
-  FirebaseOptions ios = const FirebaseOptions(
-    apiKey: 'AIzaSyBVJxgnXXqJ_tRvbPTA_AHUHBB93xGwr7E',
-    appId: '1:519225302530:ios:3b4b8826946237df27911b',
-    messagingSenderId: '519225302530',
-    projectId: 'lottecinema-25463',
-    databaseURL: 'https://lottecinema-25463.firebaseio.com',
-    storageBucket: 'lottecinema-25463.appspot.com',
-    androidClientId:
-        '519225302530-8q84tt3uoatailci54gsok0gue8canfv.apps.googleusercontent.com',
-    iosClientId:
-        '519225302530-vuecqdptr3f887a1eps70j390ubi9nu4.apps.googleusercontent.com',
-    iosBundleId: 'vn.com.lottecinema',
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyDIvVIMsZlQh8PsKJ0cn0Cm4l28m5Xl8jU',
+    appId: '1:974751150135:ios:45a274af57ef969c264fb2',
+    messagingSenderId: '974751150135',
+    projectId: 'base-flutter-81a44',
+    storageBucket: 'base-flutter-81a44.appspot.com',
+    iosBundleId: 'com.phuhp.base.flutter.base.staging',
   );
 
-  @override
-  String get appId {
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      return 'vn.com.lottecinema.prod';
-    } else {
-      return '${ios.iosBundleId}';
-    }
-  }
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDIvVIMsZlQh8PsKJ0cn0Cm4l28m5Xl8jU',
+    appId: '1:974751150135:ios:45a274af57ef969c264fb2',
+    messagingSenderId: '974751150135',
+    projectId: 'base-flutter-81a44',
+    storageBucket: 'base-flutter-81a44.appspot.com',
+    iosBundleId: 'com.phuhp.base.flutter.base.staging',
+  );
 }

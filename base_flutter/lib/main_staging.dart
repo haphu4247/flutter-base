@@ -1,6 +1,6 @@
-import 'app.dart';
+import 'app_base.dart';
 import 'flavour/flavour.dart';
 
-void main() async {
-  await startApp(Flavour.staging);
+void main() {
+  startApp(Flavour.staging);
 }

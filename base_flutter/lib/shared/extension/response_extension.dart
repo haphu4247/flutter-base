@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../base/models/base_response.dart';
 import '../../base/models/error_response.dart';
-import '../utils/my_log.dart';
+import '../../base/tracking_logger/app_logger.dart';
 
 extension ResponseExt on Response<dynamic> {
   List<E>? checkResultList<R extends BaseResponse<R>, E extends BaseModel>(
@@ -47,7 +47,7 @@ extension ResponseExt on Response<dynamic> {
       VoidCallback? onCompleted,
       bool showErrorToast = true,
       bool showSuccessToast = false}) {
-    MyLogger.d(this, 'Response: ${toString()}');
+    AppLogger.d(this, 'Response: ${toString()}');
     if (data != null) {
       final decodeBody = _parseBody();
       final model = jsonParser(decodeBody);

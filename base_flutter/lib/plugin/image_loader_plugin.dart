@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
 
-import '../../colors/app_colors.dart';
-import '../../utils/utils.dart';
+import '../shared/colors/app_colors.dart';
+import '../shared/utils/utils.dart';
 
-class ImageLoader extends StatelessWidget {
-  const ImageLoader(this.name,
+class ImageLoaderPlugin extends StatelessWidget {
+  const ImageLoaderPlugin(this.name,
       {Key? key,
       this.fit,
       this.folder = AssetsFolder.icons,

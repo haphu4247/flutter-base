@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-class MyAutoSizeText extends StatelessWidget {
-  const MyAutoSizeText(this.text,
+class AutoSizeTextPlugin extends StatelessWidget {
+  const AutoSizeTextPlugin(this.text,
       {Key? key,
       required this.style,
       this.maxLines = 16,

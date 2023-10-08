@@ -3,6 +3,7 @@ import 'package:base_flutter/base/cached/base_local_data_key_ext.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
+import '../../shared/utils/date_time_utils.dart';
 import 'local_data_key/local_data_key_impl.dart';
 
 class LocalRepository {
@@ -66,5 +67,14 @@ class LocalRepository {
 
   Future<bool> saveTheme(ThemeMode theme) {
     return LocalDataKey.sThemes.setString(theme.name);
+  }
+
+  Future<bool> saveNotificationPermission() {
+    final now = DateTimeUtils.formatDateyyyyMMdd(DateTime.now());
+    return LocalDataKey.requestNotificationPermission.setString(now);
+  }
+
+  Future<String?> getNotificationPermission() {
+    return LocalDataKey.requestNotificationPermission.getString();
   }
 }

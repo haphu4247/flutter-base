@@ -3,8 +3,8 @@ import 'package:base_flutter/flavour/flavour.dart';
 import 'config_prod.dart';
 import 'config_staging.dart';
 
-abstract class BaseConfig {
-  factory BaseConfig(Flavour environment) {
+abstract class ConfigBase {
+  factory ConfigBase(Flavour environment) {
     switch (environment) {
       case Flavour.prod:
         return ProdConfig(environment);
@@ -14,8 +14,6 @@ abstract class BaseConfig {
     }
   }
   String get apiHost;
-
-  bool get showBanner;
 
   Flavour get env;
 }

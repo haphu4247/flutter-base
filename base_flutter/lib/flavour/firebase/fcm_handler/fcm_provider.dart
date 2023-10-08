@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:base_flutter/shared/utils/my_log.dart';
+import 'package:base_flutter/base/tracking_logger/app_logger.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -51,7 +51,7 @@ class _FcmProviderImpl extends IFcmProvider {
       {required void Function(String fcmToken) onGetToken}) {
     return FirebaseMessaging.instance.getToken().then((fcmToken) {
       if (fcmToken != null && fcmToken.isNotEmpty) {
-        MyLogger.d(this, 'fcmToken: $fcmToken');
+        AppLogger.d(this, 'fcmToken: $fcmToken');
         onGetToken(fcmToken);
       }
       return null;
@@ -114,7 +114,7 @@ class _FcmProviderImpl extends IFcmProvider {
       body: body,
     );
 
-    MyLogger.consoleToast(
+    AppLogger.consoleToast(
         _FcmProviderImpl, 'onDidReceiveLocalNotification=>payload: $payload');
     return _showIosNotification(notification, id: id, data: payload);
   }
@@ -128,7 +128,7 @@ class _FcmProviderImpl extends IFcmProvider {
       return;
     }
     final notification = NotificationModel.fromJson(payload);
-    MyLogger.consoleToast(_FcmProviderImpl,
+    AppLogger.consoleToast(_FcmProviderImpl,
         'notification:=>${payload.toString()} \nnotification:${notification.toString()}');
 
     //handle event when user click on Notification
@@ -139,7 +139,7 @@ class _FcmProviderImpl extends IFcmProvider {
     RemoteMessage remoteMessage,
   ) async {
     final Map<String, dynamic> data = remoteMessage.data;
-    MyLogger.consoleToast(
+    AppLogger.consoleToast(
         this, 'handleNotificationData=>remoteMessage: ${remoteMessage.data}');
 
     final notification = remoteMessage.notification;

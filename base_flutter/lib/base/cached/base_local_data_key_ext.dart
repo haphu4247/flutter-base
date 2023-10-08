@@ -102,7 +102,6 @@ extension LocalDataKeyExt on LocalDataKey {
     if (value != null && value.isNotEmpty) {
       value = _CryptoHelper.instance.decrypt(value);
     }
-    // MyLogger.d(this, 'key: $key value:$value');
     return value;
   }
 

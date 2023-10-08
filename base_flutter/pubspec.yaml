@@ -68,8 +68,10 @@ dependencies:
   sprintf: ^7.0.0
 
   permission_handler: ^11.0.0
+  geolocator: ^9.0.2
 
   package_info_plus: ^4.0.0
+  device_info_plus: ^9.0.3
 
   flutter_svg: ^2.0.5
 

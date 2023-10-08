@@ -1,6 +1,6 @@
 import 'package:package_info_plus/package_info_plus.dart';
 
-import 'my_log.dart';
+import '../../base/tracking_logger/app_logger.dart';
 
 class SecureHelper {
   SecureHelper._();
@@ -15,7 +15,7 @@ class SecureHelper {
     // String version = packageInfo.version;
     // String buildNumber = packageInfo.buildNumber;
     // packageInfo.buildSignature;
-    MyLogger.d(this, 'buildSignature: ${packageInfo.buildSignature}');
+    AppLogger.d(this, 'buildSignature: ${packageInfo.buildSignature}');
     return packageInfo;
   }
 }

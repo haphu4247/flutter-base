@@ -1,4 +1,4 @@
-import 'package:base_flutter/flavour/config/base_config.dart';
+import 'package:base_flutter/flavour/config/config_base.dart';
 import 'package:base_flutter/flavour/flavour.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ abstract class IAppConfig {
 
   ThemeMode get themeMode;
 
-  BaseConfig get config;
+  ConfigBase get config;
 }
 
 final _IAppConfigImpl _singleton = _IAppConfigImpl();
@@ -26,7 +26,7 @@ final _IAppConfigImpl _singleton = _IAppConfigImpl();
 class _IAppConfigImpl extends IAppConfig {
   _IAppConfigImpl() : super._internal();
 
-  BaseConfig? _config;
+  ConfigBase? _config;
 
   Locale? _selectedLocales;
 
@@ -36,7 +36,7 @@ class _IAppConfigImpl extends IAppConfig {
 
   @override
   Future<dynamic> initConfig(Flavour flavour) {
-    _config = BaseConfig(flavour);
+    _config = ConfigBase(flavour);
     // LocalRepository().initData();
     final AppThemes appTheme = AppThemes.instance;
     return Future.wait([
@@ -69,5 +69,5 @@ class _IAppConfigImpl extends IAppConfig {
   }
 
   @override
-  BaseConfig get config => _config ?? BaseConfig(Flavour.dev);
+  ConfigBase get config => _config ?? ConfigBase(Flavour.dev);
 }

@@ -5,7 +5,7 @@ import 'package:base_flutter/app/di_config.dart';
 import 'package:dio/dio.dart';
 import 'package:path/path.dart' as p;
 
-import '../../shared/utils/my_log.dart';
+import '../tracking_logger/app_logger.dart';
 import 'base_api_setup.dart';
 import 'base_params.dart';
 
@@ -109,7 +109,7 @@ class _BaseApiServiceImpl extends BaseApiService {
     if (tempQuery != null) {
       fullURL = '$fullURL?${_encodeQueryParameters(tempQuery)}';
     }
-    MyLogger.d(this, params.toString());
+    AppLogger.d(this, params.toString());
     final options = Options(
         method: params.method.name,
         contentType: params.contentType,

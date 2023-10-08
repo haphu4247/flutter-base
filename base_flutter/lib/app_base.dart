@@ -12,22 +12,22 @@ Future<dynamic> startApp(Flavour flavour) {
   return Future.wait([
     DIConfig().initConfig(flavour),
   ]).whenComplete(() {
-    runApp(MyApp(flavour: flavour));
+    runApp(_AppBase(flavour: flavour));
   });
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({
+class _AppBase extends StatefulWidget {
+  const _AppBase({
     Key? key,
     required this.flavour,
   }) : super(key: key);
   final Flavour flavour;
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<_AppBase> createState() => _AppBaseState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _AppBaseState extends State<_AppBase> {
   @override
   Widget build(BuildContext context) {
     final flavour = IAppConfig();
