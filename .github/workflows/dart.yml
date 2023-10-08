@@ -13,8 +13,9 @@ on:
 
 jobs:
   build-dev:
-    if: github.repository == 'develop'
+    if: contains('refs/heads/develop', github.ref)
     runs-on: ${{ matrix.os }}
+    environment: keystore_dev
     permissions:
       contents: write
     strategy:
@@ -37,14 +38,12 @@ jobs:
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
       
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.1
-          bundler-cache: true
-
       # check out project
       - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
 
       - name: Check Flutter SDK Version
         working-directory: ./base_flutter
@@ -87,15 +86,21 @@ jobs:
           tag_name: ${{ steps.dev.outputs.release_dev }}
           files: |
             ./base_flutter/build/app/outputs/flutter-apk/app-dev-release.apk
-      - name: Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
-        with:
-          appId: ${{ secrets.FIREBASE_APP_ID }}
-          token: ${{ secrets.FIREBASE_TOKEN }}
-          groups: testers
-          file: ./base_flutter/build/app/outputs/flutter-apk/app-dev-release.apk
+      
+      - name: Fastlane Install
+        working-directory: ./base_flutter/android
+        run: bundle install
+        
+      - name: Fastlane Deploy Dev Firebase App Distribution
+        working-directory: ./base_flutter/android
+        run: bundle exec fastlane android deploy_dev
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_IOS_APP_ID: ${{ secrets.FIREBASE_IOS_APP_ID }}
+          FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+
   build-staging:
-    if: github.repository == 'staging'
+    if: contains('refs/heads/staging', github.ref)
     runs-on: ${{ matrix.os }}
     environment: keystore_staging
     permissions:
@@ -106,7 +111,7 @@ jobs:
         sdk: [3.10.1]
     steps:
       
-      # The flutter action needs java so include it
+      #1 The flutter action needs java so include it
       - uses: actions/setup-java@v1
         with:
           java-version: '11'
@@ -119,16 +124,13 @@ jobs:
           cache: true
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
-      
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.1
-          bundler-cache: true
 
       # check out project
-      - name: Check out source code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
 
       - name: Decode Keystore
         run:
@@ -159,25 +161,17 @@ jobs:
           SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_STORE_PASSWORD }}
 
-      # - name: Build Staging APK
-      #   working-directory: ./base_flutter
-      #   run: flutter build apk --release --flavor staging -t lib/main_staging.dart
-      
-      # - name: Build Prod Appbundle
-      #   working-directory: ./base_flutter
-      #   run: flutter build appbundle --release --flavor prod -t lib/main_prod.dart
-      #3
       - name: Upload Staging Release Build to Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: Build Artifacts
           path: ./base_flutter/build/app/outputs/
-      #4
+      
       - name: Generate Release TAG
         id: staging
         run: |
           echo "::set-output name=release_staging::Staging_$(date +"%Y.%m.%d_%H-%M")"
-        #5
+      
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
         env:
@@ -189,21 +183,21 @@ jobs:
           files: |
             ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk
             ./base_flutter/build/app/outputs/apk/staging/app-staging-release.apk
-      - name: Firebase App Distribution
-        # uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
-        # with:
-        #   appId: ${{ secrets.FIREBASE_APP_ID }}
-        #   token: ${{ secrets.FIREBASE_TOKEN }}
-        #   groups: testers
-        #   file: ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk
-        uses: w9jds/firebase-action@master
-        with:
-          args: distribute ./base_flutter/build/app/outputs/flutter-apk/app-staging-release.apk --app ${{ secrets.FIREBASE_APP_ID }} --release-notes "Bug fixes and improvements" --testers "haphu4247@gmail.com"
+      
+      - name: Fastlane Install
+        working-directory: ./base_flutter/android
+        run: bundle install
+      
+      - name: Fastlane Deploy Staging Firebase App Distribution
+        working-directory: ./base_flutter/android
+        run: bundle exec fastlane android deploy_staging
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_IOS_APP_ID: ${{ secrets.FIREBASE_IOS_APP_ID }}
+          FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
 
   deploy-production:
-    if: github.repository == 'master'
+    if: contains('refs/heads/master', github.ref)
     runs-on: ${{ matrix.os }}
     environment: keystore_prod
     permissions:
@@ -214,11 +208,11 @@ jobs:
         sdk: [3.10.1]
     steps:
       
-      # The flutter action needs java so include it
+      #1 The flutter action needs java so include it
       - uses: actions/setup-java@v1
         with:
           java-version: '11'
-      
+      #2
       - name: Flutter SDK Install
         uses: subosito/flutter-action@v2.10.0
         with:
@@ -228,37 +222,33 @@ jobs:
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
       
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
+      #3 check out project
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1
+          ruby-version: '3.0'
           bundler-cache: true
-
-      # check out project
-      - name: Check out source code
-        uses: actions/checkout@v3
-
+      # #4
       - name: Decode Keystore
         run:
           echo ${{ secrets.ANDROID_KEYSTORES }} | base64 --decode > ${{ github.workspace }}/base_flutter/android/app/${{ secrets.ANDROID_SIGNING_KEYSTORE_PATH }}
-
-
+      #5
       - name: Check Flutter SDK Version
         working-directory: ./base_flutter
         run: flutter --version
-
+      #6
       - name: Install dependencies
         working-directory: ./base_flutter
         run: flutter pub get
-      
+      #7
       - name: Generate Text
         working-directory: ./base_flutter
         run: flutter gen-l10n --arb-dir lib/shared/languages/l10n
-        
+      #8
       - name: Run tests
         working-directory: ./base_flutter
         run: flutter test
-      
+      #9
       - name: Build Prod Appbundle
         working-directory: ./base_flutter
         run: flutter build appbundle --release --flavor prod -t lib/main_prod.dart
@@ -266,18 +256,18 @@ jobs:
           SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_STORE_PASSWORD }}
-
+      #10
       - name: Upload Prod Release Build to Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: Build Artifacts
           path: ./base_flutter/build/app/outputs/
-      #4
+      #11
       - name: Generate Prod TAG
         id: prod
         run: |
           echo "::set-output name=release_prod::Prod_$(date +"%Y.%m.%d_%H-%M")"
-        #5
+      #12
       - name: Create Github Release
         uses: softprops/action-gh-release@v1
         env:
@@ -287,12 +277,29 @@ jobs:
           prerelease: true
           tag_name: ${{ steps.prod.outputs.release_prod }}
           files: |
-            ./base_flutter/build/app/outputs/flutter-apk/app-prod-release.apk
-            ./base_flutter/build/app/outputs/apk/prod/app-prod-release.apk
-      - name: Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
+            ./base_flutter/build/app/outputs/bundle/prodRelease/app-prod-release.aab
+      #13 Fastlane Cache & Install 
+      - name: Cache Gems Bundler
+        id: cache-fastlane-bundler
+        uses: actions/cache@v2
         with:
-          appId: ${{ secrets.FIREBASE_APP_ID }}
-          token: ${{ secrets.FIREBASE_TOKEN }}
-          groups: testers
-          file: ./base_flutter/build/app/outputs/flutter-apk/app-prod-release.apk
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-bundler-${{ hashFiles('**/android/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-bundler-
+      - name: Fastlane Install
+        working-directory: ./base_flutter/android
+        if: steps.cache-fastlane-bundler.outputs.cache-hit != 'true'
+        run: bundle install
+      #14
+      - name: Decode Play Store Credentials
+        run:
+          echo ${{ secrets.PLAY_STORE_CREDENTIALS_ENCODED }} | base64 --decode > ${{ github.workspace }}/base_flutter/android/app/${{ secrets.PLAY_STORE_CREDENTIALS_PATH }}
+      #15
+      - name: Fastlane Deploy Prod Firebase App Distribution
+        working-directory: ./base_flutter/android
+        run: bundle exec fastlane android deploy_prod
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_IOS_APP_ID: ${{ secrets.FIREBASE_IOS_APP_ID }}
+          FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
