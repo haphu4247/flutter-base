@@ -1,13 +1,14 @@
 import 'package:base_flutter/base/tracking_logger/app_tracking.dart';
 import 'package:base_flutter/flavour/firebase/env/firebase_options_base.dart';
-import 'package:base_flutter/flavour/firebase/env/firebase_options_prod.dart';
+import 'package:base_flutter/flavour/firebase/env/firebase_options_dev.dart';
 import 'package:base_flutter/flavour/firebase/fcm_handler/fcm_provider.dart';
 import 'package:base_flutter/flavour/flavour.dart';
 
 import 'config_base.dart';
 
-class ProdConfig implements ConfigBase {
-  ProdConfig(this.env);
+class DevConfig implements ConfigBase {
+  DevConfig(this.env);
+
   @override
   String get apiHost => 'https://data.binance.com/';
 
@@ -15,8 +16,8 @@ class ProdConfig implements ConfigBase {
   Flavour env;
 
   @override
-  AppTracking get tracking => AppTracking(
-      enableWriteToDownload: false, enableWriteToFirebaseLog: false);
+  AppTracking get tracking =>
+      AppTracking(enableWriteToDownload: true, enableWriteToFirebaseLog: true);
 
   @override
   Future<dynamic> initConfig() {
@@ -30,5 +31,5 @@ class ProdConfig implements ConfigBase {
   IFcmProvider get fcmProvider => IFcmProvider();
 
   @override
-  BaseFirebaseOptions get options => DefaultFirebaseOptionsProd.instance;
+  BaseFirebaseOptions get options => DefaultFirebaseOptionsDev.instance;
 }

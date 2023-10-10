@@ -47,4 +47,10 @@ class AppLogger {
           fontSize: 14);
     }
   }
+
+  static void onError(Object error, StackTrace stack) {
+    if (kDebugMode) {
+      _logger.e('root exception', error: error, stackTrace: stack);
+    }
+  }
 }

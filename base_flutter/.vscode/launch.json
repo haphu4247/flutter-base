@@ -68,6 +68,28 @@
               ]
         },
         {
+            "name": "Staging debug",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "program": "lib/main_staging.dart",
+            "args": [
+                "--flavor",
+                "staging"
+              ]
+        },
+        {
+            "name": "Staging release",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "program": "lib/main_staging.dart",
+            "args": [
+                "--flavor",
+                "staging"
+              ]
+        },
+        {
             "name": "Dev Debug Preview",
             "request": "launch",
             "type": "dart",

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:base_flutter/base/tracking_logger/app_logger.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -15,7 +16,8 @@ abstract class IFcmProvider {
   }
   IFcmProvider._internal();
 
-  Future<FirebaseApp> initFcm();
+  Future<FirebaseApp> initFcm(
+      {required FirebaseOptions options, bool enableCrashlytics = true});
 
   Future<String?> getFcmToken(
       {required void Function(String fcmToken) onGetToken});
@@ -40,10 +42,27 @@ class _FcmProviderImpl extends IFcmProvider {
       FlutterLocalNotificationsPlugin();
 
   @override
-  Future<FirebaseApp> initFcm() async {
-    await _initializeFlutterNotification();
-    return Firebase.initializeApp()
-        .whenComplete(_listenFirebaseMessagingForeground);
+  Future<FirebaseApp> initFcm(
+      {required FirebaseOptions options, bool enableCrashlytics = true}) {
+    return Firebase.initializeApp(options: options).whenComplete(
+      () async {
+        _initializeFlutterNotification();
+        _listenFirebaseMessagingForeground();
+
+        if (!FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled &&
+            enableCrashlytics) {
+          await FirebaseCrashlytics.instance
+              .setCrashlyticsCollectionEnabled(enableCrashlytics);
+        }
+
+        FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+        // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+        PlatformDispatcher.instance.onError = (error, stack) {
+          FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+          return true;
+        };
+      },
+    );
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:base_flutter/flavour/config/config_base.dart';
+import 'package:base_flutter/flavour/firebase/fcm_handler/fcm_provider.dart';
 import 'package:base_flutter/flavour/flavour.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ final _IAppConfigImpl _singleton = _IAppConfigImpl();
 class _IAppConfigImpl extends IAppConfig {
   _IAppConfigImpl() : super._internal();
 
-  ConfigBase? _config;
+  late final ConfigBase _config;
 
   Locale? _selectedLocales;
 
@@ -40,7 +41,7 @@ class _IAppConfigImpl extends IAppConfig {
     // LocalRepository().initData();
     final AppThemes appTheme = AppThemes.instance;
     return Future.wait([
-      // IFcmProvider().initFcm(),
+      _config.initConfig(),
       _loadLocales(),
       appTheme.loadTheme(),
     ]);

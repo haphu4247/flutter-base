@@ -3,6 +3,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension LanguageExt on BuildContext {
   AppLocalizations get localize {
-    return AppLocalizations.of(this);
+    final localize = AppLocalizations.of(this);
+    if (localize != null) {
+      return localize;
+    }
+    return lookupAppLocalizations(const Locale('en'));
   }
 }

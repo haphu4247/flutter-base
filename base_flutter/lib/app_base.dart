@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:base_flutter/app/di_config.dart';
+import 'package:base_flutter/base/tracking_logger/app_logger.dart';
 import 'package:base_flutter/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -7,13 +10,19 @@ import 'app/app_config.dart';
 import 'base/styles/themes/app_themes.dart';
 import 'flavour/flavour.dart';
 
-Future<dynamic> startApp(Flavour flavour) {
-  WidgetsFlutterBinding.ensureInitialized();
-  return Future.wait([
-    DIConfig().initConfig(flavour),
-  ]).whenComplete(() {
-    runApp(_AppBase(flavour: flavour));
-  });
+void startApp(Flavour flavour) {
+  return runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+
+      await Future.wait([
+        DIConfig().initConfig(flavour),
+      ]);
+
+      runApp(_AppBase(flavour: flavour));
+    },
+    AppLogger.onError,
+  );
 }
 
 class _AppBase extends StatefulWidget {
@@ -28,6 +37,12 @@ class _AppBase extends StatefulWidget {
 }
 
 class _AppBaseState extends State<_AppBase> {
+  @override
+  void initState() {
+    AppLogger.console(this, 'init Base App');
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final flavour = IAppConfig();
