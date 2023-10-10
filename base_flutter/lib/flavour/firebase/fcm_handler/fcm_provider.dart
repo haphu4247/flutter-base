@@ -50,7 +50,7 @@ class _FcmProviderImpl extends IFcmProvider {
         _listenFirebaseMessagingForeground();
 
         if (!FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled &&
-            enableCrashlytics) {
+            enableCrashlytics && kReleaseMode) {
           await FirebaseCrashlytics.instance
               .setCrashlyticsCollectionEnabled(enableCrashlytics);
         }
