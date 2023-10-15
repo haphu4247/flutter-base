@@ -16,8 +16,10 @@ abstract class IFcmProvider {
   }
   IFcmProvider._internal();
 
-  Future<FirebaseApp> initFcm(
-      {required FirebaseOptions options, bool enableCrashlytics = true});
+  Future<dynamic> initFcm({
+    required FirebaseOptions options,
+    required bool enableCrashlytics,
+  });
 
   Future<String?> getFcmToken(
       {required void Function(String fcmToken) onGetToken});
@@ -36,21 +38,23 @@ class _FcmProviderImpl extends IFcmProvider {
       'High Importance Notifications';
 
   //add icon to Android folder: android/app/main/res/drawable
-  static const String _androidIcon = 'logo';
+  static const String _androidIcon = 'ic_notification';
 
   static final FlutterLocalNotificationsPlugin localNotifications =
       FlutterLocalNotificationsPlugin();
 
   @override
-  Future<FirebaseApp> initFcm(
-      {required FirebaseOptions options, bool enableCrashlytics = true}) {
+  Future<dynamic> initFcm({
+    required FirebaseOptions options,
+    bool enableCrashlytics = true,
+  }) {
     return Firebase.initializeApp(options: options).whenComplete(
       () async {
-        _initializeFlutterNotification();
         _listenFirebaseMessagingForeground();
-
+        _initializeFlutterNotification();
         if (!FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled &&
-            enableCrashlytics && kReleaseMode) {
+            enableCrashlytics &&
+            kReleaseMode) {
           await FirebaseCrashlytics.instance
               .setCrashlyticsCollectionEnabled(enableCrashlytics);
         }
@@ -207,7 +211,7 @@ class _FcmProviderImpl extends IFcmProvider {
   }) async {
     const DarwinNotificationDetails iOSPlatformChannelSpecifics =
         DarwinNotificationDetails(
-            presentBadge: true, threadIdentifier: 'lotte_cinema_noti');
+            presentBadge: true, threadIdentifier: 'base_flutter_noti');
 
     /// on ios it will not handle foreground need to handle
     final bool? result = await localNotifications
