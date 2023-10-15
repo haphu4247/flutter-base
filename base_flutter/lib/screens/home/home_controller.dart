@@ -5,7 +5,7 @@ import 'package:base_flutter/shared/languages/context_extension.dart';
 class HomeController extends BaseController {
   String get title {
     final env =
-        context?.localize.appVariant(getIt.get<IAppConfig>().config.env.name);
+        context?.localize.appVariant(getIt.get<IAppConfig>().config.flavour.name);
     return 'Home $env';
   }
 

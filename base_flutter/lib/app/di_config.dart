@@ -26,12 +26,16 @@ class _DIConfigImpl extends DIConfig {
 
   @override
   Future<dynamic> initConfig(Flavour flavour) {
-    _getIt.registerLazySingleton<BaseApiService>(BaseApiService.new);
-    final config = IAppConfig();
-    _getIt.registerLazySingleton<IAppConfig>(
-      () => config,
-    );
+    if (!_getIt.isRegistered<BaseApiService>()) {
+      _getIt.registerLazySingleton<BaseApiService>(BaseApiService.new);
+    }
 
+    final config = IAppConfig();
+    if (!_getIt.isRegistered<IAppConfig>()) {
+      _getIt.registerLazySingleton<IAppConfig>(
+        () => config,
+      );
+    }
     return config.initConfig(flavour);
   }
 }

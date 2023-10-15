@@ -1,5 +1,4 @@
 import 'package:base_flutter/flavour/config/config_base.dart';
-import 'package:base_flutter/flavour/firebase/fcm_handler/fcm_provider.dart';
 import 'package:base_flutter/flavour/flavour.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -8,7 +7,7 @@ import '../base/styles/themes/app_themes.dart';
 
 abstract class IAppConfig {
   factory IAppConfig() {
-    return _singleton;
+    return _IAppConfigImpl();
   }
 
   IAppConfig._internal();
@@ -21,8 +20,6 @@ abstract class IAppConfig {
 
   ConfigBase get config;
 }
-
-final _IAppConfigImpl _singleton = _IAppConfigImpl();
 
 class _IAppConfigImpl extends IAppConfig {
   _IAppConfigImpl() : super._internal();
