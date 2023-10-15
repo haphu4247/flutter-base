@@ -10,11 +10,11 @@ import 'package:flutter/foundation.dart'
 abstract class AppTracking {
   factory AppTracking({
     required bool enableWriteToDownload,
-    required bool enableWriteToFirebaseLog,
+    required bool enableCrashlytics,
   }) {
     return _AppTracking(
       enableWriteToDownload: enableWriteToDownload,
-      enableWriteToFirebaseLog: enableWriteToFirebaseLog,
+      enableCrashlytics: enableCrashlytics,
     );
   }
 
@@ -28,15 +28,13 @@ abstract class AppTracking {
 class _AppTracking extends AppTracking {
   _AppTracking({
     required bool enableWriteToDownload,
-    required bool enableWriteToFirebaseLog,
+    required bool enableCrashlytics,
   }) : super._internal() {
     _enableWriteToDownload = enableWriteToDownload;
-    _enableWriteToFirebaseLog = enableWriteToFirebaseLog;
-    FirebaseCrashlytics.instance
-        .setCrashlyticsCollectionEnabled(enableWriteToFirebaseLog);
+    _enableCrashlytics = enableCrashlytics;
   }
   late final bool _enableWriteToDownload;
-  late final bool _enableWriteToFirebaseLog;
+  late final bool _enableCrashlytics;
 
   Directory? _localPath;
 
@@ -67,7 +65,7 @@ class _AppTracking extends AppTracking {
   }
 
   Future<dynamic> _saveToFirebase(BaseModel model) async {
-    if (_enableWriteToFirebaseLog) {
+    if (_enableCrashlytics) {
       if (FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) {
         // Collection is enabled.
         FirebaseCrashlytics.instance.log(model.toString());
