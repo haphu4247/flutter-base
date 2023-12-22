@@ -1,5 +1,5 @@
 import 'package:base_flutter/base/tracking_logger/app_tracking.dart';
-import 'package:base_flutter/flavour/firebase/fcm_handler/fcm_provider.dart';
+import 'package:base_flutter/flavour/firebase/fcm_handler/fcm_managerdmanagerart';
 import 'package:base_flutter/flavour/firebase/firebase_options/firebase_options_base.dart';
 import 'package:base_flutter/flavour/flavour.dart';
 

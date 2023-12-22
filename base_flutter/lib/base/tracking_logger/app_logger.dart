@@ -17,26 +17,26 @@ class AppLogger {
   static bool get isDebug => kDebugMode;
 
   static void console(dynamic tag, dynamic e) {
-    if (kDebugMode) {
+    if (isDebug) {
       log('$tag: ==>> $e');
     }
   }
 
   static void d(dynamic tag, dynamic e) {
-    if (kDebugMode) {
+    if (isDebug) {
       _logger.d('${tag.runtimeType} : $e');
     }
   }
 
   static void e(dynamic tag, dynamic e) {
-    if (kDebugMode) {
+    if (isDebug) {
       _logger.e('${tag.runtimeType}', error: e);
     }
   }
 
   static void consoleToast(dynamic tag, String msg) {
-    if (kDebugMode ||
-        DIConfig().getIt.get<IAppConfig>().config.env != Flavour.prod) {
+    if (isDebug ||
+        DIConfig().getIt.get<IAppConfig>().config.flavour != Flavour.prod) {
       log('$tag: ==>> $msg');
       Fluttertoast.showToast(
           msg: msg,
@@ -49,7 +49,7 @@ class AppLogger {
   }
 
   static void onError(Object error, StackTrace stack) {
-    if (kDebugMode) {
+    if (isDebug) {
       _logger.e('root exception', error: error, stackTrace: stack);
     }
   }
