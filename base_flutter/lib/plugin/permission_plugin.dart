@@ -9,12 +9,12 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../data/local_repositories/local_repository.dart';
 
-abstract class AppPermission {
-  factory AppPermission() {
+abstract class AppPermissionPlugin {
+  factory AppPermissionPlugin() {
     return _singleton;
   }
 
-  AppPermission._internal();
+  AppPermissionPlugin._internal();
 
   Future<Position> requestUserPosition();
 
@@ -27,7 +27,7 @@ abstract class AppPermission {
 
 final _MyAppPermission _singleton = _MyAppPermission._();
 
-class _MyAppPermission extends AppPermission {
+class _MyAppPermission extends AppPermissionPlugin {
   _MyAppPermission._() : super._internal();
 
   @override
