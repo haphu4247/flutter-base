@@ -44,6 +44,14 @@ class _AppTracking extends AppTracking {
     _saveToFirebase(model);
   }
 
+  @override
+  Future<bool> requestPermissionOnInit() {
+    if (_enableWriteToDownload) {
+      return AppPermissionPlugin().requestSaveFile();
+    }
+    return Future.value(false);
+  }
+
   Future<dynamic> _saveToTrackingDir(BaseModel model) async {
     if (_enableWriteToDownload) {
       return _trackingDirectory().then((directory) {
@@ -100,13 +108,5 @@ class _AppTracking extends AppTracking {
     } else {
       return getDownloadsDirectory();
     }
-  }
-
-  @override
-  Future<bool> requestPermissionOnInit() {
-    if (_enableWriteToDownload) {
-      return AppPermission().requestSaveFile();
-    }
-    return Future.value(false);
   }
 }

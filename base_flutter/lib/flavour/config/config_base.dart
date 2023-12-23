@@ -1,5 +1,5 @@
 import 'package:base_flutter/base/tracking_logger/app_tracking.dart';
-import 'package:base_flutter/flavour/firebase/fcm_handler/fcm_managerdmanagerart';
+import 'package:base_flutter/flavour/firebase/fcm_manager/fcm_manager.dart';
 import 'package:base_flutter/flavour/firebase/firebase_options/firebase_options_base.dart';
 import 'package:base_flutter/flavour/flavour.dart';
 
@@ -27,7 +27,7 @@ abstract class ConfigBase {
 
   AppTracking get tracking;
 
-  IFcmProvider get fcmProvider;
+  IFcmManager get fcmManager;
 
   BaseFirebaseOptions get options;
 

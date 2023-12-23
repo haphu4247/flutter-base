@@ -43,7 +43,8 @@ abstract class IFcmManager {
   void _onSelectNotification(dynamic data);
 
   //put in the place you want to handle selection on notification
-  static void Function(NotificationModel model)? onSelect;
+  // static void Function(NotificationModel model)? onSelect;
+  StreamController<NotificationModel> get onSelect;
 }
 
 final _FcmManagerImpl _instance = _FcmManagerImpl();
@@ -67,6 +68,12 @@ class _FcmManagerImpl extends IFcmManager {
 
   static final FlutterLocalNotificationsPlugin _localNotifications =
       FlutterLocalNotificationsPlugin();
+
+  final _notiStream = StreamController<NotificationModel>.broadcast();
+  @override
+  StreamController<NotificationModel> get onSelect {
+    return _notiStream;
+  }
 
   @override
   Future<dynamic> initFcm({
@@ -330,7 +337,10 @@ class _FcmManagerImpl extends IFcmManager {
       model = NotificationModel.fromJson(data);
     }
     //handle event when user click on Notification
-    IFcmManager.onSelect?.call(model);
+    // IFcmManager.onSelect?.call(model);
+    if (_notiStream.hasListener) {
+      _notiStream.add(model);
+    }
   }
 
   //This function receive data from Push Notification when app is in Forceground or Background

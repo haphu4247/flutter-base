@@ -16,7 +16,7 @@ class _DevConfig implements ConfigBase {
   @override
   Future<dynamic> initConfig() {
     return Future.wait([
-      fcmProvider.initFcm(
+      fcmManager.initFcm(
         options: options.currentPlatform,
         enableCrashlytics: enableCrashlytics,
       ),
@@ -25,7 +25,7 @@ class _DevConfig implements ConfigBase {
   }
 
   @override
-  IFcmProvider get fcmProvider => IFcmProvider();
+  IFcmManager get fcmManager => IFcmManager();
 
   @override
   BaseFirebaseOptions get options => BaseFirebaseOptions(flavour);

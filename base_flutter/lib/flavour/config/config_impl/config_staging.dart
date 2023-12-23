@@ -16,13 +16,13 @@ class _StagingConfig implements ConfigBase {
   @override
   Future<dynamic> initConfig() {
     return Future.wait([
-      fcmProvider.initFcm(options: options.currentPlatform, enableCrashlytics: enableCrashlytics),
+      fcmManager.initFcm(options: options.currentPlatform, enableCrashlytics: enableCrashlytics),
       tracking.requestPermissionOnInit()
     ]);
   }
 
   @override
-  IFcmProvider get fcmProvider => IFcmProvider();
+  IFcmManager get fcmManager => IFcmManager();
 
   @override
   BaseFirebaseOptions get options => BaseFirebaseOptions(flavour);
