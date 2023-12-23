@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../routes/app_navigation.dart';
+import '../../../routes/app_navigation_manager.dart';
 import '../../colors/app_colors.dart';
 
 class MyBackButton extends StatelessWidget {
@@ -16,12 +16,12 @@ class MyBackButton extends StatelessWidget {
     if (btnClose) {
       return CloseButton(
         color: AppColors.white,
-        onPressed: () => AppNavigation.back(context: context),
+        onPressed: () => context.appNavigation.back(),
       );
     }
     return BackButton(
       color: AppColors.white,
-      onPressed: () => AppNavigation.back(context: context),
+      onPressed: () => context.appNavigation.back(),
     );
   }
 }

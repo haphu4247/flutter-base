@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 abstract class BaseScreen<T extends BaseController> extends StatelessWidget {
   const BaseScreen({
-    super.key,
+    Key? key,
     required this.controller,
-  });
+  }) : super(key: key);
   final T controller;
 
   Widget buildView(BuildContext context);

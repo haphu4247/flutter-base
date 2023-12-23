@@ -28,7 +28,7 @@ class SplashController extends BaseController {
   void onListen() {
     AppLogger.console(this, anim?.status);
     if (anim?.isCompleted == true) {
-      replaceNamed(Routes.home);
+      replaceNamed(AppRouteManager.home);
     }
   }
 }

@@ -1,5 +1,5 @@
 import 'package:base_flutter/app/di_config.dart';
-import 'package:base_flutter/routes/app_navigation.dart';
+import 'package:base_flutter/routes/app_navigation_manager.dart';
 import 'package:flutter/material.dart';
 
 abstract class BaseController {
@@ -12,20 +12,14 @@ abstract class BaseController {
   void dispose() {}
 
   void onBack() {
-    if (context != null) {
-      AppNavigation.back(context: context!);
-    }
+    context?.appNavigation.back();
   }
 
   void nextRoute(String route) {
-    if (context != null) {
-      AppNavigation.nextRoute(context!, route);
-    }
+    context?.appNavigation.nextRoute(route);
   }
 
   void replaceNamed(String route) {
-    if (context != null) {
-      AppNavigation.replaceNamed(context!, route);
-    }
+    context?.appNavigation.replaceNamed(route);
   }
 }

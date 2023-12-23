@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 abstract class BaseStatefulScreen<T extends BaseController>
     extends StatefulWidget {
   const BaseStatefulScreen({
-    super.key,
+    Key? key,
     required this.controller,
-  });
+  }) : super(key: key);
 
   final T controller;
 }

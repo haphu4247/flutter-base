@@ -6,12 +6,12 @@ import 'package:base_flutter/screens/test/test_lottie/test_lottie_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-part 'app_routes.dart';
+part 'app_route_manager.dart';
 
 class AppPages {
   // GoRouter configuration
   static final router = GoRouter(
-    initialLocation: '/${Routes.splash}',
+    initialLocation: '/${AppRouteManager.splash}',
     errorPageBuilder: (_, state) => MaterialPage(
       key: state.pageKey,
       name: '/not-found',
@@ -19,8 +19,8 @@ class AppPages {
     ),
     routes: [
       GoRoute(
-        name: Routes.splash,
-        path: '/${Routes.splash}',
+        name: AppRouteManager.splash,
+        path: '/${AppRouteManager.splash}',
         builder: (context, state) => SplashScreen(),
         // routes: [
         //   GoRoute(
@@ -31,18 +31,18 @@ class AppPages {
         // ],
       ),
       GoRoute(
-        name: Routes.home,
-        path: '/${Routes.home}',
+        name: AppRouteManager.home,
+        path: '/${AppRouteManager.home}',
         builder: (context, state) => HomeScreen(),
         routes: [
           GoRoute(
-            name: Routes.testLottie,
-            path: Routes.testLottie,
+            name: AppRouteManager.testLottie,
+            path: AppRouteManager.testLottie,
             builder: (context, state) => TestLottieScreen(),
           ),
           GoRoute(
-            name: Routes.testFetchingApi,
-            path: Routes.testFetchingApi,
+            name: AppRouteManager.testFetchingApi,
+            path: AppRouteManager.testFetchingApi,
             builder: (context, state) => PublicApiScreen(),
           )
         ],
