@@ -1,6 +1,5 @@
-import 'package:base_flutter/base/base_screen/controller/base_controller.dart';
+import 'package:app_base/app_base.dart';
 import 'package:base_flutter/routes/app_pages.dart';
-import 'package:base_flutter/base/tracking_logger/app_logger.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
 

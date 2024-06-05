@@ -1,6 +1,5 @@
+import 'package:app_base/app_base.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
-import '../../base/tracking_logger/app_logger.dart';
 
 class SecureHelper {
   SecureHelper._();

@@ -1,13 +1,7 @@
-/// add prefix for specify the data type.
-/// b: bool
-/// i: int
-/// d: double
-/// s: String
-/// o: Object ==> save as json String
+import 'package:app_base/app_base.dart';
+
 enum LocalDataKey {
-  //clear all,
-  // none,
-  clearAll,
+  clear,
   sAppLocale,
   sAppCurrency,
   bFirstTimeOpenApp,
@@ -15,5 +9,7 @@ enum LocalDataKey {
   login,
   showHomePopup,
   fcmToken,
-  requestNotificationPermission
+  requestNotificationPermission;
+
+  BaseLocalData get instance => BaseLocalData.instance(this);
 }

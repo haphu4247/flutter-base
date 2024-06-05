@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../colors/app_colors.dart';
+import '../../../resources/colors/app_colors.dart';
 import '../../decoration/app_style.dart';
 import '../../../plugin/image_loader_plugin.dart';
 

@@ -1,6 +1,6 @@
-import 'package:dio/dio.dart';
+import 'package:app_base/app_base.dart';
 
-import '../../../base/api_client/base_api_service.dart';
+import 'models/public_api/coin_list_response.dart';
 import 'public_api_setup.dart';
 
 class PublicRepository<T extends BaseApiService> {
@@ -8,7 +8,7 @@ class PublicRepository<T extends BaseApiService> {
 
   final T _apiClient;
 
-  Future<Response<dynamic>> listCoin() {
-    return _apiClient.callApi(PublicApiSetup(PublicApi.coin));
+  Future<List<CoinModel>> listCoin() {
+    return _apiClient.callList<CoinModel>(PublicApi.coin.init, generator: CoinModel.fromJson,);
   }
 }

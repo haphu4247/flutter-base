@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
 
-import '../shared/colors/app_colors.dart';
+import '../resources/colors/app_colors.dart';
 import '../shared/utils/utils.dart';
 
 class ImageLoaderPlugin extends StatelessWidget {

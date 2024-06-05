@@ -1,9 +1,7 @@
-import 'package:base_flutter/base/base_screen/view/base_stateful_screen.dart';
+import 'package:app_base/app_base.dart';
 import 'package:base_flutter/base/widgets/loading_view.dart';
-import 'package:base_flutter/data/models/public_api/coin_list_response.dart';
 import 'package:base_flutter/screens/test/public_api/public_api_controller.dart';
-import 'package:base_flutter/shared/colors/app_colors.dart';
-import 'package:base_flutter/shared/extension/response_extension.dart';
+import 'package:base_flutter/resources/colors/app_colors.dart';
 import 'package:base_flutter/shared/widgets/my_appbar.dart';
 import 'package:flutter/material.dart';
 
@@ -23,15 +21,11 @@ class _PublicApiScreenState
       body: FutureBuilder(
         future: widget.controller.list(),
         builder: (context, snapshot) {
-          final data = snapshot.data;
+          final result = snapshot.data;
 
-          if (data != null) {
-            final result = data.checkResultList<CoinListResponse, CoinModel>(
-              jsonParser: CoinListResponse.new,
-              itemParser: CoinModel.fromJson,
-              onSuccess: (value) {},
-            );
-            if (result != null) {
+          if (result != null) {
+            
+            if (result.isNotEmpty) {
               return ListView.builder(
                 itemCount: result.length,
                 itemBuilder: (context, index) {

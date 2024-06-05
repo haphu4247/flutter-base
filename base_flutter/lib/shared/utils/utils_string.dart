@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sprintf/sprintf.dart';
 
-import '../../app/app_config.dart';
-
 class UtilsString {
   UtilsString._internal();
 
@@ -23,41 +21,41 @@ class UtilsString {
     return sprintf(s, list);
   }
 
-  static String currency(int? total) {
-    if (total == null) {
-      return '0';
-    }
-    final Locale locale = DIConfig().getIt.get<IAppConfig>().selectedLocales;
+  // static String currency(int? total) {
+  //   if (total == null) {
+  //     return '0';
+  //   }
+  //   final Locale locale = DIConfig().getIt.get<IAppConfig>().selectedLocales;
 
-    // final country = locale.countryCode;
-    final currency = NumberFormat.simpleCurrency(
-      locale: locale.toString(),
-    );
+  //   // final country = locale.countryCode;
+  //   final currency = NumberFormat.simpleCurrency(
+  //     locale: locale.toString(),
+  //   );
 
-    return currency.format(total);
-  }
+  //   return currency.format(total);
+  // }
 
-  static String formatNumber(int? total) {
-    if (total == null) {
-      return '0';
-    }
-    final Locale locale = DIConfig().getIt.get<IAppConfig>().selectedLocales;
+  // static String formatNumber(int? total) {
+  //   if (total == null) {
+  //     return '0';
+  //   }
+  //   final Locale locale = DIConfig().getIt.get<IAppConfig>().selectedLocales;
 
-    // final country = locale.countryCode;
-    final currency = NumberFormat.decimalPattern(locale.toString());
+  //   // final country = locale.countryCode;
+  //   final currency = NumberFormat.decimalPattern(locale.toString());
 
-    return currency.format(total);
-  }
+  //   return currency.format(total);
+  // }
 
-  static String parseCurrency(String? source) {
-    if (source != null) {
-      final amount = int.tryParse(source);
-      if (amount != null) {
-        return currency(amount);
-      }
-    }
-    return '0';
-  }
+  // static String parseCurrency(String? source) {
+  //   if (source != null) {
+  //     final amount = int.tryParse(source);
+  //     if (amount != null) {
+  //       return currency(amount);
+  //     }
+  //   }
+  //   return '0';
+  // }
 
   static String parseUtf8(String? text) {
     if (text?.isEmpty == true) {

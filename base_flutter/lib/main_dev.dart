@@ -1,7 +1,7 @@
-import 'package:base_flutter/flavour/flavour.dart';
+import 'package:app_base/app_base.dart';
 
 import 'app_base.dart';
 
 void main() {
-  startApp(Flavour.dev);
+  startApp(Env.dev);
 }

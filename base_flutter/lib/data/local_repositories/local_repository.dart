@@ -1,5 +1,3 @@
-// part 'package:cinema/app/data/local_repositories/local_data_key/local_data_key.dart';
-import 'package:base_flutter/base/cached/base_local_data_key_ext.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
@@ -18,7 +16,7 @@ class LocalRepository {
   }
 
   Future<bool> clearData() {
-    return LocalDataKey.clearAll.clear();
+    return LocalDataKey.clear.instance.clearAll();
   }
 
   Future<void> _initHive() async {
@@ -33,31 +31,31 @@ class LocalRepository {
   }
 
   Future<bool?> firstTimeOpenApp() {
-    return LocalDataKey.bFirstTimeOpenApp.getBool();
+    return LocalDataKey.bFirstTimeOpenApp.instance.getBool();
   }
 
   Future<String?> appLocale() {
-    return LocalDataKey.sAppLocale.getString();
+    return LocalDataKey.sAppLocale.instance.getString();
   }
 
   Future<bool> saveFcmToken(String fcmToken) {
-    return LocalDataKey.fcmToken.setString(fcmToken);
+    return LocalDataKey.fcmToken.instance.setString(fcmToken);
   }
 
   Future<bool> setAppLocale(String langCode) {
-    return LocalDataKey.sAppLocale.setString(langCode);
+    return LocalDataKey.sAppLocale.instance.setString(langCode);
   }
 
   Future<String?> appCurrency() {
-    return LocalDataKey.sAppCurrency.getString();
+    return LocalDataKey.sAppCurrency.instance.getString();
   }
 
   Future<bool> setAppCurrency(String langCode) {
-    return LocalDataKey.sAppCurrency.setString(langCode);
+    return LocalDataKey.sAppCurrency.instance.setString(langCode);
   }
 
   Future<ThemeMode> themes() async {
-    final result = await LocalDataKey.sThemes.getString();
+    final result = await LocalDataKey.sThemes.instance.getString();
     if (result != null) {
       return ThemeMode.values.byName(result);
     } else {
@@ -66,15 +64,15 @@ class LocalRepository {
   }
 
   Future<bool> saveTheme(ThemeMode theme) {
-    return LocalDataKey.sThemes.setString(theme.name);
+    return LocalDataKey.sThemes.instance.setString(theme.name);
   }
 
   Future<bool> saveNotificationPermission() {
     final now = DateTimeUtils.formatDateyyyyMMdd(DateTime.now());
-    return LocalDataKey.requestNotificationPermission.setString(now);
+    return LocalDataKey.requestNotificationPermission.instance.setString(now);
   }
 
   Future<String?> getNotificationPermission() {
-    return LocalDataKey.requestNotificationPermission.getString();
+    return LocalDataKey.requestNotificationPermission.instance.getString();
   }
 }

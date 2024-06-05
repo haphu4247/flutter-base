@@ -1,4 +1,4 @@
-import 'package:base_flutter/base/tracking_logger/app_logger.dart';
+import 'package:app_base/app_base.dart';
 import 'package:intl/intl.dart';
 
 enum AppDateFormat { yyyymmdd, yyyyMMdd, ddMMyyyy, EEE, MMMM, HHmm }

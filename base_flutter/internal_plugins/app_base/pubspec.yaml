@@ -1,0 +1,32 @@
+name: app_base
+description: A starting point for Dart libraries or applications.
+version: 1.0.0
+# homepage: https://www.example.com
+
+environment:
+  sdk: '>=2.18.0 <4.0.0'
+dependencies:
+  path: ^1.8.0
+  logger: ^2.0.1
+  dio: ^5.4.3+1
+  fluttertoast: ^8.0.9
+  equatable: ^2.0.5
+  # firebase_core: ^2.15.1
+  # firebase_core: ^2.30.1
+  # firebase_crashlytics: ^2.8.3
+  path_provider: ^2.1.0
+  talker_flutter: ^4.1.5
+  talker_dio_logger: ^4.1.5
+  
+  firebase_core: ^1.19.0
+  firebase_crashlytics: ^2.9.0
+  firebase_messaging: ^13.1.0
+
+
+  shared_preferences: ^2.0.15
+  encrypt: ^5.0.1
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.16.0
+

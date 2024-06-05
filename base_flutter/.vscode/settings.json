@@ -15,5 +15,8 @@
     "editor.tabCompletion": "onlySnippets",
     "editor.wordBasedSuggestions": "off",
     "editor.wordWrapColumn": 100000,
+    "cSpell.words": [
+        "encrypter"
+    ],
     
 }

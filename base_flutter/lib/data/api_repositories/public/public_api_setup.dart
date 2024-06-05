@@ -1,11 +1,15 @@
-import '../../../base/api_client/base_api_setup.dart';
+import 'package:app_base/app_base.dart';
 
 enum PublicApi {
-  coin,
+  coin;
+
+  _PublicApiSetup get init {
+    return _PublicApiSetup(this);
+  }
 }
 
-class PublicApiSetup extends BaseApiSetup {
-  PublicApiSetup(PublicApi apiType) : _apiType = apiType;
+class _PublicApiSetup extends BaseApiSetup {
+  _PublicApiSetup(PublicApi apiType) : _apiType = apiType;
   final PublicApi _apiType;
 
   @override

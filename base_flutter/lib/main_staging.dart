@@ -1,6 +1,7 @@
+import 'package:app_base/app_base.dart';
+
 import 'app_base.dart';
-import 'flavour/flavour.dart';
 
 void main() {
-  startApp(Flavour.staging);
+  startApp(Env.staging);
 }

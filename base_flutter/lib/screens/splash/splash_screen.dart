@@ -1,4 +1,4 @@
-import 'package:base_flutter/base/base_screen/view/base_stateful_screen.dart';
+import 'package:app_base/app_base.dart';
 import 'package:base_flutter/base/widgets/lottie_view.dart';
 import 'package:flutter/material.dart';
 

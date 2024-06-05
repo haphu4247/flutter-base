@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../colors/app_colors.dart';
+import '../../resources/colors/app_colors.dart';
 import 'buttons/my_back_button.dart';
 
 class MyAppbar extends AppBar {

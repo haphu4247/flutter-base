@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../shared/colors/app_colors.dart';
+import '../resources/colors/app_colors.dart';
 import '../shared/utils/utils.dart';
 
 enum ToastType { success, removed, error, warning, info, added }
