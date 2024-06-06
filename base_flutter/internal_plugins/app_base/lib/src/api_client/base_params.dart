@@ -78,7 +78,7 @@ class _BaseParamsImpl extends BaseParams {
         .join('&');
   }
 
-  // ignore: unused_element
+  
   String _queryParameters(Map<dynamic, dynamic> params) {
     return params.entries.map((e) => '${e.key}=${e.value}').join('&');
   }
