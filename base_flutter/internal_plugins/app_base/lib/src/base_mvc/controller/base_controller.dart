@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
 abstract class BaseController {
-  late BuildContext context;
+  BaseController();
 
-  // final getIt = DIConfig().getIt;
+  BuildContext? _context;
+  BuildContext? get context => _context;
+  void initContext(BuildContext context) {
+    _context = context;
+  }
+
   //for state full widget
   void initState() {}
-  //for state full widget
   void dispose() {}
 
   void onBack() {
@@ -14,7 +18,7 @@ abstract class BaseController {
   }
 
   void nextRoute(String route) {
-    // context?.appNavigation.nextRoute(route);
+    // context.appNavigation.nextRoute(route);
   }
 
   void replaceNamed(String route) {

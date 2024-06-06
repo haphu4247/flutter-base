@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:app_base/src/api_client/intercepters/retry_intercepter.dart';
 import 'package:app_base/src/models/base_model.dart';
 import 'package:app_base/src/models/my_response.dart';
 import 'package:app_base/src/tracking_logger/logger_view.dart';
@@ -15,14 +16,18 @@ abstract class BaseApiService {
       {required String apiHost, bool observeLogger = false}) {
     final options = BaseOptions(
       baseUrl: apiHost,
-      connectTimeout: const Duration(seconds: 50),
+      connectTimeout: const Duration(seconds: 45),
       receiveTimeout: const Duration(seconds: 45),
       sendTimeout: const Duration(seconds: 45),
     );
     final dio = Dio(options);
+    dio.interceptors.add(
+      RetryInterceptor(dio: dio),
+    );
     if (observeLogger) {
       LoggerView.instance.observeLogger(dio.interceptors);
     }
+
     return _BaseApiServiceImpl(dio: dio);
   }
   const BaseApiService._internal();

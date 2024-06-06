@@ -15,7 +15,7 @@ export 'src/base_mvc/controller/base_controller.dart';
 export 'src/api_client/base_api_service.dart';
 export 'src/api_client/base_api_setup.dart';
 export 'src/api_client/base_params.dart';
-export 'src/api_client/exception/api_exception.dart';
+export 'src/api_client/exception/base_exception.dart';
 
 export 'src/env/base_env_model.dart';
 

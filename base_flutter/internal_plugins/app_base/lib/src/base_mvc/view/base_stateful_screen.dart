@@ -19,9 +19,8 @@ abstract class BaseStatefulScreenState<T extends BaseController,
   void initState() {
     widget.controller.initState();
     super.initState();
-    
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      widget.controller.context = context;
+      widget.controller.initContext(context);
     });
   }
 

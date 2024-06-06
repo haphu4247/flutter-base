@@ -12,7 +12,7 @@ abstract class BaseScreen<T extends BaseController> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.context = context;
+    controller.initContext(context);
     return buildView(context);
   }
 }

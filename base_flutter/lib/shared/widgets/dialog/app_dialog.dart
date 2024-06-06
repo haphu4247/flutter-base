@@ -2,7 +2,6 @@ import 'package:app_base/app_base.dart';
 import 'package:base_flutter/shared/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 
-
 import '../../decoration/my_spacer.dart';
 import '../buttons/my_app_button.dart';
 
@@ -10,12 +9,12 @@ enum AppAlertType { error, success, normal }
 
 /// Alert dialog with background image, body, cancel & ok buttons
 class AppAlertDialog {
-  static void showAPIError(BuildContext context, dynamic e) {
-    if (e is APIException) {
-      AppAlertDialog.show(
-          context: context, body: e.toString(), type: AppAlertType.error);
+  static void showAPIError(BuildContext context, dynamic e,
+      {AppAlertType type = AppAlertType.error}) {
+    if (e is BaseException) {
+      AppAlertDialog.show(context: context, body: e.toString(), type: type);
     } else if (e is String) {
-      AppAlertDialog.show(context: context, body: e, type: AppAlertType.error);
+      AppAlertDialog.show(context: context, body: e, type: type);
     }
   }
 
