@@ -8,7 +8,11 @@ environment:
 dependencies:
   path: ^1.8.0
   logger: ^2.0.1
-  dio: ^5.4.3+1
+
+  dio: ^5.5.0+1
+  dio_http_cache:
+    path: ./dio_http_cache
+
   fluttertoast: ^8.0.9
   equatable: ^2.0.5
   # firebase_core: ^2.15.1
@@ -22,9 +26,9 @@ dependencies:
   firebase_crashlytics: ^2.9.0
   firebase_messaging: ^13.1.0
 
-
   shared_preferences: ^2.0.15
   encrypt: ^5.0.1
+  
 
 dev_dependencies:
   lints: ^2.0.0
