@@ -19,12 +19,12 @@ class PageNotFoundScreen extends BaseScreen<PageNotFoundController> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           NoDataView.page404(),
-          AutoSizeTextPlugin(context.localize.page_not_found,
+          AutoSizeTextPlugin(context.lang.page_not_found,
               style: Theme.of(context).textTheme.headlineMedium)
         ],
       ),
       bottomNavigationBar: MyAppButton.rectangle(
-        title: context.localize.back,
+        title: context.lang.back,
         onTap: controller.onBack,
         btnPadding: const EdgeInsets.symmetric(vertical: 28),
       ),

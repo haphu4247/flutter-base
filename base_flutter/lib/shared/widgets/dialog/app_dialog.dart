@@ -30,9 +30,9 @@ class AppAlertDialog {
       bool dismissable = true,
       String? cancel,
       void Function()? cancelAction}) async {
-    accept ??= context.localize.ok;
-    cancel ??= context.localize.cancel;
-    title ??= context.localize.notification;
+    accept ??= context.lang.ok;
+    cancel ??= context.lang.cancel;
+    title ??= context.lang.notification;
     return showDialog(
         context: context,
         builder: (context) => WillPopScope(

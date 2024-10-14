@@ -14,6 +14,6 @@ rm .flutter-plugins
 rm .packages
 rm -rf ~/.pub-cache/
 flutter pub get
-flutter gen-l10n --arb-dir lib/shared/languages/l10n
+flutter gen-l10n --arb-dir lib/languages/res
 flutter build aab --release -t lib/main_prod.dart
 # flutter build ios --release -t lib/main_prod.dart

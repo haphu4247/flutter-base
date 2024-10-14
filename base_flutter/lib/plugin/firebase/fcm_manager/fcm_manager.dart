@@ -206,7 +206,7 @@ class _FcmManagerImpl extends IFcmManager {
       if (notificationPlugin != null) {
         final permission = await notificationPlugin.areNotificationsEnabled();
         if (permission != true) {
-          await notificationPlugin.requestPermission();
+          await notificationPlugin.requestNotificationsPermission();
         }
       }
     }

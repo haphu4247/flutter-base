@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 
 class HomeController extends BaseController {
   String get title {
-    final env = context?.localize.appVariant(context?.env.env.name ?? 'dev');
+    final env = context?.lang.appVariant(context?.env.env.name ?? 'dev');
     return 'Home $env';
   }
 
