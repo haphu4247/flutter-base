@@ -2,6 +2,15 @@ name: app_base
 description: A starting point for Dart libraries or applications.
 version: 1.0.0
 # homepage: https://www.example.com
+publish_to: none
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+#command to upgrade all packages version: flutter pub upgrade --major-versions
 
 environment:
   sdk: '>=2.18.0 <4.0.0'
@@ -10,27 +19,27 @@ dependencies:
   logger: ^2.0.1
 
   dio: ^5.5.0+1
-  dio_http_cache:
-    path: ./dio_http_cache
+
+  dio_http_cache_extension:
+    git:
+      url: https://github.com/haphu4247/dio-http-cache-extension.git
+      ref: main # branch name
 
   fluttertoast: ^8.0.9
   equatable: ^2.0.5
-  # firebase_core: ^2.15.1
-  # firebase_core: ^2.30.1
-  # firebase_crashlytics: ^2.8.3
   path_provider: ^2.1.0
   talker_flutter: ^4.1.5
   talker_dio_logger: ^4.1.5
   
-  firebase_core: ^1.19.0
-  firebase_crashlytics: ^2.9.0
-  firebase_messaging: ^13.1.0
+  firebase_core: ^3.4.0
+  firebase_crashlytics: ^4.1.0
+  firebase_messaging: ^15.1.0
 
   shared_preferences: ^2.0.15
   encrypt: ^5.0.1
   
 
 dev_dependencies:
-  lints: ^2.0.0
+  lints: ^4.0.0
   test: ^1.16.0
 
