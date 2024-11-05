@@ -11,17 +11,6 @@ abstract class BaseController {
 
   //for state full widget
   void initState() {}
+  
   void dispose() {}
-
-  void onBack() {
-    // context?.appNavigation.back();
-  }
-
-  void nextRoute(String route) {
-    // context.appNavigation.nextRoute(route);
-  }
-
-  void replaceNamed(String route) {
-    // context?.appNavigation.replaceNamed(route);
-  }
 }

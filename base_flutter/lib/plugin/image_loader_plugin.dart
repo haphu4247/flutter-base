@@ -1,20 +1,19 @@
+import 'package:base_flutter/shared/extension/context_extension.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
 
-import '../resources/colors/app_colors.dart';
 import '../shared/utils/utils.dart';
 
 class ImageLoaderPlugin extends StatelessWidget {
   const ImageLoaderPlugin(this.name,
-      {Key? key,
+      {super.key,
       this.fit,
       this.folder = AssetsFolder.icons,
       this.color,
       this.height,
-      this.width})
-      : super(key: key);
+      this.width});
   final String name;
   final AssetsFolder folder;
   final BoxFit? fit;
@@ -33,8 +32,9 @@ class ImageLoaderPlugin extends StatelessWidget {
         height: height,
         placeholder: (BuildContext context, String url) => SizedBox(
           height: Utils.height(context, height ?? 24),
-          child: const Center(
-              child: CircularProgressIndicator(color: AppColors.primary)),
+          child: Center(
+              child:
+                  CircularProgressIndicator(color: context.appColors.primary)),
         ),
         errorWidget: (BuildContext context, String url, dynamic error) =>
             _ErrorLoader(fit: fit, size: width),
@@ -64,10 +64,10 @@ class ImageLoaderPlugin extends StatelessWidget {
 
 class _ErrorLoader extends StatelessWidget {
   const _ErrorLoader({
-    Key? key,
+    super.key,
     required this.fit,
     required this.size,
-  }) : super(key: key);
+  });
 
   final BoxFit? fit;
   final double? size;
@@ -77,7 +77,7 @@ class _ErrorLoader extends StatelessWidget {
     return Icon(
       Icons.error,
       size: size,
-      color: AppColors.primary,
+      color: context.appColors.primary,
     );
   }
 }

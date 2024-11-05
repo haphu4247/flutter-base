@@ -1,20 +1,30 @@
 import 'package:app_base/app_base.dart';
+import 'package:base_flutter/app/di_config.dart';
 import 'package:base_flutter/data/api_repositories/public/models/public_api/coin_list_response.dart';
 import 'package:base_flutter/data/api_repositories/public/public_repository.dart';
-import 'package:base_flutter/shared/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class PublicApiController extends BaseController {
   final String title = 'Test Fetching API';
-  late final PublicRepository repo;
-
+  PublicRepository? repo;
+  final ValueNotifier<List<CoinModel>?> coins = ValueNotifier(null);
   @override
   void initContext(BuildContext context) {
     super.initContext(context);
-    repo = PublicRepository(context.getIt.get<BaseApiService>());
-  }
-
-  Future<List<CoinModel>> list() {
-    return repo.listCoin();
+    repo = getIt.get<PublicRepository>();
+    if (repo != null) {
+      List<CoinModel>? result;
+      repo!.listCoin().then((value) {
+        result = value;
+      }).whenComplete(() {
+        if (result == null) {
+          coins.value = [];
+        } else {
+          coins.value = result;
+        }
+      });
+    } else {
+      coins.value = [];
+    }
   }
 }

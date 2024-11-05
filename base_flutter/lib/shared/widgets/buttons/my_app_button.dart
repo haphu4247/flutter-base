@@ -1,4 +1,4 @@
-import 'package:base_flutter/resources/colors/app_colors.dart';
+import 'package:base_flutter/shared/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class MyAppButton extends StatelessWidget {
@@ -122,7 +122,7 @@ class MyAppButton extends StatelessWidget {
                   // if (states.contains(MaterialState.pressed)) {
                   //   return Theme.of(context).primaryColorLight;
                   // }
-                  return AppColors.secondary;
+                  return context.appColors.primary70;
                 }),
                 backgroundColor: MaterialStateProperty.all(btnBackgroundColor),
                 padding: MaterialStateProperty.all(

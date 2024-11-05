@@ -1,5 +1,6 @@
 import 'package:app_base/app_base.dart';
 import 'package:base_flutter/routes/app_pages.dart';
+import 'package:base_flutter/shared/extension/context_extension.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
 
@@ -27,7 +28,7 @@ class SplashController extends BaseController {
   void onListen() {
     AppLogger.console(this, anim?.status);
     if (anim?.isCompleted == true) {
-      replaceNamed(AppRouteManager.home);
+      context?.navigation.replaceNamed(AppRouteManager.home);
     }
   }
 }

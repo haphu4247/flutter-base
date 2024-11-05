@@ -6,7 +6,7 @@ import 'package:base_flutter/screens/test/test_lottie/test_lottie_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-part 'app_route_manager.dart';
+part 'all_routes_manager.dart';
 
 class AppPages {
   // GoRouter configuration

@@ -1,18 +1,15 @@
+import 'package:base_flutter/plugin/image_loader_plugin.dart';
+import 'package:base_flutter/shared/extension/context_extension.dart';
 import 'package:flutter/material.dart';
-
-import '../../../resources/colors/app_colors.dart';
-import '../../decoration/app_style.dart';
-import '../../../plugin/image_loader_plugin.dart';
 
 class MyDropdownView extends StatelessWidget {
   const MyDropdownView(
-      {Key? key,
+      {super.key,
       required this.label,
       required this.onPress,
       this.readOnly = true,
       this.hint = 'Vui lòng chọn',
-      required this.controller})
-      : super(key: key);
+      required this.controller});
 
   final String? label;
   final String hint;
@@ -36,38 +33,40 @@ class MyDropdownView extends StatelessWidget {
                 child:
                     Text(label!, style: Theme.of(context).textTheme.bodySmall)),
           Positioned(
-              height: 44,
-              top: 22,
-              left: 0,
-              right: 0,
-              child: TextField(
-                  controller: controller,
-                  readOnly: readOnly,
-                  onTap: onPress,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.primary)),
-                    focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.primary)),
-                    hintText: hint,
-                    hintStyle: AppStyles.hintText,
-                    labelStyle: const TextStyle(
-                        fontSize: 13, color: Colors.redAccent), //label style
-                    suffixIcon: IconButton(
-                      onPressed: onPress,
-                      padding: const EdgeInsets.only(left: 6),
-                      constraints: const BoxConstraints(),
-                      icon: const ImageLoaderPlugin(
-                        'right-arrow.png',
-                        width: 20,
-                        height: 20,
-                      ),
-                    ),
-                  )))
+            height: 44,
+            top: 22,
+            left: 0,
+            right: 0,
+            child: TextField(
+              controller: controller,
+              readOnly: readOnly,
+              onTap: onPress,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: context.appColors.primary)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: context.appColors.primary)),
+                hintText: hint,
+                hintStyle: context.textStyles.hintText,
+                labelStyle: const TextStyle(
+                    fontSize: 13, color: Colors.redAccent), //label style
+                suffixIcon: IconButton(
+                  onPressed: onPress,
+                  padding: const EdgeInsets.only(left: 6),
+                  constraints: const BoxConstraints(),
+                  icon: const ImageLoaderPlugin(
+                    'right-arrow.png',
+                    width: 20,
+                    height: 20,
+                  ),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

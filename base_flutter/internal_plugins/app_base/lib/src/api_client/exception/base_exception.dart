@@ -9,8 +9,4 @@ class BaseException implements Exception {
   String toString() => message;
 }
 
-extension DioExceptionExt on DioException {
-  BaseException get customException {
-    return BaseException();
-  }
-}
+extension DioExceptionExt on DioException {}

@@ -1,24 +1,25 @@
+import 'package:base_flutter/shared/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:modular_themes/modular_themes.dart';
 
-import '../resources/colors/app_colors.dart';
 import '../shared/utils/utils.dart';
 
 enum ToastType { success, removed, error, warning, info, added }
 
 extension ToastTypeExt on ToastType {
-  Color getColor() {
+  Color getColor(AppColors appColors) {
     switch (this) {
       case ToastType.success:
       case ToastType.removed:
-        return AppColors.oke;
+        return appColors.oke;
       case ToastType.error:
-        return AppColors.failed;
+        return appColors.failed;
       case ToastType.warning:
-        return AppColors.warning;
+        return appColors.warning;
       case ToastType.info:
       case ToastType.added:
-        return AppColors.primary;
+        return appColors.primary;
     }
   }
 
@@ -74,19 +75,18 @@ class ToastPlugin {
 
 class _MyCustomToast extends StatelessWidget {
   const _MyCustomToast(
-      {Key? key,
+      {super.key,
       this.onClose,
       required this.type,
       required this.text,
-      required this.subText})
-      : super(key: key);
+      required this.subText});
   final ToastType type;
   final String text;
   final String subText;
   final VoidCallback? onClose;
   @override
   Widget build(BuildContext context) {
-    final color = type.getColor();
+    final color = type.getColor(context.appColors);
     return Card(
       elevation: 2,
       child: Container(
@@ -138,7 +138,8 @@ class _MyCustomToast extends StatelessWidget {
             IconButton(
                 onPressed: onClose,
                 icon: Icon(Icons.close,
-                    size: Utils.width(context, 15), color: AppColors.primary))
+                    size: Utils.width(context, 15),
+                    color: context.appColors.primary))
           ],
         ),
       ),

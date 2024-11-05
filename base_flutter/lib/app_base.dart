@@ -5,14 +5,13 @@ import 'package:base_flutter/app/di_config.dart';
 import 'package:base_flutter/languages/l10n_utils.dart';
 import 'package:base_flutter/routes/app_pages.dart';
 import 'package:flutter/material.dart';
-
-import 'resources/themes/app_themes.dart';
+import 'package:modular_themes/modular_themes.dart';
 
 void startApp(Env env) {
   return runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
-      await DIConfig().initConfig(env);
+      await DIConfig.instance.initConfig(env);
       runApp(_AppBase(env: env));
     },
     AppLogger.onError,
@@ -39,11 +38,12 @@ class _AppBaseState extends State<_AppBase> {
 
   @override
   Widget build(BuildContext context) {
+    final appThemes = AppThemes.init(themeMode: ThemeMode.light, font: AppFonts.roboto);
     return MaterialApp.router(
       // title: AppLocalizations.of(context).appVariant(widget.flavour.name),
       debugShowCheckedModeBanner: false,
-      theme: AppThemes.instance.light,
-      darkTheme: AppThemes.instance.dark,
+      theme: appThemes.selectedTheme,
+      darkTheme: appThemes.darkTheme,
       // themeMode: flavour.themeMode,
       // locale: flavour.selectedLocales,
       localizationsDelegates: L10nUtils.localizationsDelegates,

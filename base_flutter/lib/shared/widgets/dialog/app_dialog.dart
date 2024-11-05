@@ -2,7 +2,7 @@ import 'package:app_base/app_base.dart';
 import 'package:base_flutter/shared/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../decoration/my_spacer.dart';
+import '../my_spacer.dart';
 import '../buttons/my_app_button.dart';
 
 enum AppAlertType { error, success, normal }

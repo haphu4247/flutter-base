@@ -6,7 +6,7 @@ enum AppFonts {
     switch (this) {
       case AppFonts.rubikMoonrocks:
         return 'RubikMoonrocks';
-      case AppFonts.roboto:
+      default:
         return 'Roboto';
     }
   }

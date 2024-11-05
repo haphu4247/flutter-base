@@ -8,12 +8,10 @@ class EnvDev extends BaseEnvModel {
   const EnvDev() : super(env: Env.dev);
 
   @override
-// TODO: implement apiHost
-  String get apiHost => throw UnimplementedError();
+  String get apiHost => 'https://api.binance.com/';
 
   @override
   FutureOr initConfig() {
-    // TODO: implement initConfig
-    throw UnimplementedError();
+    return Future.value(null);
   }
 }

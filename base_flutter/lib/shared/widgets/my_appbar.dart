@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../resources/colors/app_colors.dart';
 import 'buttons/my_back_button.dart';
 
 class MyAppbar extends AppBar {
@@ -29,7 +27,7 @@ class MyAppbar extends AppBar {
     return MyAppbar(
       title: Text(
         title,
-        style: const TextStyle(color: AppColors.white),
+        // style: const TextStyle(color: AppColors.white),
       ),
       btnClose: btnClose,
       leading: leading,

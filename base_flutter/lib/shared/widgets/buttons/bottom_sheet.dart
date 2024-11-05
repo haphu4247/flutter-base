@@ -1,6 +1,6 @@
+import 'package:base_flutter/shared/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../decoration/my_decoration.dart';
 import 'my_back_button.dart';
 
 class BottomSheetContent extends StatefulWidget {
@@ -8,8 +8,7 @@ class BottomSheetContent extends StatefulWidget {
   final Widget? children;
   final String title;
   const BottomSheetContent(
-      {Key? key, this.height = 0, this.children, this.title = ''})
-      : super(key: key);
+      {super.key, this.height = 0, this.children, this.title = ''});
 
   @override
   BottomSheetState createState() {
@@ -23,7 +22,7 @@ class BottomSheetState extends State<BottomSheetContent> {
     return Container(
         height: ((MediaQuery.of(context).size.height - kToolbarHeight) / 2) +
             widget.height,
-        decoration: MyDecoration.topRoundedShadow,
+        decoration: context.appDecoration.topRoundedShadow,
         child: Column(children: [
           Container(
             padding: const EdgeInsets.symmetric(vertical: 5),

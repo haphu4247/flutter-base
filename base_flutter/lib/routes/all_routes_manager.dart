@@ -8,3 +8,4 @@ abstract class AppRouteManager {
   static const testLottie = 'test-lottie';
   static const testFetchingApi = 'test-fetching-api';
 }
+

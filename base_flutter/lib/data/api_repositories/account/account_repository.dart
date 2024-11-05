@@ -3,15 +3,15 @@ import 'package:app_base/app_base.dart';
 import 'account_api_setup.dart';
 
 class AccountRepository<T extends BaseApiService> {
-  AccountRepository(this._apiClient);
+  const AccountRepository(this._apiClient);
 
   final T _apiClient;
 
-  // Future<MyResponse<>> accountInfo(Map<dynamic, dynamic> body) {
+  Future<MyResponse<dynamic>> accountInfo(Map<dynamic, dynamic> body) {
 
-  //   return _apiClient.callApi(AccountApi.accountInfo.init,
-  //       body: body);
-  // }
+    return _apiClient.callApi(AccountApi.accountInfo.init,
+        body: body);
+  }
 
   // Future<Response<dynamic>> signup(Map<dynamic, dynamic> body) {
   //   return _apiClient.callApi(AccountApiSetup(AccountApi.signup), body: body);
