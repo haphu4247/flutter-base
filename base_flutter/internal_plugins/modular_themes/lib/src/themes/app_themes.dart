@@ -1,8 +1,7 @@
 //https://api.flutter.dev/flutter/material/TextTheme-class.html
 import 'package:flutter/material.dart';
-import 'package:modular_themes/src/color/app_colors.dart';
-import 'package:modular_themes/src/fonts/app_fonts.dart';
-import 'package:modular_themes/src/themes/app_themes_impl.dart';
+import 'package:modular_themes/modular_themes.dart';
+
 
 abstract class AppThemes {
   const AppThemes({
