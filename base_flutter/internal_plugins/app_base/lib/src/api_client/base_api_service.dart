@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:app_base/src/api_client/intercepters/retry_intercepter.dart';
-import 'package:app_base/src/models/base_model.dart';
-import 'package:app_base/src/models/my_response.dart';
+import 'package:app_base/src/base_mvc/models/base_model.dart';
+import 'package:app_base/src/base_mvc/models/my_response.dart';
 import 'package:app_base/src/tracking_logger/logger_view.dart';
 import 'package:dio/dio.dart';
 import 'base_api_setup.dart';

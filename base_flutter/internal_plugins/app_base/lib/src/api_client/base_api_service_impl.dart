@@ -93,11 +93,17 @@ extension _BaseApiServiceImplExt on _BaseApiServiceImpl {
   Future<MyResponse<T>> _requestData<T extends BaseModel>(BaseParams params) {
     return dio
         .request(
-          params.url,
-          queryParameters: params.query,
-          options: params.options,
-          data: params.body,
-        )
-        .then((value) => value as MyResponse<T>);
+      params.url,
+      queryParameters: params.query,
+      options: params.options,
+      data: params.body,
+    )
+        .then((value) {
+      return MyResponse<T>(
+        requestOptions: value.requestOptions,
+        data: value.data,
+        statusCode: value.statusCode,
+      );
+    });
   }
 }

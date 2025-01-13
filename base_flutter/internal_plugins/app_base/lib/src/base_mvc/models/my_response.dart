@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'base_model.dart';
 
-class MyResponse<T extends BaseModel> extends Response {
-  MyResponse({required super.requestOptions});
+class MyResponse<T> extends Response {
+  MyResponse({
+    required super.requestOptions,
+    super.data,
+    super.statusCode,});
 
   bool get isSucceed {
     return statusCode == 200 && data != null;

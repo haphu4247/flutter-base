@@ -4,15 +4,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 
 class AppLogger {
-  AppLogger({required bool debugMode}) {
-    _kDebugMode = debugMode;
-  }
+  const AppLogger({required this.debugging});
 
-  static bool _kDebugMode = true;
+  final bool debugging;
 
   static final _logger = Logger();
 
-  static bool get isDebug => _kDebugMode;
+  static bool get isDebug => true;
 
   static void console(dynamic tag, dynamic e) {
     if (isDebug) {

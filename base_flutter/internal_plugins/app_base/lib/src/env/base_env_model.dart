@@ -26,12 +26,4 @@ abstract class BaseEnvModel {
   bool get observeLogger => false;
 
   bool get enableCrashlytics => false;
-
-  // AppTracking get tracking;
-
-  // // IFcmManager get fcmManager;
-
-  // // BaseFirebaseOptions get options;
-
-  // bool get enableCrashlytics;
 }

@@ -13,7 +13,7 @@ publish_to: none
 #command to upgrade all packages version: flutter pub upgrade --major-versions
 
 environment:
-  sdk: '>=2.18.0 <4.0.0'
+  sdk: '>=3.3.3 <4.0.0'
 dependencies:
   path: ^1.8.0
   logger: ^2.0.1
@@ -30,10 +30,6 @@ dependencies:
   path_provider: ^2.1.0
   talker_flutter: ^4.1.5
   talker_dio_logger: ^4.1.5
-  
-  firebase_core: ^3.4.0
-  firebase_crashlytics: ^4.1.0
-  firebase_messaging: ^15.1.0
 
   shared_preferences: ^2.0.15
   encrypt: ^5.0.1
