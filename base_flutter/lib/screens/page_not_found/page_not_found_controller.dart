@@ -6,4 +6,9 @@ class PageNotFoundController extends BaseController {
   void onBack() {
     
   }
+  
+  @override
+  void onInit() {
+    // TODO: implement onInit
+  }
 }

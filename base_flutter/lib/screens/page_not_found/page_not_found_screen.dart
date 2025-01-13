@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 import 'page_not_found_controller.dart';
 
 class PageNotFoundScreen extends BaseScreen<PageNotFoundController> {
-  PageNotFoundScreen({super.key}) : super(controller: PageNotFoundController());
+  PageNotFoundScreen({super.key}): super(controller: PageNotFoundController());
 
   @override
   Widget buildView(BuildContext context) {
     return Scaffold(
-      appBar: MyAppbar.title(title: controller.title),
+      appBar: MyAppBar.title(title: controller.title),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

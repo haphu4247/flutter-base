@@ -7,25 +7,26 @@ import 'package:flutter/material.dart';
 import 'home_controller.dart';
 
 class HomeScreen extends BaseScreen<HomeController> {
-  HomeScreen({super.key}) : super(controller: HomeController());
+   HomeScreen({super.key}) :super(controller: HomeController());
 
   @override
   Widget buildView(BuildContext context) {
-    controller.text;
     return Scaffold(
-      appBar: MyAppbar.title(
-        title: controller.title,
+      appBar: MyAppBar.title(
+        title: controller.title(context),
         leading: const SizedBox.shrink(),
       ),
       body: ListView(
         children: [
           MyAppButton.rectangle(
             title: 'Test Lottie',
-            onTap: () => controller.gotoTest(AppRouteManager.testLottie),
+            onTap: () =>
+                controller.gotoTest(context, AppRouteManager.testLottie),
           ),
           MyAppButton.rectangle(
             title: 'Test Fetching API',
-            onTap: () => controller.gotoTest(AppRouteManager.testFetchingApi),
+            onTap: () =>
+                controller.gotoTest(context, AppRouteManager.testFetchingApi),
           )
         ],
       ),

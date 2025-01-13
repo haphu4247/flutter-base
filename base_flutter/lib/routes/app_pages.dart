@@ -22,13 +22,13 @@ class AppPages {
         name: AppRouteManager.splash,
         path: '/${AppRouteManager.splash}',
         builder: (context, state) => SplashScreen(),
-        // routes: [
-        //   GoRoute(
-        //     name: Routes.home,
-        //     path: Routes.home,
-        //     builder: (context, state) => HomeScreen(),
-        //   )
-        // ],
+        routes: [
+          // GoRoute(
+          //   name: AppRouteManager.home,
+          //   path: AppRouteManager.home,
+          //   builder: (context, state) => const HomeScreen(),
+          // )
+        ],
       ),
       GoRoute(
         name: AppRouteManager.home,

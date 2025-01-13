@@ -18,6 +18,6 @@ class RouteNavigation {
   }
 
   void replaceNamed(String route) {
-    context.replaceNamed(route);
+    context.replace(route);
   }
 }

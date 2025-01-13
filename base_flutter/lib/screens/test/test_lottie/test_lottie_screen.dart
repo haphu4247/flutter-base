@@ -12,7 +12,7 @@ class TestLottieScreen extends BaseScreen<TestLottieController> {
   @override
   Widget buildView(BuildContext context) {
     return Scaffold(
-      appBar: MyAppbar.title(title: controller.title),
+      appBar: MyAppBar.title(title: controller.title),
       body: ListView(
         children: [
           const NoDataView(),

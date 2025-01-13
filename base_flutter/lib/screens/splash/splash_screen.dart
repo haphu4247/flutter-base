@@ -4,21 +4,9 @@ import 'package:flutter/material.dart';
 
 import 'splash_controller.dart';
 
-class SplashScreen extends BaseStatefulScreen<SplashController> {
-  SplashScreen({super.key}) : super(controller: SplashController());
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState
-    extends BaseStatefulScreenState<SplashController, SplashScreen>
-    with TickerProviderStateMixin {
-  @override
-  void initState() {
-    widget.controller.anim = AnimationController(vsync: this);
-    super.initState();
-  }
+class SplashScreen extends BaseScreen<SplashController> {
+  SplashScreen({super.key,})
+      : super(controller: SplashController());
 
   @override
   Widget buildView(BuildContext context) {
@@ -27,8 +15,10 @@ class _SplashScreenState
         child: LottieView(
           name: 'anim_splash',
           repeat: false,
-          controller: widget.controller.anim,
-          onLoaded: widget.controller.onLoaded,
+          controller: controller.anim,
+          onLoaded: (p0) {
+            controller.onLoaded(p0, context);
+          },
         ),
       ),
     );

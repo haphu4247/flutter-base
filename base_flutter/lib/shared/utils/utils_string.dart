@@ -1,8 +1,5 @@
 import 'dart:convert';
 
-import 'package:base_flutter/app/di_config.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:sprintf/sprintf.dart';
 
 class UtilsString {

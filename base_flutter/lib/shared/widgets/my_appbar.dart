@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
 import 'buttons/my_back_button.dart';
 
-class MyAppbar extends AppBar {
-  MyAppbar({
-    Key? key,
-    final Widget? title,
+class MyAppBar extends AppBar {
+  MyAppBar({
+    super.key,
+    super.title,
     final Widget? leading,
-    final List<Widget>? actions,
+    super.actions,
     final bool btnClose = false,
   }) : super(
-          key: key,
-          title: title,
           leading: leading ??
               MyBackButton(
                 btnClose: btnClose,
               ),
-          actions: actions,
           centerTitle: true,
         );
 
-  factory MyAppbar.title({
+  factory MyAppBar.title({
     required String title,
     Widget? leading,
     bool btnClose = false,
   }) {
-    return MyAppbar(
+    return MyAppBar(
       title: Text(
         title,
         // style: const TextStyle(color: AppColors.white),

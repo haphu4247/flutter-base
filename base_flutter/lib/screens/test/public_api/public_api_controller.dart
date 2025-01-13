@@ -5,12 +5,17 @@ import 'package:base_flutter/data/api_repositories/public/public_repository.dart
 import 'package:flutter/material.dart';
 
 class PublicApiController extends BaseController {
+
+  @override
+  void onInit() {
+    loadCoins();
+  }
+
   final String title = 'Test Fetching API';
   PublicRepository? repo;
   final ValueNotifier<List<CoinModel>?> coins = ValueNotifier(null);
-  @override
-  void initContext(BuildContext context) {
-    super.initContext(context);
+
+  void loadCoins() {
     repo = getIt.get<PublicRepository>();
     if (repo != null) {
       List<CoinModel>? result;
@@ -27,4 +32,6 @@ class PublicApiController extends BaseController {
       coins.value = [];
     }
   }
+
+  
 }

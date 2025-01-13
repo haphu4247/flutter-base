@@ -1,5 +1,3 @@
-import 'package:app_base/app_base.dart';
-
 enum LocalDataKey {
   clear,
   sAppLocale,
@@ -10,6 +8,4 @@ enum LocalDataKey {
   showHomePopup,
   fcmToken,
   requestNotificationPermission;
-
-  BaseLocalData get instance => BaseLocalData.instance(this);
 }

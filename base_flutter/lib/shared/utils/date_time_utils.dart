@@ -1,7 +1,31 @@
 import 'package:app_base/app_base.dart';
 import 'package:intl/intl.dart';
 
-enum AppDateFormat { yyyymmdd, yyyyMMdd, ddMMyyyy, EEE, MMMM, HHmm }
+enum AppDateFormat {
+  yyyymmdd,
+  yyyyMMdd,
+  ddMMyyyy,
+  EEE,
+  MMMM,
+  HHmm;
+
+  DateFormat get format {
+    return DateFormat(_customPattern);
+  }
+
+  String get _customPattern {
+    switch (this) {
+      case AppDateFormat.ddMMyyyy:
+        return 'dd/MM/yyyy';
+      case AppDateFormat.yyyyMMdd:
+        return 'yyyy/MM/dd';
+      case AppDateFormat.HHmm:
+        return 'HH:mm';
+      default:
+        return name;
+    }
+  }
+}
 
 class DateTimeUtils {
   static String formatDate(DateTime date, {required AppDateFormat type}) {
@@ -35,24 +59,5 @@ class DateTimeUtils {
   static String formatDateFromMilliSeconds(int? millisecondsSinceEpoch) {
     final date = fromMilliSeconds(millisecondsSinceEpoch);
     return formatDateyyyyMMdd(date);
-  }
-}
-
-extension AppDateFormatExt on AppDateFormat {
-  DateFormat get format {
-    return DateFormat(_customPattern);
-  }
-
-  String get _customPattern {
-    switch (this) {
-      case AppDateFormat.ddMMyyyy:
-        return 'dd/MM/yyyy';
-      case AppDateFormat.yyyyMMdd:
-        return 'yyyy/MM/dd';
-      case AppDateFormat.HHmm:
-        return 'HH:mm';
-      default:
-        return name;
-    }
   }
 }
