@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+4
 
 environment:
-  sdk: '>=3.0.1 <4.0.0'
+  sdk: '>=3.3.3 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -43,6 +43,9 @@ dependencies:
     
   modular_themes:
     path: ./internal_plugins/modular_themes
+  
+  modular_storage:
+    path: ./internal_plugins/modular_storage
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -84,6 +87,14 @@ dependencies:
   get_it: ^8.0.0
 
   flutter_local_notifications: ^17.2.3
+
+  flutter_bounce: ^1.1.0
+  # firebase_core: ^3.9.0
+  # firebase_crashlytics: ^4.2.0
+  # firebase_messaging: ^15.1.0
+  firebase_crashlytics: ^2.8.3
+  firebase_messaging: ^11.4.3
+  firebase_core: ^1.24.0
   
 
 dev_dependencies:
