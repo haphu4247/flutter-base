@@ -7,7 +7,7 @@ class AppColorsDark extends AppColors {
 
   @override
   // TODO: implement primary
-  Color get primary => Color(0xFF0066ff);
+  Color get primary => const Color(0xFF0066ff);
     
   @override
   // TODO: implement primary5

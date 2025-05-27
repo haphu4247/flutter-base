@@ -144,8 +144,8 @@ class CoinModel extends BaseModel {
     data['lowPrice'] = lowPrice;
     data['volume'] = volume;
     data['quoteVolume'] = quoteVolume;
-    data['openTime'] = DateTimeUtils.formatDateFromMilliSeconds(openTime);
-    data['closeTime'] = DateTimeUtils.formatDateFromMilliSeconds(closeTime);
+    // data['openTime'] = DateTimeUtils.fromMilliSeconds(openTime);
+    // data['closeTime'] = DateTimeUtils.formatDateFromMilliSeconds(closeTime);
     // data['firstId'] = UtilsString.formatNumber(firstId);
     // data['lastId'] = UtilsString.formatNumber(lastId);
     // data['count'] = UtilsString.formatNumber(count);

@@ -9,7 +9,7 @@ import 'package:modular_themes/modular_themes.dart';
 extension BuildContextExt on BuildContext {
   AppLocalizations get lang => LocaleProvider.l10n(this);
 
-  BaseEnvModel get env {
+  BaseEnvModel get envConfig {
     return getIt.get<BaseEnvModel>();
   }
 

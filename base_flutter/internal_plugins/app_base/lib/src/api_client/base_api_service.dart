@@ -1,70 +1,64 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:app_base/app_base.dart';
 import 'package:app_base/src/api_client/intercepters/retry_intercepter.dart';
-import 'package:app_base/src/base_mvc/models/base_model.dart';
-import 'package:app_base/src/base_mvc/models/my_response.dart';
-import 'package:app_base/src/tracking_logger/logger_view.dart';
 import 'package:dio/dio.dart';
-import 'base_api_setup.dart';
-import 'base_params.dart';
-
-import 'package:path/path.dart' as p;
+import 'package:path/path.dart';
 
 part 'base_api_service_impl.dart';
 
 abstract class BaseApiService {
-  factory BaseApiService(
-      {required String apiHost, bool observeLogger = false}) {
+  factory BaseApiService({required String apiHost}) {
     final options = BaseOptions(
       baseUrl: apiHost,
       connectTimeout: const Duration(seconds: 45),
       receiveTimeout: const Duration(seconds: 45),
       sendTimeout: const Duration(seconds: 45),
+      responseType: ResponseType.json,
+      contentType: Headers.jsonContentType,
     );
     final dio = Dio(options);
-    dio.interceptors.add(
-      RetryInterceptor(dio: dio),
-    );
-    if (observeLogger) {
-      LoggerView.instance.observeLogger(dio.interceptors);
-    }
-
-    return _BaseApiServiceImpl(dio: dio);
+    dio.interceptors.add(RetryInterceptor(dio: dio));
+    AppLogger.printDebugLog(dio);
+    return _BaseApiServiceImpl(dio);
   }
-  const BaseApiService._internal();
+  const BaseApiService._internal(this.dio);
 
-  Future<MyResponse<T>> callApi<T extends BaseModel>(
-    BaseApiSetup apiSetup, {
-    String? appendPath,
-    dynamic body,
-    Map<String, dynamic>? queryParams,
-    Map<String, String>? headerParams,
+  final Dio dio;
+
+  Future<ApiResponseModel> _requestData(ApiParams params) {
+    return dio
+        .request(
+      params.path,
+      queryParameters: params.queryParameters,
+      options: params.options,
+      data: params.data,
+    )
+        .then((value) {
+      return ApiResponseModel(
+        requestOptions: value.requestOptions,
+        data: value.data,
+        statusCode: value.statusCode,
+      );
+    });
+  }
+
+  Future<ApiResponseModel> callApi(
+      {required ApiParams params});
+
+  Future<T> callObj<T extends BaseModel>({
+    required ApiParams params,
+    required T Function(dynamic json) parser,
   });
 
-  Future<T> callObj<T extends BaseModel>(
-    BaseApiSetup apiSetup, {
-    String? appendPath,
-    dynamic body,
-    Map<String, dynamic>? queryParams,
-    Map<String, String>? headerParams,
-    required T Function(dynamic json) generator,
+  Future<List<T>> callList<T extends BaseModel>({
+    required ApiParams params,
+    required T Function(dynamic json) parser,
   });
 
-  Future<List<T>> callList<T extends BaseModel>(
-    BaseApiSetup apiSetup, {
-    String? appendPath,
-    dynamic body,
-    Map<String, dynamic>? queryParams,
-    Map<String, String>? headerParams,
-    required T Function(dynamic json) generator,
-  });
-
-  Future<MyResponse<T>> uploadFile<T extends BaseModel>(
-    BaseApiSetup apiSetup,
-    String userId,
-    String accessToken,
-    List<File> body, {
-    String? appendPath,
+  Future<ApiResponseModel> uploadFile({
+    required ApiParams params,
+    required List<File> body,
   });
 
   Map<String, String> getAuthHeader(String accessToken) {

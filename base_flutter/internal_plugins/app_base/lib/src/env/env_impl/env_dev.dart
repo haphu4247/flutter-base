@@ -8,10 +8,14 @@ class EnvDev extends BaseEnvModel {
   const EnvDev() : super(env: Env.dev);
 
   @override
-  String get apiHost => 'https://api.binance.com/';
+  String get apiHost => 'https://dummyjson.com';
 
   @override
   FutureOr initConfig() {
     return Future.value(null);
   }
+  
+  @override
+  // TODO: implement appIcon
+  String get appIcon => 'app_icons_dashatars_dev.png';
 }

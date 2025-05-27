@@ -36,7 +36,7 @@
   "@pronoun": {
     "description": "Một tin nhắn giới tính",
     "placeholders": {
-      "giới tính": {
+      "gender": {
         "type": "String"
       }
     }
@@ -45,7 +45,7 @@
   "@numberOfDataPoints": {
     "description": "Thư có tham số int được format",
     "placeholders": {
-      "giá trị": {
+      "value": {
         "type": "int",
         "format": "compactCurrency",
         "optionalParameters": {

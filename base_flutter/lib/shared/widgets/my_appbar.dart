@@ -19,12 +19,13 @@ class MyAppBar extends AppBar {
   factory MyAppBar.title({
     required String title,
     Widget? leading,
+    TextStyle? titleStyle,
     bool btnClose = false,
   }) {
     return MyAppBar(
       title: Text(
         title,
-        // style: const TextStyle(color: AppColors.white),
+        style: titleStyle,
       ),
       btnClose: btnClose,
       leading: leading,

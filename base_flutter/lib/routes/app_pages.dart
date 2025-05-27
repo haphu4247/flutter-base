@@ -1,9 +1,9 @@
-import 'package:base_flutter/screens/home/home_screen.dart';
-import 'package:base_flutter/screens/page_not_found/page_not_found_screen.dart';
-import 'package:base_flutter/screens/splash/splash_screen.dart';
-import 'package:base_flutter/screens/test/public_api/public_api_screen.dart';
-import 'package:base_flutter/screens/test/test_lottie/test_lottie_screen.dart';
+import 'package:base_flutter/screens/authentication/login/widgets/login_screen.dart';
+import 'package:base_flutter/screens/home/widgets/home_screen.dart';
+import 'package:base_flutter/screens/page_not_found/widgets/page_not_found_screen.dart';
+import 'package:base_flutter/screens/splash/widgets/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:go_router/go_router.dart';
 
 part 'all_routes_manager.dart';
@@ -12,40 +12,34 @@ class AppPages {
   // GoRouter configuration
   static final router = GoRouter(
     initialLocation: '/${AppRouteManager.splash}',
+    observers: [
+      FlutterSmartDialog.observer,
+    ],
     errorPageBuilder: (_, state) => MaterialPage(
       key: state.pageKey,
-      name: '/not-found',
+      name: AppRouteManager.pageNotFound.name,
       child: PageNotFoundScreen(),
     ),
     routes: [
       GoRoute(
-        name: AppRouteManager.splash,
-        path: '/${AppRouteManager.splash}',
+        name: AppRouteManager.splash.name,
+        path: AppRouteManager.splash.path,
         builder: (context, state) => SplashScreen(),
-        routes: [
-          // GoRoute(
-          //   name: AppRouteManager.home,
-          //   path: AppRouteManager.home,
-          //   builder: (context, state) => const HomeScreen(),
-          // )
-        ],
       ),
       GoRoute(
-        name: AppRouteManager.home,
-        path: '/${AppRouteManager.home}',
+        name: AppRouteManager.home.name,
+        path: AppRouteManager.home.path,
         builder: (context, state) => HomeScreen(),
-        routes: [
-          GoRoute(
-            name: AppRouteManager.testLottie,
-            path: AppRouteManager.testLottie,
-            builder: (context, state) => TestLottieScreen(),
-          ),
-          GoRoute(
-            name: AppRouteManager.testFetchingApi,
-            path: AppRouteManager.testFetchingApi,
-            builder: (context, state) => PublicApiScreen(),
-          )
-        ],
+      ),
+      GoRoute(
+        name: AppRouteManager.login.name,
+        path: AppRouteManager.login.path,
+        builder: (context, state) => LoginScreen(),
+      ),
+      GoRoute(
+        name: AppRouteManager.pageNotFound.name,
+        path: AppRouteManager.pageNotFound.path,
+        builder: (context, state) => PageNotFoundScreen(),
       )
     ],
   );

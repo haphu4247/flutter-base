@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-class DeboundcedButton extends StatelessWidget {
-  const DeboundcedButton({
-    Key? key,
+class DebounceButton extends StatelessWidget {
+  const DebounceButton({
+    super.key,
     required this.child,
     required this.onTap,
     this.duration = const Duration(milliseconds: 200),
-  }) : super(key: key);
+  });
 
   final Widget child;
   final Function onTap;

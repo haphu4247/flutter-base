@@ -1,11 +1,20 @@
 part of 'app_pages.dart';
 
-abstract class AppRouteManager {
-  AppRouteManager._();
-  static const splash = 'splash';
-  static const introView = 'intro-view';
-  static const home = 'home';
-  static const testLottie = 'test-lottie';
-  static const testFetchingApi = 'test-fetching-api';
-}
+enum AppRouteManager {
+  splash('splash'),
+  login('login'),
+  home('home'),
+  pageNotFound('page-not-found');
 
+  final String name;
+  const AppRouteManager(this.name);
+
+  String get path {
+    return '/$name';
+  }
+
+  @override
+  String toString() {
+    return name;
+  }
+}

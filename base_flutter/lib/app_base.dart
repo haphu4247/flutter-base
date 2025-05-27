@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:app_base/app_base.dart';
 import 'package:base_flutter/app/di_config.dart';
+import 'package:base_flutter/base/widgets/loading_view.dart';
 import 'package:base_flutter/languages/locale_provider.dart';
 import 'package:base_flutter/routes/app_pages.dart';
 import 'package:base_flutter/shared/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 void startApp(Env env) {
   return runZonedGuarded(
@@ -20,15 +22,9 @@ void startApp(Env env) {
   );
 }
 
-class _AppBase extends StatefulWidget {
-  const _AppBase({super.key, required this.env});
+class _AppBase extends StatelessWidget {
+  const _AppBase({required this.env});
   final Env env;
-
-  @override
-  State<_AppBase> createState() => _AppBaseState();
-}
-
-class _AppBaseState extends State<_AppBase> {
   @override
   Widget build(BuildContext context) {
     final appThemes = context.appThemes;
@@ -37,8 +33,8 @@ class _AppBaseState extends State<_AppBase> {
       valueListenable: localeProvider.localeNotifier,
       builder: (context, locale, child) {
         return MaterialApp.router(
-          title: AppLocalizations.of(context)?.appVariant(widget.env.name) ??
-              widget.env.name,
+          title: AppLocalizations.of(context)?.appVariant(env.name) ??
+              env.name,
           debugShowCheckedModeBanner: false,
           theme: appThemes.selectedTheme,
           darkTheme: appThemes.darkTheme,
@@ -47,6 +43,13 @@ class _AppBaseState extends State<_AppBase> {
           localizationsDelegates: localeProvider.localizationsDelegates,
           supportedLocales: localeProvider.supportedLocales,
           routerConfig: AppPages.router,
+          builder: FlutterSmartDialog.init(
+            loadingBuilder: (msg) => const LoadingView(),
+            // toastBuilder: (msg) => ,
+            builder: (context, child) {
+              return child ?? const SizedBox.shrink();
+            },
+          ),
         );
       },
     );

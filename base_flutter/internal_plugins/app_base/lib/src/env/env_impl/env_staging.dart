@@ -8,10 +8,13 @@ class EnvStaging extends BaseEnvModel {
   const EnvStaging() : super(env: Env.staging);
 
   @override
-  String get apiHost => 'https://api.binance.com/';
+  String get apiHost => 'https://dummyjson.com';
 
   @override
   FutureOr initConfig() {
     return Future.value(null);
   }
+  
+  @override
+  String get appIcon => 'app_icons_dashatars_stg.png';
 }

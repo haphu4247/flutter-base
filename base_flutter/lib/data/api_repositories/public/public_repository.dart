@@ -1,7 +1,6 @@
 import 'package:app_base/app_base.dart';
 
 import 'models/public_api/coin_list_response.dart';
-import 'public_api_setup.dart';
 
 class PublicRepository<T extends BaseApiService> {
   const PublicRepository(this._apiClient);
@@ -10,8 +9,9 @@ class PublicRepository<T extends BaseApiService> {
 
   Future<List<CoinModel>> listCoin() {
     return _apiClient.callList<CoinModel>(
-      PublicApi.coin.init,
-      generator: CoinModel.fromJson,
+      params:
+          const ApiParams(path: 'api/v3/ticker/24hr', method: HttpMethod.get),
+      parser: CoinModel.fromJson,
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:base_flutter/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,11 +14,15 @@ class RouteNavigation {
     }
   }
 
-  void nextRoute(String route) {
-    context.goNamed(route);
+  void nextRoute(AppRouteManager route) {
+    GoRouter.of(context).goNamed(route.name);
   }
 
-  void replaceNamed(String route) {
-    context.replace(route);
+  void replaceNamed(AppRouteManager route) {
+    GoRouter.of(context).replaceNamed(route.name);
+  }
+
+  void pushRoute(AppRouteManager route) {
+    GoRouter.of(context).pushNamed(route.name);
   }
 }

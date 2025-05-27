@@ -147,11 +147,11 @@ class _FcmManagerImpl extends IFcmManager {
       const initializationSettingsAndroid =
           AndroidInitializationSettings(_androidIcon);
 
-      final initializationSettingsIOS = DarwinInitializationSettings(
-        onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
+      const initializationSettingsIOS =  DarwinInitializationSettings(
+        // onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
       );
 
-      final initializationSettings = InitializationSettings(
+      const initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid,
         iOS: initializationSettingsIOS,
       );

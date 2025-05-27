@@ -14,4 +14,8 @@ class EnvProd extends BaseEnvModel {
   FutureOr initConfig() {
     return Future.value(null);
   }
+  
+  @override
+  // TODO: implement appIcon
+  String get appIcon => 'app_icons_dashatars_prod.png';
 }

@@ -19,6 +19,8 @@ abstract class BaseEnvModel {
   }
   final Env env;
 
+  String get appIcon;
+
   FutureOr<dynamic> initConfig();
 
   String get apiHost;

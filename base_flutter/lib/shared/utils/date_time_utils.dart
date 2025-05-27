@@ -5,8 +5,6 @@ enum AppDateFormat {
   yyyymmdd,
   yyyyMMdd,
   ddMMyyyy,
-  EEE,
-  MMMM,
   HHmm;
 
   DateFormat get format {
@@ -33,10 +31,6 @@ class DateTimeUtils {
     return dateString;
   }
 
-  static String formatDateyyyyMMdd(DateTime date) {
-    return formatDate(date, type: AppDateFormat.yyyyMMdd);
-  }
-
   static DateTime? toDate(String datetime,
       {AppDateFormat format = AppDateFormat.ddMMyyyy}) {
     try {
@@ -49,15 +43,13 @@ class DateTimeUtils {
     }
   }
 
-  static DateTime fromMilliSeconds(int? millisecondsSinceEpoch) {
+  static String? fromMilliSeconds(int? millisecondsSinceEpoch,
+      {required AppDateFormat format}) {
     if (millisecondsSinceEpoch == null) {
-      return DateTime.now();
+      return null;
     }
-    return DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
-  }
-
-  static String formatDateFromMilliSeconds(int? millisecondsSinceEpoch) {
-    final date = fromMilliSeconds(millisecondsSinceEpoch);
-    return formatDateyyyyMMdd(date);
+    final dateTime =
+        DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
+    return formatDate(dateTime, type: format);
   }
 }

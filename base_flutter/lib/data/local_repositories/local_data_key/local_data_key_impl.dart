@@ -7,5 +7,6 @@ enum LocalDataKey {
   login,
   showHomePopup,
   fcmToken,
-  requestNotificationPermission;
+  requestNotificationPermission,
+  loginInfo,
 }

@@ -17,7 +17,7 @@ class AppDecoration {
       boxShadow: [defaultShadowBox]);
 
   BoxShadow get defaultShadowBox => BoxShadow(
-        color: appColors.black.withOpacity(0.15),
+        color: appColors.black.withValues(alpha: 0.15),
         offset: const Offset(1, 1),
         blurRadius: 5,
       );

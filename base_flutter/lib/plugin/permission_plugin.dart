@@ -4,7 +4,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, TargetPlatform;
-import 'package:geolocator/geolocator.dart';
+// import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../data/local_repositories/local_repository.dart';
@@ -16,7 +16,7 @@ abstract class AppPermissionPlugin {
 
   AppPermissionPlugin._internal();
 
-  Future<Position> requestUserPosition();
+  // Future<Position> requestUserPosition();
 
   Future<bool> requestSaveFile();
 
@@ -30,38 +30,38 @@ final _MyAppPermission _singleton = _MyAppPermission._();
 class _MyAppPermission extends AppPermissionPlugin {
   _MyAppPermission._() : super._internal();
 
-  @override
-  Future<Position> requestUserPosition() async {
-    // bool serviceEnabled;
-    LocationPermission permission;
+  // @override
+  // Future<Position> requestUserPosition() async {
+  //   // bool serviceEnabled;
+  //   LocationPermission permission;
 
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    } else if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
-        return Future.error('Location permissions are denied');
-      }
-    }
+  //   permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.deniedForever) {
+  //     // Permissions are denied forever, handle appropriately.
+  //     return Future.error(
+  //         'Location permissions are permanently denied, we cannot request permissions.');
+  //   } else if (permission == LocationPermission.denied) {
+  //     permission = await Geolocator.requestPermission();
+  //     if (permission == LocationPermission.denied) {
+  //       // Permissions are denied, next time you could try
+  //       // requesting permissions again (this is also where
+  //       // Android's shouldShowRequestPermissionRationale
+  //       // returned true. According to Android guidelines
+  //       // your App should show an explanatory UI now.
+  //       return Future.error('Location permissions are denied');
+  //     }
+  //   }
 
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
+  //   if (permission == LocationPermission.deniedForever) {
+  //     // Permissions are denied forever, handle appropriately.
+  //     return Future.error(
+  //         'Location permissions are permanently denied, we cannot request permissions.');
+  //   }
 
-    // When we reach here, permissions are granted and we can
-    // continue accessing the position of the device.
-    return Geolocator.getCurrentPosition();
-  }
+  //   // When we reach here, permissions are granted and we can
+  //   // continue accessing the position of the device.
+  //   return Geolocator.getCurrentPosition();
+  // }
 
   @override
   Future<bool> requestSavePhotoToGalleryPermission() async {
@@ -142,5 +142,4 @@ class _MyAppPermission extends AppPermissionPlugin {
     }
     return false;
   }
-  
 }
