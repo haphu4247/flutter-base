@@ -73,9 +73,13 @@ class AppLogger {
     }
   }
 
-  static void onError(Object error, StackTrace stack) {
-    if (isDebug) {
+  static void onError(Object? error, StackTrace? stack) {
+    if (isDebug && error != null) {
       _talker.handle(error, stack, 'root exception');
     }
+  }
+
+  static void recordError(Object? error, StackTrace? stack) {
+    // FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
   }
 }

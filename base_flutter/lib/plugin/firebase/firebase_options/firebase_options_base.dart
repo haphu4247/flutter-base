@@ -8,8 +8,8 @@ part 'impl/firebase_options_prod.dart';
 part 'impl/firebase_options_staging.dart';
 
 abstract class BaseFirebaseOptions {
-  factory BaseFirebaseOptions(Env flavour) {
-    switch (flavour) {
+  factory BaseFirebaseOptions(Env env) {
+    switch (env) {
       case Env.prod:
         return _DefaultFirebaseOptionsProd();
       case Env.staging:

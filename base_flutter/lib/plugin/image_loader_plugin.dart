@@ -64,7 +64,6 @@ class ImageLoaderPlugin extends StatelessWidget {
 
 class _ErrorLoader extends StatelessWidget {
   const _ErrorLoader({
-    super.key,
     required this.fit,
     required this.size,
   });
@@ -84,9 +83,12 @@ class _ErrorLoader extends StatelessWidget {
 
 enum IconsType { svg, png, jpg, http }
 
-enum AssetsFolder { icons, images, home, settings }
+enum AssetsFolder {
+  icons,
+  images,
+  home,
+  settings;
 
-extension AssetsFolderExt on AssetsFolder {
   String get path {
     switch (this) {
       case AssetsFolder.icons:

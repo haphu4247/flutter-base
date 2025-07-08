@@ -4,6 +4,7 @@ import 'package:app_base/app_base.dart';
 import 'package:base_flutter/app/di_config.dart';
 import 'package:base_flutter/base/widgets/loading_view.dart';
 import 'package:base_flutter/languages/locale_provider.dart';
+import 'package:base_flutter/plugin/firebase/fcm_manager/fcm_manager.dart';
 import 'package:base_flutter/routes/app_pages.dart';
 import 'package:base_flutter/shared/extension/context_extension.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ void startApp(Env env) {
   return runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
+      IFcmManager.init(env: env);
       await DIConfig.instance.initConfig(env);
 
       runApp(_AppBase(env: env));
@@ -33,8 +35,7 @@ class _AppBase extends StatelessWidget {
       valueListenable: localeProvider.localeNotifier,
       builder: (context, locale, child) {
         return MaterialApp.router(
-          title: AppLocalizations.of(context)?.appVariant(env.name) ??
-              env.name,
+          title: AppLocalizations.of(context)?.appVariant(env.name) ?? env.name,
           debugShowCheckedModeBanner: false,
           theme: appThemes.selectedTheme,
           darkTheme: appThemes.darkTheme,

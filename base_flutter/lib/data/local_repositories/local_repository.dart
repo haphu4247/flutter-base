@@ -15,14 +15,14 @@ class LocalRepository {
   LocalRepository._internal(this.storage);
 
   Future<void> initData() async {
-    await _initHive();
+    await _initLocalDB();
   }
 
   Future<bool> clearData() {
     return storage.clear();
   }
 
-  Future<void> _initHive() async {
+  Future<void> _initLocalDB() async {
     if (kIsWeb) {
       return;
     }
