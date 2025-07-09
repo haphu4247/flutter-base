@@ -40,11 +40,14 @@ abstract class BaseApiService {
         data: value.data,
         statusCode: value.statusCode,
       );
-    });
+    }).onError(
+      (error, stackTrace) {
+        return params.handleError(error);
+      },
+    );
   }
 
-  Future<ApiResponseModel> callApi(
-      {required ApiParams params});
+  Future<ApiResponseModel> callApi({required ApiParams params});
 
   Future<T> callObj<T extends BaseModel>({
     required ApiParams params,

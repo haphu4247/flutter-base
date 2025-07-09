@@ -60,8 +60,6 @@ abstract class IFcmManager {
 
   void _onListenMessage();
 
-  void _onListenNotification(NotificationResponse response);
-
   void handleSelectNotification(dynamic data);
 
   //put in the place you want to handle selection on notification

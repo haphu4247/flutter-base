@@ -3,7 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SecurePreferences {
   final _key = Key.fromUtf8('ASDFGHJKLASDFGHJ912QWA56CFB3SA3F');
-  late final _hashKey = _key.hashCode;
   final _iv = IV.fromLength(16);
   late final Encrypter _encrypter;
 
@@ -14,16 +13,16 @@ class SecurePreferences {
   }
 
   String hashPreKey<E extends Enum>(E key) {
-    return (_hashKey.hashCode + key.hashCode).toString();
+    return '${key.index}${key.name}';
   }
 
   String _encrypt(String plainText) {
     final encrypted = _encrypter.encrypt(plainText, iv: _iv);
-    return encrypted.base64;
+    return encrypted.base16;
   }
 
-  String _decrypt(String base64) {
-    final decrypted = _encrypter.decrypt64(base64, iv: _iv);
+  String _decrypt(String base16) {
+    final decrypted = _encrypter.decrypt16(base16, iv: _iv);
     return decrypted;
   }
 

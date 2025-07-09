@@ -109,10 +109,14 @@ class _FcmManagerImpl extends IFcmManager {
 
       return _localNotifications.initialize(
         initializationSettings,
-        onDidReceiveNotificationResponse: _onListenNotification,
-        onDidReceiveBackgroundNotificationResponse: _onListenNotification,
+        onDidReceiveNotificationResponse: onNotificationResponse,
+        onDidReceiveBackgroundNotificationResponse: onNotificationResponse,
       );
     }
+  }
+
+  static void onNotificationResponse(NotificationResponse response) {
+    _instance.handleSelectNotification(response);
   }
 
   void launchAppFromNotification() {
@@ -298,11 +302,6 @@ class _FcmManagerImpl extends IFcmManager {
   }
 
   @override
-  void _onListenNotification(NotificationResponse response) {
-    handleSelectNotification(response);
-  }
-
-  @override
   void handleSelectNotification(dynamic data) {
     final NotificationModel model;
     if (data is RemoteMessage) {
@@ -338,8 +337,8 @@ class _FcmManagerImpl extends IFcmManager {
       return false;
     }
     final now = DateTime.now();
-    final diff =
-        now.millisecondsSinceEpoch - _lastNotificationTime!.millisecondsSinceEpoch;
+    final diff = now.millisecondsSinceEpoch -
+        _lastNotificationTime!.millisecondsSinceEpoch;
     return diff < 2500;
   }
 

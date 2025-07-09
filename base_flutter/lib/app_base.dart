@@ -16,7 +16,7 @@ void startApp(Env env) {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
       IFcmManager.init(env: env);
-      await DIConfig.instance.initConfig(env);
+      await DIConfig.init(env);
 
       runApp(_AppBase(env: env));
     },

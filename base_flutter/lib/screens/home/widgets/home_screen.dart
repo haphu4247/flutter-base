@@ -22,7 +22,7 @@ class HomeScreen extends BaseScreen<HomeVM> {
         children: [
           MyAppButton.rectangle(
             title: 'Test Page Not Found',
-            onTap: () => vm.gotoTest(context, AppRouteManager.pageNotFound),
+            onTap: () => vm.gotoPushNext(context, AppRouteManager.pageNotFound),
           ),
           MyAppButton.rectangle(
             title: 'Login Page',

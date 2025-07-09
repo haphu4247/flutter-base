@@ -9,8 +9,8 @@ class RouteNavigation {
   final BuildContext context;
 
   void back({dynamic result}) {
-    if (Navigator.of(context).canPop()) {
-      Navigator.of(context).pop(result);
+    if (GoRouter.of(context).canPop()) {
+      GoRouter.of(context).pop();
     }
   }
 

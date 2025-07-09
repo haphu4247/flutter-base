@@ -39,6 +39,10 @@ class HomeVM extends BaseViewModel {
     context.navigation.nextRoute(route);
   }
 
+  void gotoPushNext(BuildContext context, AppRouteManager route) {
+    context.navigation.pushRoute(route);
+  }
+
   void showLoginDialog(BuildContext screenContext) {
     showCustomDialog(
       (context) => Center(

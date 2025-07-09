@@ -22,13 +22,23 @@ class SharedPreferencesStorage implements BaseStorage {
   @override
   Future<String?> read<E extends Enum>(E key) async {
     await _ensureInitialized();
-    return SecurePreferences.instance.getDecryptedValue(key, _pref);
+    return SecurePreferences.instance.getDecryptedValue(key, _pref).onError(
+      (error, stackTrace) {
+        return null;
+      },
+    );
   }
 
   @override
   Future<bool> write<E extends Enum>(E key, String value) async {
     await _ensureInitialized();
-    return SecurePreferences.instance.setEncryptedValue(key, value, _pref);
+    return SecurePreferences.instance
+        .setEncryptedValue(key, value, _pref)
+        .onError(
+      (error, stackTrace) {
+        return false;
+      },
+    );
   }
 
   @override
@@ -44,14 +54,24 @@ class SharedPreferencesStorage implements BaseStorage {
         return obj;
       }
       return null;
-    });
+    }).onError(
+      (error, stackTrace) {
+        return null;
+      },
+    );
   }
 
   @override
-  Future<bool> writeObj<E extends Enum, T extends BaseModel>(E key, T obj) async {
+  Future<bool> writeObj<E extends Enum, T extends BaseModel>(
+      E key, T obj) async {
     await _ensureInitialized();
     return SecurePreferences.instance
-        .setEncryptedValue(key, obj.toString(), _pref);
+        .setEncryptedValue(key, obj.toString(), _pref)
+        .onError(
+      (error, stackTrace) {
+        return false;
+      },
+    );
   }
 
   @override
@@ -69,7 +89,11 @@ class SharedPreferencesStorage implements BaseStorage {
         }
       }
       return null;
-    });
+    }).onError(
+      (error, stackTrace) {
+        return null;
+      },
+    );
   }
 
   @override
@@ -77,7 +101,12 @@ class SharedPreferencesStorage implements BaseStorage {
       E key, List<T> obj) async {
     await _ensureInitialized();
     return SecurePreferences.instance
-        .setEncryptedValue(key, jsonEncode(obj), _pref);
+        .setEncryptedValue(key, jsonEncode(obj), _pref)
+        .onError(
+      (error, stackTrace) {
+        return false;
+      },
+    );
   }
 
   @override

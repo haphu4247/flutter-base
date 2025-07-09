@@ -14,14 +14,18 @@ abstract class DIConfig {
   static DIConfig get instance => _instance;
   DIConfig._internal();
 
-  Future<dynamic> initConfig(Env env);
+  static Future<dynamic> init(Env env) async {
+    await _instance.initDI(env);
+  }
+
+  Future<dynamic> initDI(Env env);
 }
 
 class _DIConfigImpl extends DIConfig {
   _DIConfigImpl() : super._internal();
 
   @override
-  Future<dynamic> initConfig(Env env) async {
+  Future<dynamic> initDI(Env env) async {
     AppLogger.init(env: env);
     final envModel = BaseEnvModel.instance(env: env);
 

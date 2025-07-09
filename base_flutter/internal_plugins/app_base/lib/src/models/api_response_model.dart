@@ -13,7 +13,8 @@ class ApiResponseModel extends Response {
 
   bool get isSuccess => statusCode == 200 && data != null;
 
-  Future<List<E>> parseList<E extends BaseModel>(E Function(dynamic json) parser) {
+  Future<List<E>> parseList<E extends BaseModel>(
+      E Function(dynamic json) parser) {
     return compute((message) {
       if (message is List) {
         return message.map<E>((json) => parser(json)).toList();

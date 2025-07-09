@@ -7,13 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
 class AppLogger {
-  static late final Env env;
+  // static late final Env env;
   static final bool isDebug = kDebugMode;
   static late final Talker _talker;
 
   /// Call this once at app startup
   static void init({required Env env}) {
-    AppLogger.env = env;
+    // AppLogger.env = env;
     final enable = env == Env.dev || env == Env.staging || isDebug;
     _talker = Talker(
       settings: TalkerSettings(

@@ -1,3 +1,4 @@
+import 'package:app_base/app_base.dart';
 import 'package:dio/dio.dart';
 
 enum HttpMethod { get, post, delete, put, patch }
@@ -41,6 +42,25 @@ class ApiParams {
     return Options(
       method: method.name,
       headers: getHeaders(),
+    );
+  }
+
+  ApiResponseModel handleError(Object? error) {
+    if (error is DioException) {
+      return ApiResponseModel(
+        requestOptions: error.requestOptions,
+        data: error.response?.data,
+        statusCode: error.response?.statusCode,
+      );
+    }
+    return ApiResponseModel(
+      requestOptions: RequestOptions(
+        path: path,
+        method: method.name,
+        data: data,
+      ),
+      data: error,
+      statusCode: 500,
     );
   }
 
